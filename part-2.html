@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tiếng Anh Ngành Dược</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body { margin: 0; font: 14px system-ui, sans-serif; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<style>
+  :root {
+    --paper: #F5F7F9;
+    --card: #FFFFFF;
+    --ink: #17202B;
+    --muted: #5C6B7A;
+    --line: #DCE3EA;
+    --blue: #1F5F9E;
+    --blue-soft: #E2ECF7;
+    --amber: #A8631A;
+    --amber-soft: #F8EFE0;
+    --ring: rgba(31, 95, 158, .35);
+    --shadow: 0 1px 2px rgba(23, 32, 43, .05), 0 10px 26px -20px rgba(23, 32, 43, .45);
+    --sans: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+    --serif: "Source Serif 4", Georgia, serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0D1219;
+      --card: #141C25;
+      --ink: #E6EDF4;
+      --muted: #91A1B2;
+      --line: #243040;
+      --blue: #6FA8E0;
+      --blue-soft: #14283D;
+      --amber: #E0A458;
+      --amber-soft: #2D2416;
+      --ring: rgba(111, 168, 224, .4);
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0D1219;
+    --card: #141C25;
+    --ink: #E6EDF4;
+    --muted: #91A1B2;
+    --line: #243040;
+    --blue: #6FA8E0;
+    --blue-soft: #14283D;
+    --amber: #E0A458;
+    --amber-soft: #2D2416;
+    --ring: rgba(111, 168, 224, .4);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  /* Phải đứng trên .panel{display:flex}, nếu không mọi tab hiện cùng lúc. */
+  [hidden] { display: none !important; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    padding: 0 16px 64px;
+    margin: 0 auto;
+    max-width: 780px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  h1, h2, h3 { font-family: var(--serif); text-wrap: balance; margin: 0; font-weight: 600; }
+  p { margin: 0; }
+  a { color: var(--blue); }
+
+  header.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(10px);
+    margin: 0 -16px;
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .topbar h1 { font-size: 20px; letter-spacing: -.01em; }
+  .topbar .spacer { flex: 1 1 auto; }
+  .stat-chip { display: inline-flex; align-items: baseline; gap: 5px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .stat-chip b { font-size: 16px; color: var(--ink); font-weight: 600; }
+
+  nav.tabs { display: flex; gap: 2px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button {
+    flex: 0 0 auto; font: inherit; font-size: 13px; font-weight: 500;
+    color: var(--muted); background: none; border: 0;
+    border-bottom: 2px solid transparent; padding: 7px 11px; cursor: pointer; white-space: nowrap;
+  }
+  nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--blue); }
+  nav.tabs button:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; border-radius: 4px; }
+
+  .panel { display: flex; flex-direction: column; gap: 14px; padding-block: 18px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  .card.lift { box-shadow: var(--shadow); }
+  .card-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .card-head h2 { font-size: 17px; }
+  .card-head .spacer { flex: 1 1 auto; }
+
+  .pill {
+    display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .04em;
+    padding: 3px 9px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); white-space: nowrap;
+  }
+  .pill.warm { background: var(--amber-soft); color: var(--amber); }
+
+  ul.steps { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; }
+  ul.steps li {
+    display: grid; grid-template-columns: 26px 1fr auto; align-items: start; gap: 10px;
+    padding: 11px 0; border-top: 1px solid var(--line);
+  }
+  ul.steps li:first-child { border-top: 0; }
+  .tick {
+    appearance: none; -webkit-appearance: none;
+    width: 22px; height: 22px; margin: 1px 0 0;
+    border: 1.5px solid var(--line); border-radius: 7px; background: var(--card);
+    cursor: pointer; position: relative; flex: 0 0 auto;
+  }
+  .tick:checked { background: var(--blue); border-color: var(--blue); }
+  .tick:checked::after {
+    content: ""; position: absolute; left: 7px; top: 3px; width: 5px; height: 10px;
+    border: solid var(--card); border-width: 0 2px 2px 0; transform: rotate(42deg);
+  }
+  .tick:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .step-label { font-weight: 500; }
+  .step-note { color: var(--muted); font-size: 12.5px; }
+  .step-min { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; padding-top: 2px; white-space: nowrap; }
+  .step-dot { color: var(--blue); text-align: center; line-height: 1.4; }
+  li.done .step-label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+
+  button.btn {
+    font: inherit; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 9px;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer;
+  }
+  button.btn.primary { background: var(--blue); border-color: var(--blue); color: var(--card); }
+  button.btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  input.line, textarea.line {
+    font: inherit; width: 100%; background: var(--paper); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 9px; padding: 9px 11px;
+  }
+  input.line:focus, textarea.line:focus { outline: 2px solid var(--ring); outline-offset: -1px; border-color: var(--blue); }
+  textarea.line { resize: vertical; min-height: 72px; font-size: 13.5px; }
+  .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+
+  .quarter { border-left: 2px solid var(--line); padding: 0 0 0 16px; position: relative; }
+  .quarter + .quarter { margin-top: 18px; }
+  .quarter::before {
+    content: ""; position: absolute; left: -6px; top: 6px;
+    width: 10px; height: 10px; border-radius: 50%; background: var(--line);
+  }
+  .quarter.now { border-left-color: var(--blue); }
+  .quarter.now::before { background: var(--blue); }
+  .quarter h3 { font-size: 17px; }
+  .quarter .months { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .quarter ul { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; }
+  .quarter ul li { margin-bottom: 4px; }
+  .goal { margin-top: 10px; background: var(--blue-soft); border-radius: 9px; padding: 9px 12px; font-size: 13px; }
+  .goal b { color: var(--blue); }
+
+  .wk { border: 1px solid var(--line); border-radius: 11px; background: var(--card); overflow: hidden; }
+  .wk + .wk { margin-top: 10px; }
+  .wk[open] { box-shadow: var(--shadow); }
+  .wk summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; gap: 10px; align-items: baseline; }
+  .wk summary::-webkit-details-marker { display: none; }
+  .wk summary:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+  .wk .wnum { font-family: var(--serif); color: var(--blue); font-size: 13px; font-weight: 600; min-width: 34px; }
+  .wk .wname { font-weight: 600; font-size: 14.5px; flex: 1 1 auto; }
+  .wk .wmark { font-size: 11px; color: var(--muted); }
+  .wk .wbody { padding: 0 14px 14px; }
+
+  .term { display: grid; grid-template-columns: 1fr 34px; align-items: center; gap: 8px; padding: 9px 0; border-top: 1px solid var(--line); }
+  .term .vi { color: var(--muted); font-size: 12.5px; }
+  .term .en { font-weight: 600; font-size: 14.5px; line-height: 1.35; }
+  .spk {
+    width: 30px; height: 30px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--paper); color: var(--blue); font-size: 14px; cursor: pointer; line-height: 1; padding: 0;
+  }
+  .spk:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .spk[disabled] { opacity: .3; cursor: default; }
+  .wk-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+  .wk-actions label { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); cursor: pointer; }
+  .wk-actions .tick { width: 18px; height: 18px; border-radius: 6px; }
+  .wk-actions .tick:checked::after { left: 5px; top: 2px; width: 4px; height: 8px; }
+
+  .tool { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: baseline; padding: 11px 0; border-top: 1px solid var(--line); }
+  .tool:first-of-type { border-top: 0; }
+  .tool a { font-weight: 600; text-decoration: none; }
+  .tool a:hover { text-decoration: underline; }
+  .tool .why { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; }
+  .cost { font-size: 11px; font-weight: 600; white-space: nowrap; color: var(--blue); }
+  .cost.paid { color: var(--amber); }
+
+  .bm-row { border-top: 1px solid var(--line); padding: 12px 0; }
+  .bm-row:first-of-type { border-top: 0; }
+  .bm-top { display: flex; align-items: baseline; gap: 10px; }
+  .bm-top .date { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bm-top .score { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+  .bm-top .score b { color: var(--ink); font-size: 16px; }
+  .bm-bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+  .bm-bars div { font-size: 11px; color: var(--muted); }
+  .bm-bars .track { height: 4px; background: var(--line); border-radius: 999px; margin-top: 4px; overflow: hidden; }
+  .bm-bars .track i { display: block; height: 100%; background: var(--blue); }
+  .bm-note { font-size: 13px; color: var(--muted); margin-top: 7px; font-style: italic; }
+
+  .rules { counter-reset: r; list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .rules li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; font-size: 13.5px; }
+  .rules li::before {
+    counter-increment: r; content: counter(r);
+    font-family: var(--serif); font-size: 15px; color: var(--blue); font-weight: 600; text-align: center;
+  }
+
+  .muted { color: var(--muted); font-size: 13px; }
+  .tiny { font-size: 12px; color: var(--muted); }
+  footer { padding-block: 22px; border-top: 1px solid var(--line); margin-top: 8px; }
+
+  @media (max-width: 460px) { .grid2 { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="top">
+  <div class="topbar">
+    <h1>Tiếng Anh Ngành Dược</h1>
+    <span class="spacer"></span>
+    <span class="stat-chip">Cổng <b id="s-gate">0</b>/5</span>
+    <span class="stat-chip">Thuật ngữ <b id="s-term">0</b>/60</span>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="gate">Cổng vào</button>
+    <button role="tab" aria-selected="false" data-tab="today">Ngày mẫu</button>
+    <button role="tab" aria-selected="false" data-tab="road">Lộ trình</button>
+    <button role="tab" aria-selected="false" data-tab="term">Thuật ngữ</button>
+    <button role="tab" aria-selected="false" data-tab="src">Nguồn</button>
+    <button role="tab" aria-selected="false" data-tab="bench">Đo tiến bộ</button>
+  </nav>
+</header>
+
+<!-- ============ CỔNG VÀO ============ -->
+<section class="panel" id="p-gate">
+  <div class="card lift">
+    <div class="card-head">
+      <h2>Đừng bắt đầu sớm</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="g-state">Chưa đủ điều kiện</span>
+    </div>
+    <p class="muted">Part 2 không phải là “Part 1 cộng thêm từ chuyên ngành”. Nó dựng trên nền phản xạ nói đã có. Bắt đầu khi chưa nói được chuyện phiếm thì thuật ngữ y dược chỉ nằm chết trong Anki — chị sẽ <i>biết</i> từ “extended-release tablet” mà vẫn không dựng nổi một câu tư vấn.</p>
+    <p class="muted" style="margin-top:8px">Tick đủ 5 mục dưới đây rồi hẵng sang tab tiếp theo. Chưa đủ thì quay lại Part 1 — đó không phải là chậm, đó là đi đúng đường.</p>
+    <ul class="steps" id="g-list"></ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Part 2 khác Part 1 ở đâu</h2></div>
+    <ul class="rules">
+      <li><span><b>Đích đổi từ “nói được” sang “nói đúng”.</b> Trong đời thường nói sai một từ thì buồn cười. Trong nhà thuốc nói sai một liều thì nguy hiểm — nên độ chính xác lên hàng đầu.</span></li>
+      <li><span><b>Ngôn ngữ có cấu trúc cố định.</b> Tư vấn bệnh nhân, gọi bác sĩ, viết email đều có khung lặp lại. Học khung, không học từ rời — giống hệt logic chunk của Part 1.</span></li>
+      <li><span><b>Hai tầng từ vựng.</b> Thuật ngữ chuyên môn để nói với đồng nghiệp, và từ đời thường để nói với bệnh nhân. “Hypertension” với bác sĩ, “high blood pressure” với người bệnh. Học song song từ ngày đầu.</span></li>
+      <li><span><b>Phát âm tên thuốc là kỹ năng riêng.</b> Trọng âm sai ở tên hoạt chất là người nghe không nhận ra thuốc. Có hẳn 3 phút mỗi ngày cho việc này.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ NGÀY MẪU ============ -->
+<section class="panel" id="p-today" hidden>
+  <div class="card lift">
+    <div class="card-head">
+      <h2>Hôm nay sẽ là</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="t-block">—</span>
+    </div>
+    <p class="muted" id="t-date">—</p>
+    <ul class="steps" id="t-steps"></ul>
+    <p class="tiny" style="margin-top:12px">Vẫn đúng 20 phút, vẫn 5 bước như Part 1 — chỉ đổi nội dung. Dùng đồng hồ của trang Part 1 để bấm giờ; nhịp đã quen thì không cần học lại.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Khối chính xoay theo thứ</h2></div>
+    <ul class="steps" id="t-week"></ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Ba phút phát âm tên thuốc</h2></div>
+    <p class="muted">Mỗi ngày một hoạt chất. Mở tập tương ứng trong loạt <b>Drug Pronunciation Series</b> của The Pharmacist's Voice — mỗi tập tách từ thành từng âm tiết và chỉ rõ nhấn ở đâu, có ghi sẵn cách đọc trong phần show notes.</p>
+    <div class="wk-actions">
+      <a class="btn primary" href="https://www.thepharmacistsvoice.com/podcast/" target="_blank" rel="noopener noreferrer">Mở loạt phát âm tên thuốc ›</a>
+    </div>
+    <p class="tiny" style="margin-top:10px">Cách làm: nghe tập đó → đọc to tên thuốc 10 lần theo đúng âm tiết được chia → mở YouGlish nghe 5 người bản xứ nói tên đó → đọc lại 10 lần trong một câu hoàn chỉnh, ví dụ <i>“This is metformin, it's for your diabetes.”</i></p>
+  </div>
+</section>
+
+<!-- ============ LỘ TRÌNH ============ -->
+<section class="panel" id="p-road" hidden>
+  <div class="card lift">
+    <div class="card-head"><h2>Bốn quý, tháng 13–24</h2></div>
+    <p class="muted">Thứ tự này không đổi được: hiểu tài liệu trước, rồi mới nói với bệnh nhân, rồi mới nói với đồng nghiệp, cuối cùng mới đến văn bản và nghề nghiệp. Mỗi bước là nguyên liệu cho bước sau.</p>
+  </div>
+  <div class="card"><div id="r-quarters"></div></div>
+
+  <div class="card">
+    <div class="card-head"><h2>Đích cuối Part 2</h2></div>
+    <div class="goal"><b>Sau 24 tháng:</b> tư vấn trọn một ca bằng tiếng Anh không cần chuẩn bị trước · gọi điện trao đổi với bác sĩ về một đơn thuốc có vấn đề · đọc SmPC và tóm tắt lại bằng lời · viết email chuyên môn không cần ai sửa · trả lời được phỏng vấn vị trí dược sĩ bằng tiếng Anh.</div>
+  </div>
+</section>
+
+<!-- ============ THUẬT NGỮ ============ -->
+<section class="panel" id="p-term" hidden>
+  <div class="card lift">
+    <div class="card-head">
+      <h2>60 câu nền ngành dược</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="c-prog">0/60</span>
+    </div>
+    <p class="muted">Sáu bộ, mỗi bộ 10 câu, gắn với quý tương ứng. Vẫn đúng nguyên tắc Part 1: <b>mặt trước tiếng Việt, mặt sau tiếng Anh</b>, học cả câu chứ không học từ rời — vì trong nhà thuốc chị cần bật ra nguyên câu, không phải nhớ nghĩa một từ.</p>
+    <div class="wk-actions">
+      <button class="btn" id="c-copyall">Sao chép cả 60 câu cho Anki</button>
+      <button class="btn" id="c-speak-test">Thử giọng đọc</button>
+    </div>
+    <p class="tiny" id="c-msg" style="margin-top:8px"></p>
+  </div>
+  <div id="c-sets"></div>
+</section>
+
+<!-- ============ NGUỒN ============ -->
+<section class="panel" id="p-src" hidden></section>
+
+<!-- ============ ĐO TIẾN BỘ ============ -->
+<section class="panel" id="p-bench" hidden>
+  <div class="card lift">
+    <div class="card-head"><h2>Bài đo cố định của Part 2</h2></div>
+    <p class="muted">Mỗi 4 tuần, ghi âm một buổi tư vấn 3 phút cho <b>cùng một tình huống</b>: bệnh nhân mới được kê <b>metformin 500&nbsp;mg</b> cho đái tháo đường týp 2. Luôn dùng ca này để so sánh được qua thời gian. Kịch bản mẫu nằm ở tab Nguồn — OSCE Toolbox.</p>
+    <p class="muted" style="margin-top:8px">Bốn tiêu chí chấm khác Part 1: ở đây <b>độ chính xác</b> quan trọng hơn độ trôi.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Chấm bản ghi mới</h2></div>
+    <div class="grid2">
+      <div class="field"><label for="b-date">Ngày ghi âm</label><input class="line" type="date" id="b-date"></div>
+      <div class="field"><label for="b-acc">Chính xác — đúng liều, đúng thuật ngữ (1–5)</label><input class="line" type="number" id="b-acc" min="1" max="5" step="1" value="3"></div>
+      <div class="field"><label for="b-str">Cấu trúc — đủ các bước tư vấn (1–5)</label><input class="line" type="number" id="b-str" min="1" max="5" step="1" value="3"></div>
+      <div class="field"><label for="b-flu">Độ trôi — ít dừng lại (1–5)</label><input class="line" type="number" id="b-flu" min="1" max="5" step="1" value="3"></div>
+      <div class="field"><label for="b-cla">Dễ hiểu — người bệnh nắm được (1–5)</label><input class="line" type="number" id="b-cla" min="1" max="5" step="1" value="3"></div>
+    </div>
+    <div class="field" style="margin-top:10px"><label for="b-note">Ghi chú — chỗ nào hụt nhất?</label><textarea class="line" id="b-note" placeholder="So với lần trước…"></textarea></div>
+    <button class="btn primary" id="b-save" style="margin-top:12px">Lưu lần đo</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Lịch sử</h2><span class="spacer"></span><span class="tiny" id="b-count">0 lần</span></div>
+    <div id="b-spark" style="margin-bottom:14px"></div>
+    <div id="b-list"><p class="muted">Chưa có lần đo nào.</p></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Sao lưu</h2></div>
+    <p class="muted">Tiến độ lưu trong trình duyệt máy này, không gửi đi đâu. Mỗi tháng bấm Sao chép rồi dán vào ghi chú điện thoại.</p>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin:12px 0">
+      <button class="btn" id="x-copy">Sao chép dữ liệu</button>
+      <button class="btn" id="x-paste">Khôi phục từ bản dán</button>
+    </div>
+    <textarea class="line" id="x-box" placeholder="Dữ liệu sao lưu hiện ở đây sau khi bấm Sao chép — hoặc dán bản cũ vào rồi bấm Khôi phục."></textarea>
+    <p class="tiny" id="x-msg" style="margin-top:8px"></p>
+  </div>
+
+  <footer>
+    <p class="tiny">Part 2 · tháng 13–24 · tiếp nối trang Part 1 (giao tiếp hằng ngày). Cùng nhịp 20 phút, đổi nội dung.</p>
+  </footer>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- data ---------------- */
+
+  var GATE = [
+    { k: "g1", label: "Benchmark Part 1 đạt ≥ 16/20", note: "hai lần đo liên tiếp, không phải một lần may mắn" },
+    { k: "g2", label: "Nói chuyện phiếm 20 phút không gãy", note: "với người thật, chủ đề không chuẩn bị trước" },
+    { k: "g3", label: "1.300+ câu trong Anki, tỷ lệ nhớ ổn định", note: "ổn định = không phải học lại quá 20% thẻ mỗi ngày" },
+    { k: "g4", label: "20/24 âm ở trạng thái “Ổn”", note: "đặc biệt là âm đuôi và -ed — thiếu là đọc sai liều" },
+    { k: "g5", label: "Nghe 6 Minute English hiểu ý chính, không phụ đề", note: "hiểu ý chính, không cần hiểu từng từ" }
+  ];
+
+  var WEEKPLAN = {
+    1: { n: "Đọc tài liệu", d: "một mục trong tờ hướng dẫn hoặc SmPC — đọc to, gạch chân từ chưa biết" },
+    2: { n: "Thuật ngữ mới", d: "5 câu từ bộ của quý → tạo thẻ Anki" },
+    3: { n: "Nghe podcast dược", d: "HelixTalk hoặc The Pharmacist's Voice — 8 phút, chép lại 3 câu" },
+    4: { n: "Roleplay tư vấn", d: "AI đóng vai bệnh nhân, chị tư vấn — dùng kịch bản OSCE Toolbox" },
+    5: { n: "Thuật ngữ mới", d: "5 câu từ bộ của quý → tạo thẻ Anki" },
+    6: { n: "Viết", d: "một email hoặc ghi chú bàn giao 5 câu, đọc to lại sau khi viết" },
+    0: { n: "Hội thoại & review", d: "nói với người thật về công việc, rồi nhặt lỗi của tuần" }
+  };
+
+  function stepsToday(dow) {
+    var core = WEEKPLAN[dow];
+    if (dow === 0) {
+      return [
+        { min: 3, label: "Ôn Anki nhanh", note: "chỉ thẻ đến hạn, đọc to" },
+        { min: 12, label: "Hội thoại về công việc", note: "kể một ca trong tuần bằng tiếng Anh, không chuẩn bị" },
+        { min: 5, label: "Nhặt lỗi + mục tiêu tuần", note: "3 lỗi thuật ngữ lặp nhiều nhất → thẻ Anki" }
+      ];
+    }
+    return [
+      { min: 4, label: "Ôn Anki — đọc to", note: "thuật ngữ và câu tư vấn" },
+      { min: 3, label: "Phát âm tên thuốc", note: "một hoạt chất, theo loạt Drug Pronunciation Series" },
+      { min: 8, label: core.n, note: core.d },
+      { min: 4, label: "Ghi âm 60–90 giây", note: "nói lại nội dung vừa học như đang giải thích cho bệnh nhân" },
+      { min: 1, label: "Nhật ký + 3 thẻ mới", note: "câu nào hôm nay chị bí, ghi lại" }
+    ];
+  }
+
+  var QUARTERS = [
+    {
+      t: "Nền y-dược", m: "Tháng 13–15", sets: "Bộ 1–2",
+      b: [
+        "<b>Từ vựng nền:</b> hệ cơ quan, bệnh thường gặp, nhóm thuốc, dạng bào chế, đường dùng.",
+        "<b>Đọc:</b> mỗi ngày một mục ngắn trên MedlinePlus — viết cho bệnh nhân nên ngôn ngữ vừa tầm, không phải SmPC ngay.",
+        "<b>Hai tầng từ:</b> mỗi khái niệm học kèm cặp chuyên môn ↔ đời thường (hypertension ↔ high blood pressure).",
+        "<b>Phát âm:</b> 60 tên hoạt chất hay gặp nhất, trọng âm là chính."
+      ],
+      g: "Đọc hết một trang MedlinePlus về một thuốc và kể lại bằng lời 90 giây, không nhìn."
+    },
+    {
+      t: "Tư vấn bệnh nhân", m: "Tháng 16–18", sets: "Bộ 3–4",
+      b: [
+        "<b>Khung tư vấn 5 bước:</b> hỏi mở → khai thác → giải thích → kiểm tra hiểu → dặn dò an toàn.",
+        "<b>Roleplay 2 lần/tuần</b> với AI đóng vai bệnh nhân, dùng kịch bản có sẵn của OSCE Toolbox.",
+        "<b>Xử lý tình huống khó:</b> bệnh nhân không hiểu, bệnh nhân hỏi ngoài chuyên môn, bệnh nhân lo lắng.",
+        "<b>Ngôn ngữ đời thường hoá:</b> luyện nói lại mỗi thuật ngữ bằng từ bệnh nhân hiểu được."
+      ],
+      g: "Tư vấn trọn 3 phút về một thuốc lạ, bốc ngẫu nhiên, không chuẩn bị."
+    },
+    {
+      t: "Đồng nghiệp & chuyên môn", m: "Tháng 19–21", sets: "Bộ 5–6",
+      b: [
+        "<b>Gọi bác sĩ:</b> báo tương tác, đề nghị đổi liều, xác nhận đơn thiếu thông tin.",
+        "<b>Bàn giao ca</b> theo khung ngắn gọn: tình huống → diễn biến → đánh giá → đề xuất.",
+        "<b>Email chuyên môn</b> và phát biểu trong họp — 5 câu, rõ, không vòng vo.",
+        "<b>Nghe khó:</b> podcast dược ở tốc độ thật, không phụ đề."
+      ],
+      g: "Gọi điện đóng vai 3 phút với AI đóng vai bác sĩ về một đơn có tương tác thuốc."
+    },
+    {
+      t: "Tài liệu & nghề nghiệp", m: "Tháng 22–24", sets: "Ôn toàn bộ",
+      b: [
+        "<b>Đọc SmPC / nhãn FDA</b> trên DailyMed và EMA — đọc có mục đích, tìm một thông tin cụ thể trong 2 phút.",
+        "<b>Đọc abstract</b> trên PubMed, tóm tắt 3 câu.",
+        "<b>Thuyết trình 5 phút</b> về một thuốc, có mở–thân–kết.",
+        "<b>Phỏng vấn:</b> 15 câu hỏi hay gặp cho vị trí dược sĩ, trả lời có cấu trúc."
+      ],
+      g: "Thuyết trình 5 phút + trả lời 5 câu hỏi ngẫu nhiên sau đó."
+    }
+  ];
+
+  var SETS = [
+    {
+      i: 1, q: "Quý 5", t: "Dạng bào chế & đường dùng",
+      c: [
+        ["viên nén", "tablet"],
+        ["viên nang", "capsule"],
+        ["hỗn dịch uống", "oral suspension"],
+        ["thuốc nhỏ mắt", "eye drops"],
+        ["thuốc mỡ / kem bôi", "ointment / cream"],
+        ["viên đặt", "suppository"],
+        ["tiêm bắp / tiêm tĩnh mạch", "intramuscular / intravenous injection"],
+        ["viên giải phóng kéo dài", "extended-release tablet"],
+        ["bình xịt định liều", "metered-dose inhaler"],
+        ["miếng dán qua da", "transdermal patch"]
+      ]
+    },
+    {
+      i: 2, q: "Quý 5", t: "Liều & cách dùng",
+      c: [
+        ["Uống 1 viên, ngày 2 lần.", "Take one tablet twice a day."],
+        ["Uống sau khi ăn.", "Take it after food."],
+        ["Uống lúc đói.", "Take it on an empty stomach."],
+        ["Uống với nhiều nước.", "Take it with a full glass of water."],
+        ["Không nghiền hay nhai viên.", "Do not crush or chew the tablet."],
+        ["Uống hết đợt kháng sinh.", "Finish the whole course of antibiotics."],
+        ["Nếu quên liều, uống ngay khi nhớ ra.", "If you miss a dose, take it as soon as you remember."],
+        ["Không uống bù gấp đôi.", "Do not double up on doses."],
+        ["Tối đa 4 lần trong 24 giờ.", "No more than four times in twenty-four hours."],
+        ["Bảo quản trong tủ lạnh.", "Store it in the fridge."]
+      ]
+    },
+    {
+      i: 3, q: "Quý 6", t: "Tác dụng phụ & cảnh báo",
+      c: [
+        ["Thuốc này có thể gây buồn ngủ.", "This can make you drowsy."],
+        ["Đừng lái xe cho tới khi biết thuốc ảnh hưởng thế nào.", "Don't drive until you know how it affects you."],
+        ["Thuốc có thể gây khó chịu dạ dày.", "It may upset your stomach."],
+        ["Tránh rượu bia khi đang dùng thuốc này.", "Avoid alcohol while you're taking this."],
+        ["Nếu bị phát ban, ngừng thuốc và đi khám.", "If you get a rash, stop taking it and see a doctor."],
+        ["Thuốc này tương tác với warfarin.", "This interacts with warfarin."],
+        ["Chị có dị ứng thuốc nào không?", "Do you have any drug allergies?"],
+        ["Chị có đang mang thai hoặc cho con bú không?", "Are you pregnant or breastfeeding?"],
+        ["Tác dụng phụ thường hết sau vài ngày.", "The side effects usually settle after a few days."],
+        ["Đây là tác dụng phụ hiếm nhưng nghiêm trọng.", "This is a rare but serious side effect."]
+      ]
+    },
+    {
+      i: 4, q: "Quý 6", t: "Câu tư vấn bệnh nhân",
+      c: [
+        ["Bác sĩ đã nói thuốc này dùng để làm gì chưa?", "Has the doctor told you what this is for?"],
+        ["Chị đã dùng thuốc này bao giờ chưa?", "Have you taken this before?"],
+        ["Để tôi hướng dẫn chị cách dùng.", "Let me go through how to take it."],
+        ["Chị nhắc lại giúp tôi cách dùng nhé?", "Could you tell me back how you'll take it?"],
+        ["Chị còn thắc mắc gì không?", "Do you have any questions?"],
+        ["Nếu 3 ngày không đỡ thì quay lại nhé.", "If it doesn't improve in three days, come back."],
+        ["Tôi ghi lại lên nhãn cho chị.", "I'll write it on the label for you."],
+        ["Chị đang dùng thuốc nào khác không?", "Are you taking anything else at the moment?"],
+        ["Cái này mua không cần đơn.", "This one is available over the counter."],
+        ["Cái này cần đơn của bác sĩ.", "This one needs a prescription."]
+      ]
+    },
+    {
+      i: 5, q: "Quý 7", t: "Nói với bác sĩ & đồng nghiệp",
+      c: [
+        ["Tôi gọi về một đơn thuốc.", "I'm calling about a prescription."],
+        ["Liều này có vẻ cao so với cân nặng bệnh nhân.", "This dose looks high for the patient's weight."],
+        ["Có tương tác giữa hai thuốc này.", "There's an interaction between these two."],
+        ["Anh/chị có muốn đổi sang thuốc khác không?", "Would you like to switch to something else?"],
+        ["Bệnh nhân dị ứng penicillin.", "The patient has a penicillin allergy."],
+        ["Chỗ tôi hết thuốc này rồi.", "We're out of stock of this one."],
+        ["Tôi kiểm tra lại rồi gọi lại cho anh/chị.", "I'll check and get back to you."],
+        ["Cho tôi xác nhận lại liều.", "Can I just confirm the dose?"],
+        ["Đơn này thiếu hàm lượng.", "The strength is missing from this prescription."],
+        ["Tôi đề nghị giảm liều.", "I'd suggest reducing the dose."]
+      ]
+    },
+    {
+      i: 6, q: "Quý 7", t: "Email & họp chuyên môn",
+      c: [
+        ["Tôi viết thư về việc…", "I'm writing regarding…"],
+        ["Báo cáo đính kèm bên dưới.", "Please find the report attached."],
+        ["Nhờ anh/chị xem giúp trước thứ Sáu.", "Could you review this before Friday?"],
+        ["Tôi xin tóm tắt ngắn gọn.", "Let me give you a quick summary."],
+        ["Theo dữ liệu chúng tôi có…", "Based on the data we have…"],
+        ["Tôi chưa theo kịp ý đó, anh/chị nói lại được không?", "I'm not sure I follow — could you go over that again?"],
+        ["Tôi sẽ theo dõi và cập nhật lại.", "I'll follow up and keep you posted."],
+        ["Xin lỗi vì trả lời muộn.", "Apologies for the late reply."],
+        ["Mình chốt phương án nào?", "Which option are we going with?"],
+        ["Cảm ơn anh/chị đã hỗ trợ.", "Thanks for your help with this."]
+      ]
+    }
+  ];
+
+  var SOURCES = [
+    {
+      h: "Đọc — từ dễ lên khó", items: [
+        ["MedlinePlus — Drugs & Supplements", "https://medlineplus.gov/druginformation.html", 0, "Bắt đầu từ đây. Thông tin thuốc viết cho bệnh nhân bằng ngôn ngữ đời thường, do dược sĩ Mỹ (AHFS) soạn. Đúng tầm cho Quý 5 và là nguồn “tầng từ đời thường”."],
+        ["DailyMed — nhãn thuốc FDA", "https://dailymed.nlm.nih.gov/dailymed/", 0, "Nhãn gốc nhà sản xuất nộp FDA, khoảng 159.000 sản phẩm, tra tự do không cần tài khoản. Đây là tài liệu thật — để dành Quý 8."],
+        ["EMA — thuốc châu Âu", "https://www.ema.europa.eu/en/medicines", 0, "Tra theo tên thuốc hoặc hoạt chất, mở từng hồ sơ để lấy product information. Dùng khi muốn đối chiếu văn phong EU với FDA."],
+        ["PubMed", "https://pubmed.ncbi.nlm.nih.gov/", 0, "Abstract miễn phí. Quý 8: đọc 1 abstract, tóm tắt 3 câu. Không đọc full text, không cần."]
+      ]
+    },
+    {
+      h: "Nghe — podcast ngành", items: [
+        ["The Pharmacist's Voice — Drug Pronunciation Series", "https://www.thepharmacistsvoice.com/podcast/", 0, "Hơn 70 tập, mỗi tập tách tên thuốc thành từng âm tiết và chỉ rõ nhấn ở đâu, có ghi sẵn cách đọc trong show notes, dẫn nguồn USP Dictionary. Đây là nguồn cho 3 phút phát âm mỗi ngày."],
+        ["HelixTalk", "https://helixtalk.libsyn.com/", 0, "Podcast của khoa Dược Rosalind Franklin, do dược sĩ nói với dược sĩ. Tốc độ thật, nội dung lâm sàng — dùng từ Quý 7 khi tai đã quen."]
+      ]
+    },
+    {
+      h: "Nói — kịch bản roleplay", items: [
+        ["OSCE Toolbox — tình huống tư vấn miễn phí", "https://oscetoolbox.com/pharmacy-scenario/?id=110", 0, "Kịch bản tư vấn có sẵn (ví dụ amlodipine cho tăng huyết áp, metformin cho đái tháo đường). Đưa kịch bản cho AI và bảo nó đóng vai bệnh nhân."],
+        ["Geeky Medics — Pharmacy OSCE stations", "https://geekymedics.com/pharmacy-osce-stations/", 0, "Nhiều trạm tư vấn thuốc và hướng dẫn dùng dụng cụ, kèm câu hỏi thường gặp và đáp án."],
+        ["The Pharmaceutical Journal — kỹ năng tư vấn", "https://pharmaceutical-journal.com/article/ld/consultation-and-communication-skills-for-pharmacy-osces", 0, "Khung tư vấn 5 bước — học thuộc khung này trước khi roleplay, nếu không sẽ nói lan man."],
+        ["Gemini / ChatGPT giọng nói", "https://gemini.google.com", 0, "Câu lệnh mở đầu: “You are a patient who just got a new prescription for metformin. Ask me questions. Don't correct my English until the end.”"]
+      ]
+    },
+    {
+      h: "Khoá học có cấu trúc", items: [
+        ["English for Healthcare — King's College London", "https://www.futurelearn.com/subjects/healthcare-medicine-courses", 0, "Trên FutureLearn. Học nội dung miễn phí, chỉ chứng chỉ mới mất tiền. Tìm khoá “English for Healthcare”."],
+        ["OpenLearn — Healthcare & Medicine", "https://www.open.edu/openlearn/education-development/university-ready/free-online-healthcare-medicine-courses", 0, "Open University, miễn phí hoàn toàn, không có tường phí."],
+        ["italki — tutor có nền y tế", "https://www.italki.com", 1, "Lọc tutor theo chuyên môn. Từ Quý 6, 2 buổi/tháng dành riêng cho roleplay tư vấn. Đắt hơn tutor thường một chút."]
+      ]
+    }
+  ];
+
+  /* ---------------- storage ---------------- */
+
+  var KEY = "en20p2-v1";
+  var S = { gate: {}, sets: {}, bench: [], tab: "gate" };
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === "object") {
+          S.gate = p.gate || {};
+          S.sets = p.sets || {};
+          S.bench = p.bench || [];
+          S.tab = p.tab || "gate";
+        }
+      }
+    } catch (e) { /* bị chặn — chạy tạm trong bộ nhớ */ }
+  }
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+  }
+
+  /* ---------------- helpers ---------------- */
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function ymd(d) {
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
+  }
+  function parseYmd(s) { var a = String(s).split("-"); return new Date(+a[0], (+a[1]) - 1, +a[2]); }
+  var DOWVI = ["Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+
+  function gateOK() {
+    var n = 0;
+    GATE.forEach(function (g) { if (S.gate[g.k]) n++; });
+    return n;
+  }
+  function termDone() {
+    var n = 0;
+    SETS.forEach(function (x) { if (S.sets[x.i]) n += x.c.length; });
+    return n;
+  }
+
+  function renderHeader() {
+    $("s-gate").textContent = gateOK();
+    $("s-term").textContent = termDone();
+    var st = $("g-state");
+    if (gateOK() >= 5) { st.textContent = "Đủ điều kiện — bắt đầu được"; st.className = "pill"; }
+    else { st.textContent = "Còn " + (5 - gateOK()) + " mục"; st.className = "pill warm"; }
+  }
+
+  /* ---------------- speech ---------------- */
+
+  var voiceEN = null, speechOK = ("speechSynthesis" in window);
+  function pickVoice() {
+    if (!speechOK) return;
+    try {
+      var vs = window.speechSynthesis.getVoices() || [];
+      for (var i = 0; i < vs.length; i++) if (/^en[-_]US/i.test(vs[i].lang)) { voiceEN = vs[i]; return; }
+      for (var j = 0; j < vs.length; j++) if (/^en/i.test(vs[j].lang)) { voiceEN = vs[j]; return; }
+    } catch (e) { speechOK = false; }
+  }
+  function say(text) {
+    if (!speechOK) return false;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US"; u.rate = 0.88;
+      if (voiceEN) u.voice = voiceEN;
+      window.speechSynthesis.speak(u);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  /* ---------------- render ---------------- */
+
+  function renderGate() {
+    var ul = $("g-list");
+    ul.innerHTML = "";
+    GATE.forEach(function (g) {
+      var li = el("li", S.gate[g.k] ? "done" : "");
+      var cb = el("input");
+      cb.type = "checkbox"; cb.className = "tick"; cb.id = "tick-" + g.k;
+      cb.checked = !!S.gate[g.k];
+      cb.addEventListener("change", function () {
+        S.gate[g.k] = cb.checked ? 1 : 0;
+        save(); renderHeader(); renderGate();
+      });
+      var mid = el("div");
+      mid.appendChild(el("div", "step-label", esc(g.label)));
+      mid.appendChild(el("div", "step-note", esc(g.note)));
+      li.appendChild(cb); li.appendChild(mid); li.appendChild(el("div", "step-min", ""));
+      ul.appendChild(li);
+    });
+  }
+
+  function renderToday() {
+    var d = new Date(), dow = d.getDay();
+    $("t-date").textContent = DOWVI[dow] + ", " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+    var pill = $("t-block");
+    pill.textContent = (WEEKPLAN[dow] ? WEEKPLAN[dow].n : "—") + " · 20 phút";
+    pill.className = dow === 0 ? "pill warm" : "pill";
+
+    var ul = $("t-steps");
+    ul.innerHTML = "";
+    stepsToday(dow).forEach(function (s) {
+      var li = el("li");
+      li.appendChild(el("div", "step-dot", "•"));
+      var mid = el("div");
+      mid.appendChild(el("div", "step-label", esc(s.label)));
+      mid.appendChild(el("div", "step-note", esc(s.note)));
+      li.appendChild(mid);
+      li.appendChild(el("div", "step-min", s.min + "′"));
+      ul.appendChild(li);
+    });
+
+    var wk = $("t-week");
+    wk.innerHTML = "";
+    [1, 2, 3, 4, 5, 6, 0].forEach(function (i) {
+      var li = el("li" + (i === dow ? "" : ""));
+      li.appendChild(el("div", "step-dot", i === dow ? "▸" : "·"));
+      var mid = el("div");
+      mid.appendChild(el("div", "step-label", DOWVI[i] + " — " + esc(WEEKPLAN[i].n)));
+      mid.appendChild(el("div", "step-note", esc(WEEKPLAN[i].d)));
+      li.appendChild(mid);
+      li.appendChild(el("div", "step-min", ""));
+      wk.appendChild(li);
+    });
+  }
+
+  function renderRoad() {
+    var box = $("r-quarters");
+    box.innerHTML = "";
+    QUARTERS.forEach(function (Q, i) {
+      var div = el("div", "quarter" + (i === 0 ? " now" : ""));
+      div.appendChild(el("div", "months", "Quý " + (i + 5) + " · " + Q.m + " · " + Q.sets));
+      div.appendChild(el("h3", null, esc(Q.t)));
+      var ul = el("ul");
+      Q.b.forEach(function (b) { ul.appendChild(el("li", null, b)); });
+      div.appendChild(ul);
+      div.appendChild(el("div", "goal", "<b>Đích đo được:</b> " + esc(Q.g)));
+      box.appendChild(div);
+    });
+  }
+
+  function tsv(sets) {
+    var out = [];
+    sets.forEach(function (Sx) { Sx.c.forEach(function (p) { out.push(p[0] + "\t" + p[1]); }); });
+    return out.join("\n");
+  }
+
+  function copyText(txt, msgEl, okMsg) {
+    var box = $("x-box");
+    box.value = txt;
+    var done = false;
+    try { box.select(); done = document.execCommand("copy"); } catch (e) {}
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(
+        function () { msgEl.textContent = okMsg; },
+        function () { msgEl.textContent = done ? okMsg : "Không copy tự động được — chữ đã nằm sẵn trong ô sao lưu ở tab Đo tiến bộ."; }
+      );
+    } else {
+      msgEl.textContent = done ? okMsg : "Không copy tự động được — chữ đã nằm sẵn trong ô sao lưu ở tab Đo tiến bộ.";
+    }
+  }
+
+  function renderSets() {
+    var host = $("c-sets");
+    host.innerHTML = "";
+    SETS.forEach(function (X) {
+      var d = el("details", "wk");
+      if (X.i === 1) d.open = true;
+      var sum = el("summary");
+      sum.appendChild(el("span", "wnum", "B" + X.i));
+      sum.appendChild(el("span", "wname", esc(X.t)));
+      sum.appendChild(el("span", "wmark", S.sets[X.i] ? "✓ đã nạp" : X.q));
+      d.appendChild(sum);
+
+      var body = el("div", "wbody");
+      X.c.forEach(function (p) {
+        var row = el("div", "term");
+        var txt = el("div");
+        txt.appendChild(el("div", "vi", esc(p[0])));
+        txt.appendChild(el("div", "en", esc(p[1])));
+        row.appendChild(txt);
+        var b = el("button", "spk", "🔊");
+        b.type = "button";
+        b.setAttribute("aria-label", "Nghe: " + p[1]);
+        if (!speechOK) b.disabled = true;
+        b.addEventListener("click", function () { say(p[1]); });
+        row.appendChild(b);
+        body.appendChild(row);
+      });
+
+      var act = el("div", "wk-actions");
+      var lab = el("label");
+      var cb = el("input");
+      cb.type = "checkbox"; cb.className = "tick"; cb.id = "set-" + X.i;
+      cb.checked = !!S.sets[X.i];
+      cb.addEventListener("change", function () {
+        S.sets[X.i] = cb.checked ? 1 : 0;
+        save();
+        $("c-prog").textContent = termDone() + "/60";
+        $("s-term").textContent = termDone();
+        sum.querySelector(".wmark").textContent = cb.checked ? "✓ đã nạp" : X.q;
+      });
+      lab.appendChild(cb);
+      lab.appendChild(el("span", null, "Đã nạp vào Anki"));
+      act.appendChild(lab);
+
+      var cp = el("button", "btn", "Sao chép bộ này");
+      cp.type = "button";
+      cp.addEventListener("click", function () {
+        copyText(tsv([X]), $("c-msg"), "Đã sao chép bộ " + X.i + " — dán vào Notepad, lưu .txt, Anki › Import, Fields separated by Tab.");
+      });
+      act.appendChild(cp);
+      body.appendChild(act);
+
+      d.appendChild(body);
+      host.appendChild(d);
+    });
+    $("c-prog").textContent = termDone() + "/60";
+  }
+
+  function renderSources() {
+    var p = $("p-src");
+    if (p.childNodes.length) return;
+    SOURCES.forEach(function (grp) {
+      var card = el("div", "card");
+      var head = el("div", "card-head");
+      head.appendChild(el("h2", null, esc(grp.h)));
+      card.appendChild(head);
+      grp.items.forEach(function (it) {
+        var row = el("div", "tool");
+        var a = el("a", null, esc(it[0]));
+        a.href = it[1]; a.target = "_blank"; a.rel = "noopener noreferrer";
+        row.appendChild(a);
+        row.appendChild(el("span", "cost" + (it[2] ? " paid" : ""), it[2] ? "CÓ PHÍ" : "MIỄN PHÍ"));
+        row.appendChild(el("div", "why", esc(it[3])));
+        card.appendChild(row);
+      });
+      p.appendChild(card);
+    });
+  }
+
+  var BMK = [["acc", "Chính xác"], ["str", "Cấu trúc"], ["flu", "Độ trôi"], ["cla", "Dễ hiểu"]];
+
+  function renderBench() {
+    $("b-count").textContent = S.bench.length + " lần";
+    var list = $("b-list");
+    if (!S.bench.length) return;
+    var sorted = S.bench.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    list.innerHTML = "";
+    sorted.forEach(function (b) {
+      var row = el("div", "bm-row");
+      var top = el("div", "bm-top");
+      var d = parseYmd(b.date);
+      top.appendChild(el("span", "date", d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear()));
+      var tot = b.acc + b.str + b.flu + b.cla;
+      top.appendChild(el("span", "score", "<b>" + tot + "</b>/20"));
+      row.appendChild(top);
+      var bars = el("div", "bm-bars");
+      BMK.forEach(function (m) {
+        var c = el("div", null, esc(m[1]) + " " + b[m[0]]);
+        c.appendChild(el("div", "track", '<i style="width:' + (b[m[0]] / 5 * 100) + '%"></i>'));
+        bars.appendChild(c);
+      });
+      row.appendChild(bars);
+      if (b.note) row.appendChild(el("div", "bm-note", esc(b.note)));
+      list.appendChild(row);
+    });
+    renderSpark(S.bench.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }));
+  }
+
+  function renderSpark(arr) {
+    var box = $("b-spark");
+    box.innerHTML = "";
+    if (arr.length < 2) return;
+    var w = 640, h = 90, pad = 10;
+    var pts = arr.map(function (b, i) {
+      var tot = b.acc + b.str + b.flu + b.cla;
+      return [pad + i * (w - pad * 2) / (arr.length - 1), h - pad - ((tot - 4) / 16) * (h - pad * 2), tot];
+    });
+    var line = pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ");
+    var area = "M" + pts[0][0].toFixed(1) + "," + (h - pad) + " L" + line.split(" ").join(" L") +
+      " L" + pts[pts.length - 1][0].toFixed(1) + "," + (h - pad) + " Z";
+    var last = pts[pts.length - 1];
+    box.innerHTML = '<svg viewBox="0 0 ' + w + " " + h + '" width="100%" height="90" role="img" aria-label="Tổng điểm tư vấn theo thời gian" style="display:block">' +
+      '<path d="' + area + '" fill="var(--blue-soft)"></path>' +
+      '<polyline points="' + line + '" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></polyline>' +
+      '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="4" fill="var(--blue)"></circle>' +
+      '<text x="' + Math.min(last[0] + 8, w - 34) + '" y="' + Math.max(last[1] - 6, 14) + '" fill="var(--ink)" font-size="13" font-family="sans-serif" font-weight="600">' + last[2] + "/20</text></svg>";
+    box.appendChild(el("p", "tiny", "Tổng 4 tiêu chí qua " + arr.length + " lần đo, cùng một ca metformin."));
+  }
+
+  /* ---------------- tabs ---------------- */
+
+  var PANELS = { gate: "p-gate", today: "p-today", road: "p-road", term: "p-term", src: "p-src", bench: "p-bench" };
+
+  function showTab(name) {
+    S.tab = name; save();
+    for (var k in PANELS) if (PANELS.hasOwnProperty(k)) $(PANELS[k]).hidden = (k !== name);
+    var btns = document.querySelectorAll("nav.tabs button");
+    for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-selected", btns[i].dataset.tab === name ? "true" : "false");
+    if (name === "src") renderSources();
+    if (name === "term" && !$("c-sets").childNodes.length) renderSets();
+    if (name === "bench") renderBench();
+  }
+
+  /* ---------------- wiring ---------------- */
+
+  load();
+  renderHeader();
+  renderGate();
+  renderToday();
+  renderRoad();
+  pickVoice();
+  if (speechOK && typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
+    window.speechSynthesis.onvoiceschanged = pickVoice;
+  }
+
+  var btns = document.querySelectorAll("nav.tabs button");
+  for (var i = 0; i < btns.length; i++) {
+    (function (b) { b.addEventListener("click", function () { showTab(b.dataset.tab); }); })(btns[i]);
+  }
+  showTab(S.tab || "gate");
+
+  $("c-copyall").addEventListener("click", function () {
+    copyText(tsv(SETS), $("c-msg"), "Đã sao chép cả 60 câu — dán vào Notepad, lưu pharmacy.txt, rồi Anki › Import (Fields separated by Tab).");
+  });
+  $("c-speak-test").addEventListener("click", function () {
+    var ok = say("Take one tablet twice a day, after food.");
+    $("c-msg").textContent = ok
+      ? "Nghe được câu vừa rồi thì nút 🔊 ở mọi câu đều dùng được."
+      : "Máy này không đọc được — dùng nút loa trên Cambridge Dictionary thay thế.";
+  });
+
+  $("b-date").value = ymd(new Date());
+  $("b-save").addEventListener("click", function () {
+    function v(id) { return Math.max(1, Math.min(5, parseInt($(id).value, 10) || 3)); }
+    S.bench.push({
+      date: $("b-date").value || ymd(new Date()),
+      acc: v("b-acc"), str: v("b-str"), flu: v("b-flu"), cla: v("b-cla"),
+      note: $("b-note").value.trim()
+    });
+    save();
+    $("b-note").value = "";
+    renderBench();
+  });
+
+  $("x-copy").addEventListener("click", function () {
+    copyText(JSON.stringify(S), $("x-msg"), "Đã sao chép — dán vào ghi chú điện thoại để giữ.");
+  });
+  $("x-paste").addEventListener("click", function () {
+    var raw = $("x-box").value.trim();
+    if (!raw) { $("x-msg").textContent = "Dán bản sao lưu vào ô trên trước đã."; return; }
+    try {
+      var p = JSON.parse(raw);
+      if (!p || typeof p !== "object") throw new Error("bad");
+      S.gate = p.gate || {};
+      S.sets = p.sets || {};
+      S.bench = p.bench || [];
+      save();
+      $("c-sets").innerHTML = "";
+      renderHeader(); renderGate(); renderBench();
+      $("x-msg").textContent = "Đã khôi phục: cổng " + gateOK() + "/5, thuật ngữ " + termDone() + "/60, " + S.bench.length + " lần đo.";
+    } catch (e) {
+      $("x-msg").textContent = "Bản dán không đọc được — kiểm tra lại xem đã copy đủ chưa.";
+    }
+  });
+})();
+</script>
+</body>
+</html>
