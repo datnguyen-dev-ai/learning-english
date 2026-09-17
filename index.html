@@ -1,0 +1,2105 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>20 Phút Mỗi Ngày</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..700&display=swap">
+<style>
+  html { color-scheme: light dark; }
+  :root {
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  body { margin: 0; font: 14px system-ui, sans-serif; }
+  img { max-width: 100%; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<style>
+  :root {
+    --paper: #F6F8F6;
+    --card: #FFFFFF;
+    --ink: #16211E;
+    --muted: #5F6D67;
+    --line: #DFE5E1;
+    --jade: #0E7A62;
+    --jade-soft: #E2F1EC;
+    --amber: #A8631A;
+    --amber-soft: #F8EFE0;
+    --ring: rgba(14, 122, 98, .35);
+    --shadow: 0 1px 2px rgba(22, 33, 30, .05), 0 10px 26px -20px rgba(22, 33, 30, .45);
+    --sans: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+    --serif: "Source Serif 4", Georgia, serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1412;
+      --card: #161E1B;
+      --ink: #E7EDEA;
+      --muted: #94A29C;
+      --line: #26312D;
+      --jade: #55CFAE;
+      --jade-soft: #13322A;
+      --amber: #E0A458;
+      --amber-soft: #2D2416;
+      --ring: rgba(85, 207, 174, .4);
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .8);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #0E1412;
+    --card: #161E1B;
+    --ink: #E7EDEA;
+    --muted: #94A29C;
+    --line: #26312D;
+    --jade: #55CFAE;
+    --jade-soft: #13322A;
+    --amber: #E0A458;
+    --amber-soft: #2D2416;
+    --ring: rgba(85, 207, 174, .4);
+    --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 26px -20px rgba(0, 0, 0, .8);
+  }
+
+  * { box-sizing: border-box; }
+
+  /* Phải đứng trên .panel{display:flex}, nếu không mọi tab hiện cùng lúc. */
+  [hidden] { display: none !important; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    padding: 0 16px 64px;
+    margin: 0 auto;
+    max-width: 780px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  h1, h2, h3 { font-family: var(--serif); text-wrap: balance; margin: 0; font-weight: 600; }
+  p { margin: 0; }
+  a { color: var(--jade); }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* ---------- header ---------- */
+  header.top {
+    position: sticky;
+    top: env(safe-area-inset-top, 0px);
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(10px);
+    margin: 0 -16px;
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .topbar { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .topbar h1 { font-size: 20px; letter-spacing: -.01em; }
+  .topbar .spacer { flex: 1 1 auto; }
+
+  .stat-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-chip b { font-size: 16px; color: var(--ink); font-weight: 600; }
+  .stat-chip.fire b { color: var(--amber); }
+
+  nav.tabs { display: flex; gap: 2px; margin-top: 10px; overflow-x: auto; scrollbar-width: none; }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button {
+    flex: 0 0 auto;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    background: none;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    padding: 7px 11px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--jade); }
+  nav.tabs button:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; border-radius: 4px; }
+
+  /* ---------- panels ---------- */
+  .panel { display: flex; flex-direction: column; gap: 14px; padding-block: 18px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .card.lift { box-shadow: var(--shadow); }
+
+  .card-head { display: flex; align-items: baseline; gap: 10px; margin-bottom: 12px; }
+  .card-head h2 { font-size: 17px; }
+  .card-head .spacer { flex: 1 1 auto; }
+
+  /* ---------- today ---------- */
+  .today-head { display: flex; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+  .today-date { font-family: var(--serif); font-size: 26px; line-height: 1.1; letter-spacing: -.02em; }
+  .today-sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+  .pill {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--jade-soft);
+    color: var(--jade);
+    white-space: nowrap;
+  }
+  .pill.warm { background: var(--amber-soft); color: var(--amber); }
+
+  ul.steps { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; }
+
+  ul.steps li {
+    display: grid;
+    grid-template-columns: 26px 1fr auto;
+    align-items: start;
+    gap: 10px;
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+  }
+  ul.steps li:first-child { border-top: 0; }
+  ul.steps li.active { background: linear-gradient(90deg, var(--jade-soft), transparent 70%); margin: 0 -8px; padding: 11px 8px; border-radius: 8px; border-top-color: transparent; }
+
+  .tick {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    margin: 1px 0 0;
+    border: 1.5px solid var(--line);
+    border-radius: 7px;
+    background: var(--card);
+    cursor: pointer;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  .tick:checked { background: var(--jade); border-color: var(--jade); }
+  .tick:checked::after {
+    content: "";
+    position: absolute;
+    left: 7px; top: 3px;
+    width: 5px; height: 10px;
+    border: solid var(--card);
+    border-width: 0 2px 2px 0;
+    transform: rotate(42deg);
+  }
+  .tick:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  .step-label { font-weight: 500; }
+  .step-note { color: var(--muted); font-size: 12.5px; }
+  .step-min { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; padding-top: 2px; white-space: nowrap; }
+  .step-dot { color: var(--jade); text-align: center; line-height: 1.4; }
+  li.done .step-label { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line); }
+
+  /* ---------- timer ---------- */
+  .timer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .clock {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.02em;
+    line-height: 1;
+    min-width: 108px;
+  }
+  .clock small { display: block; font-family: var(--sans); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
+
+  button.btn {
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 9px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  button.btn.primary { background: var(--jade); border-color: var(--jade); color: var(--card); }
+  button.btn:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  button.btn:active { transform: translateY(1px); }
+
+  .bar { height: 5px; background: var(--line); border-radius: 999px; overflow: hidden; flex: 1 1 120px; min-width: 100px; }
+  .bar > i { display: block; height: 100%; background: var(--jade); border-radius: 999px; transition: width .4s linear; }
+
+  /* ---------- topic ---------- */
+  .topic-box { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .topic-text { font-family: var(--serif); font-size: 21px; line-height: 1.25; flex: 1 1 200px; letter-spacing: -.01em; }
+  .topic-num { font-variant-numeric: tabular-nums; color: var(--muted); font-family: var(--sans); font-size: 13px; }
+
+  input.line, textarea.line, select.line {
+    font: inherit;
+    width: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 9px 11px;
+  }
+  input.line:focus, textarea.line:focus, select.line:focus { outline: 2px solid var(--ring); outline-offset: -1px; border-color: var(--jade); }
+  textarea.line { resize: vertical; min-height: 72px; font-size: 13.5px; }
+
+  /* ---------- heatmap ---------- */
+  .heat { display: grid; grid-auto-flow: column; grid-template-rows: repeat(7, 1fr); gap: 3px; overflow-x: auto; padding-bottom: 4px; }
+  .heat i {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    background: var(--line);
+    display: block;
+  }
+  .heat i.p { background: color-mix(in srgb, var(--jade) 38%, var(--line)); }
+  .heat i.d { background: var(--jade); }
+  .heat i.t { box-shadow: 0 0 0 1.5px var(--amber); }
+  .legend { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--muted); margin-top: 8px; }
+  .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+
+  /* ---------- roadmap ---------- */
+  .quarter { border-left: 2px solid var(--line); padding: 0 0 0 16px; position: relative; }
+  .quarter + .quarter { margin-top: 18px; }
+  .quarter::before {
+    content: "";
+    position: absolute;
+    left: -6px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--line);
+  }
+  .quarter.now { border-left-color: var(--jade); }
+  .quarter.now::before { background: var(--jade); }
+  .quarter.past::before { background: var(--jade); opacity: .45; }
+  .quarter h3 { font-size: 17px; }
+  .quarter .months { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .quarter ul { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; }
+  .quarter ul li { margin-bottom: 4px; }
+  .goal {
+    margin-top: 10px;
+    background: var(--jade-soft);
+    border-radius: 9px;
+    padding: 9px 12px;
+    font-size: 13px;
+  }
+  .goal b { color: var(--jade); }
+
+  /* ---------- tools ---------- */
+  .tool {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4px 12px;
+    align-items: baseline;
+    padding: 11px 0;
+    border-top: 1px solid var(--line);
+  }
+  .tool:first-of-type { border-top: 0; }
+  .tool a { font-weight: 600; text-decoration: none; }
+  .tool a:hover { text-decoration: underline; }
+  .tool .why { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; }
+  .cost { font-size: 11px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+  .cost.free { color: var(--jade); }
+  .cost.paid { color: var(--amber); }
+
+  /* ---------- benchmark ---------- */
+  .bm-row { border-top: 1px solid var(--line); padding: 12px 0; }
+  .bm-row:first-of-type { border-top: 0; }
+  .bm-top { display: flex; align-items: baseline; gap: 10px; }
+  .bm-top .date { font-weight: 600; font-variant-numeric: tabular-nums; }
+  .bm-top .score { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--muted); font-size: 13px; }
+  .bm-top .score b { color: var(--ink); font-size: 16px; }
+  .bm-bars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+  .bm-bars div { font-size: 11px; color: var(--muted); }
+  .bm-bars .track { height: 4px; background: var(--line); border-radius: 999px; margin-top: 4px; overflow: hidden; }
+  .bm-bars .track i { display: block; height: 100%; background: var(--jade); }
+  .bm-note { font-size: 13px; color: var(--muted); margin-top: 7px; font-style: italic; }
+
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+
+  .rules { counter-reset: r; list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .rules li { display: grid; grid-template-columns: 24px 1fr; gap: 10px; font-size: 13.5px; }
+  .rules li::before {
+    counter-increment: r;
+    content: counter(r);
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--jade);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .logs { display: flex; flex-direction: column; gap: 0; }
+  .logline { display: grid; grid-template-columns: 52px 1fr; gap: 10px; padding: 8px 0; border-top: 1px solid var(--line); font-size: 13.5px; }
+  .logline:first-child { border-top: 0; }
+  .logline .d { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; padding-top: 2px; }
+
+  /* ---------- resource / sound of day ---------- */
+  .res { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 12px 0; border-top: 1px solid var(--line); }
+  .res:first-of-type { border-top: 0; padding-top: 0; }
+  .res .rl { font-weight: 600; font-size: 14px; }
+  .res .rh { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+  .res .go {
+    font: inherit; font-size: 12.5px; font-weight: 600;
+    padding: 7px 12px; border-radius: 9px;
+    border: 1px solid var(--jade); background: var(--jade-soft); color: var(--jade);
+    text-decoration: none; white-space: nowrap; cursor: pointer;
+  }
+  .res .go:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  .sym {
+    font-family: var(--serif);
+    background: var(--ink); color: var(--paper);
+    border-radius: 7px; padding: 2px 9px;
+    font-size: 15px; font-weight: 600;
+    display: inline-block; white-space: nowrap;
+  }
+
+  /* ---------- pronunciation tracker ---------- */
+  .snd { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 11px 0; border-top: 1px solid var(--line); }
+  .snd:first-of-type { border-top: 0; }
+  .snd .nm { font-weight: 600; font-size: 14px; }
+  .snd .ex { color: var(--muted); font-size: 12.5px; margin-top: 1px; }
+  .snd .tip { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+  .snd .links { display: flex; gap: 6px; }
+  .snd .links a {
+    width: 30px; height: 30px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--paper);
+    display: inline-flex; align-items: center; justify-content: center;
+    text-decoration: none; font-size: 13px;
+  }
+  .state {
+    font: inherit; font-size: 11px; font-weight: 600;
+    border-radius: 999px; padding: 4px 10px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--paper); color: var(--muted);
+    white-space: nowrap; min-width: 74px;
+  }
+  .state[data-v="1"] { border-color: var(--amber); background: var(--amber-soft); color: var(--amber); }
+  .state[data-v="2"] { border-color: var(--jade); background: var(--jade-soft); color: var(--jade); }
+  .state:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+
+  /* ---------- lịch ---------- */
+  .navwk { display: flex; align-items: center; gap: 10px; }
+  .navwk .lbl { font-weight: 600; font-variant-numeric: tabular-nums; flex: 1 1 auto; text-align: center; }
+  .navwk button { width: 36px; }
+
+  .day {
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    padding: 13px 14px;
+    background: var(--card);
+  }
+  .day + .day { margin-top: 9px; }
+  .day.now { border-color: var(--jade); box-shadow: var(--shadow); }
+  .day.was { opacity: .62; }
+  .day .dh { display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap; margin-bottom: 8px; }
+  .day .dd { font-weight: 600; font-size: 14.5px; }
+  .day .dn { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .day ol { margin: 0; padding-left: 19px; font-size: 13px; }
+  .day ol li { margin-bottom: 3px; }
+  .day ol li span { color: var(--muted); }
+  .day .dres { margin-top: 9px; font-size: 12.5px; }
+  .day .dres a { font-weight: 600; }
+
+  /* ---------- chunks ---------- */
+  .wk {
+    border: 1px solid var(--line);
+    border-radius: 11px;
+    background: var(--card);
+    overflow: hidden;
+  }
+  .wk + .wk { margin-top: 10px; }
+  .wk[open] { box-shadow: var(--shadow); }
+  .wk.now { border-color: var(--jade); }
+  .wk summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+  .wk summary::-webkit-details-marker { display: none; }
+  .wk summary:focus-visible { outline: 2px solid var(--ring); outline-offset: -2px; }
+  .wk .wnum {
+    font-family: var(--serif);
+    color: var(--jade);
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 38px;
+    font-variant-numeric: tabular-nums;
+  }
+  .wk .wname { font-weight: 600; font-size: 14.5px; flex: 1 1 auto; }
+  .wk .wmark { font-size: 11px; color: var(--muted); }
+  .wk .wbody { padding: 0 14px 14px; }
+
+  .chunk {
+    display: grid;
+    grid-template-columns: 1fr 34px;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+  }
+  .chunk .vi { color: var(--muted); font-size: 12.5px; }
+  .chunk .en { font-weight: 600; font-size: 14.5px; line-height: 1.35; }
+  .spk {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--jade);
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  .spk:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .spk[disabled] { opacity: .3; cursor: default; }
+
+  .trap {
+    margin-top: 12px;
+    font-size: 12.5px;
+    color: var(--amber);
+    background: var(--amber-soft);
+    padding: 9px 11px;
+    border-radius: 9px;
+  }
+  .wk-actions { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+  .wk-actions label { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--muted); cursor: pointer; }
+  .wk-actions .tick { width: 18px; height: 18px; border-radius: 6px; }
+  .wk-actions .tick:checked::after { left: 5px; top: 2px; width: 4px; height: 8px; }
+
+  .muted { color: var(--muted); font-size: 13px; }
+  .tiny { font-size: 12px; color: var(--muted); }
+
+  footer { padding-block: 22px; border-top: 1px solid var(--line); margin-top: 8px; }
+
+  @media (max-width: 460px) {
+    .clock { font-size: 32px; min-width: 92px; }
+    .grid2 { grid-template-columns: 1fr; }
+    .today-date { font-size: 22px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; animation: none !important; }
+  }
+</style>
+
+<header class="top">
+  <div class="topbar">
+    <h1>20 Phút Mỗi Ngày</h1>
+    <span class="spacer"></span>
+    <span class="stat-chip fire">Chuỗi <b id="s-streak">0</b> ngày</span>
+    <span class="stat-chip">Tổng <b id="s-total">0</b></span>
+    <span class="stat-chip">Tuần <b id="s-week">1</b></span>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-tab="today">Hôm nay</button>
+    <button role="tab" aria-selected="false" data-tab="cal">Lịch</button>
+    <button role="tab" aria-selected="false" data-tab="sound">Phát âm</button>
+    <button role="tab" aria-selected="false" data-tab="chunk">Chunk</button>
+    <button role="tab" aria-selected="false" data-tab="road">Lộ trình</button>
+    <button role="tab" aria-selected="false" data-tab="tools">Công cụ</button>
+    <button role="tab" aria-selected="false" data-tab="bench">Đo tiến bộ</button>
+    <button role="tab" aria-selected="false" data-tab="about">Nguyên tắc</button>
+  </nav>
+</header>
+
+<!-- ============ HÔM NAY ============ -->
+<section class="panel" id="p-today">
+  <div class="card lift">
+    <div class="today-head">
+      <div>
+        <div class="today-date" id="t-date">—</div>
+        <div class="today-sub" id="t-sub">—</div>
+      </div>
+      <span class="spacer" style="flex:1 1 auto"></span>
+      <span class="pill" id="t-block">—</span>
+    </div>
+
+    <ul class="steps" id="t-steps"></ul>
+
+    <div class="timer">
+      <div class="clock"><span id="t-clock">05:00</span><small id="t-seg">Sẵn sàng</small></div>
+      <button class="btn primary" id="t-start">Bắt đầu</button>
+      <button class="btn" id="t-skip">Bỏ qua bước</button>
+      <div class="bar"><i id="t-bar" style="width:0%"></i></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Nguồn luyện hôm nay</h2></div>
+    <div id="t-res"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Chủ đề nói hôm nay</h2>
+      <span class="spacer"></span>
+      <button class="btn" id="t-roll">Đổi chủ đề</button>
+    </div>
+    <div class="topic-box">
+      <div class="topic-text" id="t-topic">—</div>
+    </div>
+    <p class="tiny" style="margin-top:10px">Nói 60–90 giây, ghi âm lại. Nói sai vẫn nói tiếp — không dừng lại sửa.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Nhật ký 1 dòng</h2></div>
+    <input class="line" id="t-log" placeholder="Hôm nay tôi vấp ở chỗ nào? Cụm nào mới học được?" autocomplete="off">
+    <div class="logs" id="t-loglist" style="margin-top:12px"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>12 tuần gần nhất</h2>
+      <span class="spacer"></span>
+      <span class="tiny" id="t-rate">—</span>
+    </div>
+    <div class="heat" id="t-heat"></div>
+    <div class="legend">
+      <i style="background:var(--line)"></i> chưa học
+      <i style="background:color-mix(in srgb, var(--jade) 38%, var(--line))"></i> làm dở
+      <i style="background:var(--jade)"></i> xong
+      <span style="margin-left:auto">viền cam = hôm nay</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LỊCH ============ -->
+<section class="panel" id="p-cal" hidden>
+  <div class="card lift">
+    <div class="navwk">
+      <button class="btn" id="k-prev" aria-label="Tuần trước">‹</button>
+      <span class="lbl" id="k-lbl">—</span>
+      <button class="btn" id="k-next" aria-label="Tuần sau">›</button>
+    </div>
+    <div style="display:flex; gap:8px; margin-top:10px; flex-wrap:wrap">
+      <button class="btn" id="k-now">Về tuần này</button>
+      <span class="tiny" id="k-focus" style="align-self:center"></span>
+    </div>
+  </div>
+  <div id="k-days"></div>
+</section>
+
+<!-- ============ PHÁT ÂM ============ -->
+<section class="panel" id="p-sound" hidden>
+  <div class="card lift">
+    <div class="card-head">
+      <h2>24 âm của Quý 1</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="s-prog">0/24 ổn</span>
+    </div>
+    <p class="muted">24 điểm phát âm làm người Việt bị nghe nhầm nhiều nhất, xếp theo mức độ gây hại. <b>Mỗi ngày 3 phút</b>, nằm ở bước 2 trong khung 20 phút. Mỗi tuần 2–3 âm chia đều cho 6 ngày T2–T7; Chủ nhật nghỉ luyện âm.</p>
+    <p class="muted" style="margin-top:8px"><b>3 phút đó làm gì:</b> mở 🎥 xem 1 lần → đọc cặp từ đối lập 10 lần chậm → mở 🔎 nghe 5 người bản xứ nói từ đó → đọc lại 10 lần. Khi Google Voice Typing gõ đúng câu chứa âm đó, bấm sang <b>Ổn</b>.</p>
+    <p class="muted" style="margin-top:8px">🎥 mở <b>thẳng bài dạy</b> của Rachel's English cho đúng âm đó — có quay cận miệng và hình cắt lưỡi, không phải danh sách để chị tự chọn. Cặp âm cần hai bài thì có thêm nút 🎬 cho âm thứ hai. 🔎 mở YouGlish với đúng từ mẫu.</p>
+    <div class="legend" style="margin-top:12px">
+      <span class="state" data-v="0" style="cursor:default">Chưa học</span>
+      <span class="state" data-v="1" style="cursor:default">Đang tập</span>
+      <span class="state" data-v="2" style="cursor:default">Ổn</span>
+      <span style="margin-left:auto">bấm để đổi trạng thái</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Hai nguồn gốc</h2></div>
+    <div class="tool">
+      <a href="https://rachelsenglish.com/videos/sounds/" target="_blank" rel="noopener noreferrer">Rachel's English — kho video từng âm</a>
+      <span class="cost free">MIỄN PHÍ</span>
+      <div class="why">Giọng Mỹ. Quay cận miệng + hình cắt lưỡi — thứ chị cần để biết đặt lưỡi ở đâu, không phải nghe rồi đoán.</div>
+    </div>
+    <div class="tool">
+      <a href="https://www.bbc.co.uk/learningenglish" target="_blank" rel="noopener noreferrer">BBC Learning English — The Sounds of English</a>
+      <span class="cost free">MIỄN PHÍ</span>
+      <div class="why">Giọng Anh. Vào mục Pronunciation. Dùng khi muốn đối chiếu hai giọng — chọn một giọng chính và theo nó suốt Quý 1.</div>
+    </div>
+  </div>
+
+  <div id="s-weeks"></div>
+</section>
+
+<!-- ============ CHUNK ============ -->
+<section class="panel" id="p-chunk" hidden>
+  <div class="card lift">
+    <div class="card-head">
+      <h2>120 câu nền — Quý 1</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="c-prog">0/120</span>
+    </div>
+    <p class="muted">Mỗi tuần 10 câu, học vào <b>thứ Ba và thứ Sáu</b> (5 câu mỗi buổi). Đây là bộ khung — 200 câu còn lại của Quý 1 đến từ chính lỗi của chị mỗi ngày, đó mới là phần cá nhân hoá.</p>
+    <div class="wk-actions">
+      <button class="btn" id="c-copyall">Sao chép cả 120 câu cho Anki</button>
+      <button class="btn" id="c-speak-test">Thử giọng đọc</button>
+    </div>
+    <p class="tiny" id="c-msg" style="margin-top:8px"></p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Cách làm thẻ Anki đúng</h2></div>
+    <ul class="rules">
+      <li><span><b>Mặt trước = tiếng Việt, mặt sau = tiếng Anh.</b> Chiều ngược lại (EN→VI) chỉ luyện <i>nhận ra</i> câu — vế chị vốn đã khá. Chiều này bắt não <i>bật ra</i> câu, đúng vế đang thiếu. Nó khó hơn, và cái khó đó chính là bài tập.</span></li>
+      <li><span><b>Phải là cả câu, không phải từ lẻ.</b> “Vừa mới” dịch kiểu gì cũng được; “Tôi vừa mới ăn xong” thì chỉ có một đáp án tự nhiên.</span></li>
+      <li><span><b>Chấm rộng tay.</b> Nói “I just finished eating” trong khi thẻ ghi “I've just finished eating” → vẫn tính đúng. Chỉ bấm “Again” khi sai nghĩa, không phải khi khác chữ.</span></li>
+      <li><span><b>Luôn đọc to đáp án.</b> Thẻ nào đọc vấp là thẻ chưa thuộc — bấm “Again”, dù trong đầu đã nghĩ đúng.</span></li>
+      <li><span><b>Đừng dùng note type “Basic (and reversed card)”.</b> Nó tạo cả hai chiều và gấp đôi số thẻ ôn — không vừa 20 phút/ngày. Chọn <b>Basic</b>.</span></li>
+      <li><span><b>Tự thu âm giọng mình</b> cho 20 câu khó nhất, gắn vào thẻ. Nghe lại sau 1 tháng để thấy khác biệt.</span></li>
+      <li><span><b>Nhập vào Anki:</b> bấm nút sao chép → dán vào Notepad trên máy tính → lưu thành <code>chunks.txt</code> → Anki bản máy tính (miễn phí): File › Import › Fields separated by <b>Tab</b> › deck <b>EN-Chunks</b> › Sync. Thẻ sẽ tự hiện trên AnkiWeb ở iPhone.</span></li>
+      <li><span><b>iPhone:</b> dùng <a href="https://ankiweb.net" target="_blank" rel="noopener noreferrer">ankiweb.net</a> trong Safari (miễn phí, chính chủ) — Chia sẻ › Thêm vào MH chính. Tránh các app tên “Anki: Study Flashcards”, “Anki Pro”, “Noji”: không phải Anki thật, thu bao tháng và khoá dữ liệu.</span></li>
+    </ul>
+  </div>
+
+  <div id="c-weeks"></div>
+</section>
+
+<!-- ============ LỘ TRÌNH ============ -->
+<section class="panel" id="p-road" hidden>
+  <div class="card">
+    <div class="card-head"><h2>Tuần 1 — làm ngay</h2></div>
+    <ul class="steps" id="r-week1"></ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Bốn quý</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="r-now">—</span>
+    </div>
+    <div id="r-quarters"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Khung 20 phút</h2></div>
+    <ul class="steps" id="r-frame"></ul>
+    <p class="tiny" style="margin-top:12px"><b>Chủ nhật cũng 20 phút</b>, chỉ đổi nội dung: 3′ ôn Anki + 12′ hội thoại thật + 5′ nhặt lỗi &amp; đặt mục tiêu tuần. Chủ nhật của tuần chẵn thì rút hội thoại xuống 7′ để lấy chỗ cho 6′ ghi âm benchmark + 4′ chấm điểm.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Ngày bắt đầu</h2></div>
+    <p class="muted" style="margin-bottom:10px">Dùng để tính tuần, quý và lịch đo tiến bộ.</p>
+    <input class="line" type="date" id="r-start" style="max-width:220px">
+  </div>
+</section>
+
+<!-- ============ CÔNG CỤ ============ -->
+<section class="panel" id="p-tools" hidden></section>
+
+<!-- ============ ĐO TIẾN BỘ ============ -->
+<section class="panel" id="p-bench" hidden>
+  <div class="card lift">
+    <div class="card-head">
+      <h2>Lần đo tiếp theo</h2>
+      <span class="spacer"></span>
+      <span class="pill" id="b-due">—</span>
+    </div>
+    <p class="muted">Rơi vào <b>Chủ nhật của tuần chẵn</b>, nằm gọn trong 20 phút của ngày hôm đó. Cách làm: ghi âm 2 phút nói về <b>“A day in my life”</b> — luôn cùng một chủ đề này. Nghe lại bản ghi 2 tuần trước rồi chấm 4 mục dưới đây.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Chấm điểm bản ghi mới</h2></div>
+    <div class="grid2">
+      <div class="field"><label for="b-date">Ngày ghi âm</label><input class="line" type="date" id="b-date"></div>
+      <div class="field"><label for="b-fluency">Độ trôi — ít dừng lại (1–5)</label><input class="line" type="number" id="b-fluency" min="1" max="5" step="1" value="3"></div>
+      <div class="field"><label for="b-clarity">Độ rõ — Google gõ đúng (1–5)</label><input class="line" type="number" id="b-clarity" min="1" max="5" step="1" value="3"></div>
+      <div class="field"><label for="b-length">Độ dài — nói được bao lâu (1–5)</label><input class="line" type="number" id="b-length" min="1" max="5" step="1" value="3"></div>
+      <div class="field"><label for="b-natural">Độ tự nhiên — dùng cụm, không dịch (1–5)</label><input class="line" type="number" id="b-natural" min="1" max="5" step="1" value="3"></div>
+    </div>
+    <div class="field" style="margin-top:10px"><label for="b-note">Ghi chú — tiến bộ rõ nhất là gì?</label><textarea class="line" id="b-note" placeholder="So với bản ghi trước…"></textarea></div>
+    <button class="btn primary" id="b-save" style="margin-top:12px">Lưu lần đo</button>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Lịch sử</h2><span class="spacer"></span><span class="tiny" id="b-count">0 lần</span></div>
+    <div id="b-spark" style="margin-bottom:14px"></div>
+    <div id="b-list"><p class="muted">Chưa có lần đo nào. Bản ghi đầu tiên (benchmark #0) là mốc quý giá nhất cả năm — làm ngay hôm nay.</p></div>
+  </div>
+</section>
+
+<!-- ============ NGUYÊN TẮC ============ -->
+<section class="panel" id="p-about" hidden>
+  <div class="card">
+    <div class="card-head"><h2>6 luật bất di bất dịch</h2></div>
+    <ul class="rules">
+      <li><span><b>Luôn nói to.</b> Học tiếng Anh trong im lặng = tập bơi trên cạn.</span></li>
+      <li><span><b>Không học từ lẻ.</b> Mọi thẻ Anki phải là một câu hoàn chỉnh.</span></li>
+      <li><span><b>Không dịch từng từ.</b> Học “cụm ↔ tình huống”, không “từ ↔ từ”.</span></li>
+      <li><span><b>Sai là nhiên liệu.</b> Mỗi lỗi hôm nay = 1 thẻ Anki ngày mai.</span></li>
+      <li><span><b>Ngày bận làm 5 phút, tuyệt đối không bỏ 0 phút.</b> Chuỗi ngày quan trọng hơn thời lượng.</span></li>
+      <li><span><b>Không đổi phương pháp trước 3 tháng.</b> Đổi lớp/đổi app liên tục là lý do lần trước thất bại.</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Đích thực tế sau 12 tháng</h2></div>
+    <p class="muted">20 phút/ngày ≈ 120 giờ/năm. Với 120 giờ, đích đạt được là: nói chuyện phiếm tự nhiên 10–20 phút về chủ đề quen thuộc, hiểu người bản xứ nói tốc độ chậm–vừa, không còn dịch trong đầu với câu cơ bản. Đó là <b>B1 giao tiếp</b> — và là nền bắt buộc cho Part 2.</p>
+    <div class="goal" style="margin-top:12px"><b>Part 2 (tháng 13–24) — tiếng Anh ngành dược:</b> thuật ngữ và dạng bào chế · tư vấn bệnh nhân bằng roleplay · gọi bác sĩ, email &amp; họp · đọc SmPC/FDA và phỏng vấn ngành. Có trang riêng, kèm cổng điều kiện đầu vào — đừng mở sớm.</div>
+    <p style="margin-top:12px"><a class="btn primary" style="text-decoration:none; display:inline-block" href="part-2.html" target="_blank" rel="noopener noreferrer">Mở trang Part 2 ›</a></p>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><h2>Sao lưu dữ liệu</h2></div>
+    <p class="muted">Tiến độ được lưu <b>trong trình duyệt của máy này</b> — không gửi đi đâu cả. Đổi máy hoặc xoá dữ liệu trình duyệt là mất. Mỗi tháng bấm “Sao chép” rồi dán vào ghi chú điện thoại để giữ bản dự phòng.</p>
+    <div style="display:flex; gap:8px; flex-wrap:wrap; margin:12px 0">
+      <button class="btn" id="x-copy">Sao chép dữ liệu</button>
+      <button class="btn" id="x-paste">Khôi phục từ bản dán</button>
+    </div>
+    <textarea class="line" id="x-box" placeholder="Dữ liệu sao lưu hiện ở đây sau khi bấm Sao chép — hoặc dán bản cũ vào đây rồi bấm Khôi phục."></textarea>
+    <p class="tiny" id="x-msg" style="margin-top:8px"></p>
+  </div>
+
+  <footer>
+    <p class="tiny">Kế hoạch 12 tháng · Part 1: giao tiếp hằng ngày. Mở trang này mỗi ngày trước khi bắt đầu 20 phút.</p>
+  </footer>
+</section>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ---------------- data ---------------- */
+
+  var TOPICS = [
+    "Sáng nay của tôi", "Món ăn tôi ghét", "Người tôi ngưỡng mộ", "Lần cuối tôi bật cười",
+    "Thời tiết tuần này", "Ứng dụng tôi dùng nhiều nhất", "Một kỷ niệm tuổi thơ", "Quán cà phê tôi thích",
+    "Thói quen xấu của tôi", "Chuyến đi gần nhất", "Một bộ phim tôi xem", "Đồng nghiệp của tôi",
+    "Cuối tuần lý tưởng", "Tôi tiêu tiền vào việc gì", "Điều làm tôi stress", "Thú cưng",
+    "Giao thông thành phố", "Lần tôi bị muộn giờ", "Món tôi nấu được", "Tôi ngủ thế nào",
+    "Một người bạn cũ", "Điện thoại của tôi", "Điều tôi muốn học", "Mùa tôi thích nhất",
+    "Một lần tôi xấu hổ", "Mua sắm online", "Kế hoạch 5 năm tới", "Bài hát đang trong đầu tôi",
+    "Việc nhà tôi ghét nhất", "Hôm nay có gì hay"
+  ];
+
+  // getDay(): 0 = CN
+  var DAYPLAN = {
+    1: { name: "Shadowing", note: "1 đoạn 30–45 giây, nhại theo 6–8 lần" },
+    2: { name: "Chunk mới", note: "5 cụm câu mới → tạo 5 thẻ Anki" },
+    3: { name: "Nghe", note: "1 video ngắn, nghe 2 lần, chép 3 câu nghe được" },
+    4: { name: "Shadowing", note: "lặp lại đúng đoạn của thứ Hai — phải thuộc" },
+    5: { name: "Chunk mới", note: "5 cụm câu mới → tạo 5 thẻ Anki" },
+    6: { name: "Nói với AI", note: "Gemini Live hoặc ChatGPT voice, 8 phút liên tục" },
+    0: { name: "Hội thoại & review", note: "buổi tổng kết tuần" }
+  };
+
+  function stepsFor(dow, bench) {
+    var core = DAYPLAN[dow];
+    if (dow === 0 && bench) {
+      return [
+        { k: "a", min: 3, label: "Ôn Anki nhanh", note: "chỉ thẻ đến hạn, đọc to", secs: 180 },
+        { k: "b", min: 7, label: "Hội thoại thật", note: "Free4Talk / italki / AI voice — 7 phút không nghỉ", secs: 420 },
+        { k: "c", min: 6, label: "BENCHMARK — ghi âm 2 phút", note: "“A day in my life”, rồi nghe lại bản 2 tuần trước", secs: 360 },
+        { k: "d", min: 4, label: "Chấm điểm + mục tiêu tuần", note: "vào tab Đo tiến bộ, chấm 4 tiêu chí", secs: 240 }
+      ];
+    }
+    if (dow === 0) {
+      return [
+        { k: "a", min: 3, label: "Ôn Anki nhanh", note: "chỉ thẻ đến hạn, đọc to", secs: 180 },
+        { k: "b", min: 12, label: "Hội thoại thật", note: "Free4Talk / italki / AI voice — 12 phút không nghỉ", secs: 720 },
+        { k: "c", min: 5, label: "Nhặt lỗi + mục tiêu tuần", note: "3 lỗi lặp nhiều nhất → thẻ Anki, rồi 1 câu mục tiêu", secs: 300 }
+      ];
+    }
+    return [
+      { k: "a", min: 4, label: "Ôn Anki — đọc to", note: "không bao giờ ôn trong im lặng", secs: 240 },
+      { k: "b", min: 3, label: "Luyện âm của ngày", note: "xem video 1 lần → đọc cặp từ 10 lần → YouGlish 5 người → đọc lại 10 lần", secs: 180 },
+      { k: "c", min: 8, label: core.name, note: core.note, secs: 480 },
+      { k: "d", min: 4, label: "Ghi âm 60–90 giây", note: "nói về chủ đề hôm nay, không dừng để sửa", secs: 240 },
+      { k: "e", min: 1, label: "Nhật ký + 3 thẻ mới", note: "lỗi hôm nay thành thẻ ngày mai", secs: 60 }
+    ];
+  }
+
+  // Gắn âm của ngày và bộ chunk của tuần vào các bước.
+  function decorate(steps, d) {
+    if (d.getDay() === 0) return steps;
+    var snd = soundOfDay(d);
+    if (snd && steps[1]) {
+      steps[1].label = "Luyện âm " + snd.s;
+      steps[1].note = snd.n + " — " + snd.e;
+    }
+    if ((d.getDay() === 2 || d.getDay() === 5) && steps[2]) {
+      var W = CHUNKS[wkOf(d) - 1];
+      if (W) steps[2].note = "Tuần " + W.w + " · " + W.t + " — 5 câu, mở tab Chunk";
+    }
+    return steps;
+  }
+
+  var WEEK1 = [
+    { k: "w1", label: "Cài Anki, tạo deck tên EN-Chunks", note: "apps.ankiweb.net" },
+    { k: "w2", label: "Ghi âm benchmark #0 — 2 phút “A day in my life”", note: "nói được gì nói nấy, kể cả 5 từ. Mốc quý giá nhất cả năm." },
+    { k: "w3", label: "Xem video âm /θ/ của Rachel's English, tập 10 lần", note: "âm này và các âm đuôi là gốc của mọi vấn đề nghe–nói" },
+    { k: "w4", label: "Thử Google Docs Voice Typing với 5 câu", note: "Tools → Voice typing → English (US)" },
+    { k: "w5", label: "Đặt khung giờ cố định 20 phút/ngày", note: "gắn vào một việc đã làm hằng ngày: sau khi đánh răng, sau bữa tối" }
+  ];
+
+  var FRAME = [
+    { k: "f1", min: 4, label: "Ôn Anki", note: "đọc to từng câu, không đọc thầm" },
+    { k: "f2", min: 3, label: "Luyện âm của ngày", note: "tuần 1–10 mỗi tuần 2–3 âm, chia đều cho 6 ngày T2–T7" },
+    { k: "f3", min: 8, label: "Khối chính", note: "xoay theo thứ: shadowing · chunk mới · nghe · nói với AI" },
+    { k: "f4", min: 4, label: "Output — tự nói + ghi âm", note: "bắt buộc mỗi ngày, kể cả nói sai" },
+    { k: "f5", min: 1, label: "Nhật ký + 3 thẻ mới", note: "lỗi hôm nay = bài học ngày mai" }
+  ];
+
+  // 24 điểm phát âm, xếp theo mức độ gây hiểu nhầm với người Việt.
+  function yg(w) { return "https://youglish.com/pronounce/" + encodeURIComponent(w) + "/english/us"; }
+
+  var RE = "https://rachelsenglish.com/";
+
+  var SOUNDS = [
+    { w: 1, s: "-t / -d", n: "Âm đuôi t, d", e: "want · need · hard", tip: "Lưỡi chạm lợi rồi bật nhẹ. Người Việt hay nuốt hẳn — “want” thành “oăn”.", p: RE + "english-pronounce-t-d-consonants/", g: "want" },
+    { w: 1, s: "-k / -g", n: "Âm đuôi k, g", e: "book · bag · like", tip: "Chặn hơi ở cuống họng rồi thả. Không thêm nguyên âm phía sau thành “búc-cơ”.", p: RE + "english-pronounce-g-k-consonants/", g: "book" },
+    { w: 1, s: "-p / -b", n: "Âm đuôi p, b", e: "stop · job · help", tip: "Hai môi khép lại là đủ, không cần bật mạnh. Bài này giải thích luôn vì sao âm cuối “tắc” mà vẫn phải có.", p: RE + "pronounce-stop-consonants/", g: "stop" },
+
+    { w: 2, s: "-s /s/", n: "Đuôi s đọc /s/", e: "works · books · stops", tip: "Sau âm vô thanh (k, p, t, f). Thiếu đuôi này là mất số nhiều và mất thì.", p: RE + "english-pronounce-s-z-consonants/", g: "works" },
+    { w: 2, s: "-s /z/", n: "Đuôi s đọc /z/", e: "lives · days · needs", tip: "Sau âm hữu thanh và nguyên âm. Rung cổ họng, không phải “xì”.", p: RE + "english-pronounce-s-z-consonants/", g: "lives" },
+    { w: 2, s: "-es /ɪz/", n: "Đuôi es đọc /ɪz/", e: "watches · uses · changes", tip: "Sau s, z, sh, ch, ge — thêm hẳn một âm tiết. Bài này gom cả 3 trường hợp.", p: RE + "3-cases-in-american-english/", g: "watches" },
+    { w: 2, s: "-ed", n: "Đuôi ed — 3 cách", e: "worked /t/ · lived /d/ · wanted /ɪd/", tip: "Chỉ sau t/d mới đọc thành /ɪd/. Ngoài ra không bao giờ thêm âm tiết.", p: RE + "ed-endings-2020-1-3/", g: "worked" },
+
+    { w: 3, s: "/θ/", n: "TH vô thanh", e: "think · three · month", tip: "Đầu lưỡi chạm nhẹ rìa răng trên, thổi hơi ra. Không thành “tink” hay “sink”.", p: RE + "english-pronounce-th-consonants/", g: "think" },
+    { w: 3, s: "/ð/", n: "TH hữu thanh", e: "this · the · brother", tip: "Vị trí lưỡi như trên nhưng rung cổ. Không thành “đis”. Cùng bài với /θ/ — xem phần sau.", p: RE + "english-pronounce-th-consonants/", g: "this" },
+
+    { w: 4, s: "/s/ ↔ /ʃ/", n: "S và SH", e: "see / she · sip / ship", tip: "/ʃ/ môi chúm tròn, lưỡi lùi sau. /s/ môi dẹt.", p: RE + "english-pronounce-sh-zh-consonants/", p2: RE + "english-pronounce-s-z-consonants/", g: "she" },
+    { w: 4, s: "/tʃ/ ↔ /dʒ/", n: "CH và J", e: "cheap / jeep · chin / gin", tip: "/dʒ/ rung cổ họng, /tʃ/ thì không. Người Việt hay đọc cả hai thành “ch”.", p: RE + "english-pronounce-ch-jj-sounds/", g: "jeep" },
+    { w: 4, s: "/z/ ↔ /dʒ/", n: "Z và J", e: "zoo / juice · zip / jeep", tip: "Rất hay lẫn. /z/ lưỡi phẳng, /dʒ/ lưỡi chạm lợi trước.", p: RE + "english-pronounce-s-z-consonants/", p2: RE + "english-pronounce-ch-jj-sounds/", g: "zoo" },
+
+    { w: 5, s: "/l/ cuối", n: "L cuối từ (dark L)", e: "feel · bill · call", tip: "Đầu lưỡi phải chạm lợi trên. Người Việt hay biến thành “eo”: “feel” → “phiu”.", p: "https://www.youtube.com/watch?v=FP0jHNoFqWo", g: "feel" },
+    { w: 5, s: "/r/", n: "R tiếng Anh", e: "right · red · very", tip: "Lưỡi cuộn lại, KHÔNG rung như “r” tiếng Việt, không chạm vòm.", p: "https://www.youtube.com/watch?v=G_OQjKLvt0E", g: "right" },
+    { w: 5, s: "/v/ ↔ /w/", n: "V và W", e: "very / worry · vest / west", tip: "/v/ răng trên chạm môi dưới. /w/ chúm môi tròn, không dùng răng. Hai bài riêng.", p: RE + "english-pronounce-f-v-consonants/", p2: RE + "pronounce-w-consonant/", g: "very" },
+
+    { w: 6, s: "/iː/ ↔ /ɪ/", n: "Nguyên âm dài / ngắn: ee–i", e: "sheep / ship · eat / it", tip: "/iː/ kéo dài và căng môi. /ɪ/ ngắn, môi thả lỏng. Bài này so sánh thẳng hai âm.", p: RE + "ee-vs-ih-long-short-vowels/", g: "sheep" },
+    { w: 6, s: "/uː/ ↔ /ʊ/", n: "oo dài / ngắn", e: "food / foot · pool / pull", tip: "/uː/ chúm môi tròn và dài. /ʊ/ ngắn gọn. Hai bài riêng.", p: RE + "english-pronounce-oo-vowel/", p2: RE + "english-pronounce-uh-push-vowel/", g: "food" },
+    { w: 6, s: "/æ/ ↔ /e/", n: "a bẹt và e", e: "bad / bed · man / men", tip: "/æ/ mở to miệng, hạ hàm. Đây là âm người Việt gần như không có. Bài so sánh trực tiếp.", p: RE + "eh-vs-aa-vowels/", g: "bad" },
+    { w: 6, s: "/ɑː/ ↔ /ʌ/", n: "ah và uh", e: "heart / hut · calm / come", tip: "/ɑː/ mở và dài. /ʌ/ ngắn, gọn, nằm giữa miệng. Bài so sánh trực tiếp.", p: RE + "pronounce-ah-vs-uh/", g: "heart" },
+    { w: 6, s: "Trọng âm từ", n: "Nhấn đúng âm tiết", e: "ho·TEL · PHO·to · to·MOR·row", tip: "Sai trọng âm là người nghe không nhận ra từ, dù phát âm từng âm đúng.", p: RE + "intro-word-stress/", g: "hotel" },
+
+    { w: 7, s: "/ə/", n: "Schwa — âm yếu", e: "aBOUT · bananA · SUPply", tip: "Âm phổ biến nhất tiếng Anh. Âm tiết không nhấn đều nuốt về /ə/. Đọc rõ hết mọi âm tiết nghe rất “Việt”.", p: RE + "english-pronounce-schwa/", g: "about" },
+    { w: 8, s: "Nối âm", n: "Linking — nối từ", e: "What about you → wha-da-bou-chu", tip: "Phụ âm cuối nối vào nguyên âm đầu từ sau. Đây là lý do chính chị nghe không kịp người bản xứ.", p: RE + "intro-linking/", g: "about" },
+    { w: 9, s: "Trọng âm câu", n: "Nhấn từ mang nghĩa", e: "I WANT to GO to the SHOP", tip: "Chỉ danh/động/tính/trạng từ được nhấn. Nhấn đều mọi từ nghe như đọc máy.", p: RE + "you-actually-need-stress-how-to-speak-american-english/", g: "want" },
+    { w: 10, s: "Cụm phụ âm", n: "Consonant clusters", e: "street · asked · texts", tip: "Không chèn nguyên âm vào giữa: “street” không phải “sơ-tơ-rít”.", p: RE + "s-consonant-clusters/", g: "street" }
+  ];
+
+  var PL_EASY = "https://www.youtube.com/playlist?list=PLA5UIoabheFM281dIr4ojw9xOVoo9dOtw";
+  var PL_6MIN = "https://www.youtube.com/playlist?list=PL_xqs-tCfzNofM8Q1BXxgITPBp77IGa71";
+  var PL_BBCP = "https://www.youtube.com/playlist?list=PLIxj7W-DkLscItMt9agBGWt9Kk6K5PFoB";
+
+  // Nguồn shadowing / nghe theo tuần — từ dễ nhất lên tốc độ thật.
+  // Mỗi tuần nói rõ LẤY VIDEO NÀO trong playlist, để không phải chọn.
+  var SHADOW = [
+    { t: "BBC Pronunciation — playlist phát âm", u: PL_BBCP, h: "Lấy video ĐẦU TIÊN trong playlist. Nghe hết, rồi shadow 30 giây đầu 6–8 lần." },
+    { t: "BBC Pronunciation — playlist phát âm", u: PL_BBCP, h: "Lấy video THỨ HAI. Cùng cách làm, 2 lượt cuối tắt phụ đề." },
+    { t: "Easy English — phỏng vấn đường phố", u: PL_EASY, h: "Lấy video MỚI NHẤT (đầu playlist). Chọn câu trả lời của MỘT người, dài 20–30 giây. Bỏ phần intro." },
+    { t: "Easy English — phỏng vấn đường phố", u: PL_EASY, h: "Vẫn video đó, nhưng lấy một người khác — để tai quen nhiều giọng." },
+    { t: "Easy English — video thứ 2 trong playlist", u: PL_EASY, h: "Video thứ 2. Lần này shadow 45 giây thay vì 30." },
+    { t: "Easy English — video thứ 3 trong playlist", u: PL_EASY, h: "Mục tiêu tuần này: theo kịp tốc độ gốc, không tua chậm." },
+    { t: "BBC 6 Minute English", u: PL_6MIN, h: "Lấy tập MỚI NHẤT. Nghe hết 6 phút, rồi chỉ shadow 45 giây khó nhất." },
+    { t: "BBC 6 Minute English", u: PL_6MIN, h: "Tập mới nhất. Tập trung vào NỐI ÂM — đúng âm của tuần 8." },
+    { t: "BBC 6 Minute English", u: PL_6MIN, h: "Nghe hết 1 lần KHÔNG phụ đề trước, rồi mới bật phụ đề và shadow 1 phút." },
+    { t: "BBC 6 Minute English", u: PL_6MIN, h: "Ghi lại 3 từ nghe không ra, tra YouGlish, biến thành thẻ Anki." },
+    { t: "Easy English — tốc độ thật, không phụ đề", u: PL_EASY, h: "Video mới nhất, lượt đầu KHÔNG phụ đề. Đây là bài kiểm tra tai sau 11 tuần." },
+    { t: "Tự chọn — thứ chị thật sự thích", u: PL_6MIN, h: "Tuần cuối Quý 1: chọn nguồn chị muốn nghe lâu dài. Thích thì mới bền." }
+  ];
+
+  // 12 tuần × 10 câu. Mặt trước tiếng Việt → mặt sau tiếng Anh.
+  var CHUNKS = [
+    {
+      w: 1, t: "Giới thiệu & chào hỏi",
+      trap: "Âm đuôi -st trong “pharmacist”. Nối âm “What do you do?” đọc liền như một từ.",
+      c: [
+        ["Tôi tên là Hương.", "My name's Huong."],
+        ["Rất vui được gặp bạn.", "Nice to meet you."],
+        ["Bạn làm nghề gì?", "What do you do?"],
+        ["Tôi là dược sĩ.", "I'm a pharmacist."],
+        ["Tôi sống ở Sài Gòn.", "I live in Ho Chi Minh City."],
+        ["Bạn từ đâu tới?", "Where are you from?"],
+        ["Xin lỗi, bạn nói lại được không?", "Sorry, could you say that again?"],
+        ["Tôi không hiểu.", "I don't understand."],
+        ["Cho tôi một chút.", "Give me a second."],
+        ["Hẹn gặp lại.", "See you later."]
+      ]
+    },
+    {
+      w: 2, t: "Một ngày của tôi",
+      trap: "Đuôi -s ở get<b>s</b>, work<b>s</b>, stay<b>s</b>. Nuốt đuôi là người nghe hiểu sai thì.",
+      c: [
+        ["Tôi dậy lúc 6 giờ.", "I get up at six."],
+        ["Tôi đi làm lúc 7 rưỡi.", "I leave for work at half past seven."],
+        ["Tôi thường ăn sáng ở nhà.", "I usually have breakfast at home."],
+        ["Tôi làm đến 5 giờ chiều.", "I work until five."],
+        ["Tối tôi hay ôm điện thoại.", "In the evening I'm usually on my phone."],
+        ["Tôi đi ngủ khoảng 11 giờ.", "I go to bed around eleven."],
+        ["Hôm nay tôi bận lắm.", "I'm really busy today."],
+        ["Tôi vừa ăn xong.", "I've just finished eating."],
+        ["Tôi đang trên đường về.", "I'm on my way home."],
+        ["Cuối tuần tôi ở nhà.", "I stay home on weekends."]
+      ]
+    },
+    {
+      w: 3, t: "Thích & không thích",
+      trap: "Âm /θ/ trong “think”: lưỡi chạm nhẹ răng trên, không thành “tink” hay “sink”.",
+      c: [
+        ["Tôi thích cà phê đen.", "I like black coffee."],
+        ["Tôi không thích chỗ ồn.", "I don't like noisy places."],
+        ["Tôi mê nấu ăn.", "I love cooking."],
+        ["Tôi ghét kẹt xe.", "I hate traffic jams."],
+        ["Cũng được, không đến nỗi.", "It's OK, not bad."],
+        ["Tôi thích cái này hơn.", "I prefer this one."],
+        ["Tôi không mê lắm.", "I'm not really into it."],
+        ["Nghe hay đấy.", "That sounds nice."],
+        ["Tôi chịu không nổi.", "I can't stand it."],
+        ["Tuỳ bạn thôi.", "It's up to you."]
+      ]
+    },
+    {
+      w: 4, t: "Gia đình & người quen",
+      trap: "Đuôi -ed trong “married” đọc là /d/, không thêm âm “ét”. “months” = /mʌnθs/.",
+      c: [
+        ["Tôi có một em trai.", "I have a younger brother."],
+        ["Tôi lập gia đình rồi.", "I'm married."],
+        ["Bố mẹ tôi sống ở quê.", "My parents live in the countryside."],
+        ["Chúng tôi khá thân nhau.", "We're pretty close."],
+        ["Cô ấy là bạn cũ của tôi.", "She's an old friend of mine."],
+        ["Chúng tôi quen nhau 10 năm rồi.", "We've known each other for ten years."],
+        ["Anh ấy làm cùng chỗ với tôi.", "He works with me."],
+        ["Lâu rồi tôi không gặp cô ấy.", "I haven't seen her in a while."],
+        ["Nhà tôi hay ăn tối cùng nhau.", "My family has dinner together."],
+        ["Bạn có anh chị em không?", "Do you have any brothers or sisters?"]
+      ]
+    },
+    {
+      w: 5, t: "Đồ ăn & quán xá",
+      trap: "Nguyên âm dài/ngắn: “food” /uː/ khác “foot” /ʊ/. Đuôi -ll trong “bill”, “full”.",
+      c: [
+        ["Tôi đói rồi.", "I'm hungry."],
+        ["Mình đi kiếm gì ăn đi.", "Let's go get something to eat."],
+        ["Cho tôi một cà phê sữa.", "Can I get a coffee with milk?"],
+        ["Món này cay không?", "Is this spicy?"],
+        ["Ngon quá.", "This is delicious."],
+        ["Tôi no rồi.", "I'm full."],
+        ["Tính tiền giúp tôi.", "Could I have the bill, please?"],
+        ["Tôi ăn cay không được.", "I can't eat spicy food."],
+        ["Bạn muốn gọi món gì?", "What do you want to order?"],
+        ["Để tôi trả.", "It's on me."]
+      ]
+    },
+    {
+      w: 6, t: "Thời gian & hẹn gặp",
+      trap: "Trọng âm: to·MOR·row, re·MIND, a·GAIN. Sai trọng âm là người nghe không ra từ.",
+      c: [
+        ["Mấy giờ rồi?", "What time is it?"],
+        ["Mình gặp lúc mấy giờ?", "What time should we meet?"],
+        ["Tôi rảnh sau 6 giờ.", "I'm free after six."],
+        ["Mai tôi bận cả ngày.", "I'm busy all day tomorrow."],
+        ["Tôi sẽ đến muộn 10 phút.", "I'll be ten minutes late."],
+        ["Để tuần sau được không?", "Can we do it next week?"],
+        ["Tôi quên mất.", "I forgot."],
+        ["Nhắc tôi nhé.", "Remind me, please."],
+        ["Càng sớm càng tốt.", "As soon as possible."],
+        ["Không gấp đâu.", "There's no rush."]
+      ]
+    },
+    {
+      w: 7, t: "Công việc hằng ngày",
+      trap: "“work” /wɜːrk/ khác “walk” /wɔːk/. Đuôi -ft trong “shift” phải bật ra.",
+      c: [
+        ["Tôi làm ở một nhà thuốc.", "I work at a pharmacy."],
+        ["Hôm nay đông khách lắm.", "It was really busy today."],
+        ["Tôi làm ca sáng.", "I'm on the morning shift."],
+        ["Tôi có cuộc họp lúc 2 giờ.", "I have a meeting at two."],
+        ["Tôi đang làm việc đó.", "I'm working on it."],
+        ["Việc đó không thuộc phần tôi.", "That's not my job."],
+        ["Tôi cần nghỉ một chút.", "I need a break."],
+        ["Sếp tôi khá dễ chịu.", "My boss is pretty easy-going."],
+        ["Hết ca là tôi mệt rũ.", "I'm tired after my shift."],
+        ["Mai tôi nghỉ.", "I'm off tomorrow."]
+      ]
+    },
+    {
+      w: 8, t: "Mua sắm & tiền",
+      trap: "“cheap” /iː/ khác “chip” /ɪ/. “much” kết bằng /tʃ/, không phải /t/.",
+      c: [
+        ["Cái này bao nhiêu?", "How much is this?"],
+        ["Đắt quá.", "That's too expensive."],
+        ["Có cái nào rẻ hơn không?", "Do you have anything cheaper?"],
+        ["Tôi chỉ xem thôi.", "I'm just looking."],
+        ["Tôi lấy cái này.", "I'll take this one."],
+        ["Trả bằng thẻ được không?", "Can I pay by card?"],
+        ["Tôi mua online nhiều.", "I buy a lot of things online."],
+        ["Đang giảm giá.", "It's on sale."],
+        ["Tôi đang cố tiết kiệm.", "I'm trying to save money."],
+        ["Đáng tiền đấy.", "It's worth it."]
+      ]
+    },
+    {
+      w: 9, t: "Thời tiết & sức khoẻ",
+      trap: "“headache” đọc /ˈhed-eik/, không đọc theo mặt chữ. “sleep” /iː/ dài.",
+      c: [
+        ["Hôm nay nóng quá.", "It's really hot today."],
+        ["Trời đang mưa.", "It's raining."],
+        ["Tôi bị cảm.", "I have a cold."],
+        ["Tôi đau đầu.", "I have a headache."],
+        ["Bạn ổn không?", "Are you OK?"],
+        ["Tôi đỡ hơn rồi.", "I feel better now."],
+        ["Giữ sức khoẻ nhé.", "Take care of yourself."],
+        ["Tôi ngủ không đủ.", "I didn't get enough sleep."],
+        ["Tôi kiệt sức.", "I'm exhausted."],
+        ["Hôm nay dễ chịu hơn hôm qua.", "It's nicer than yesterday."]
+      ]
+    },
+    {
+      w: 10, t: "Đi lại & chỉ đường",
+      trap: "“left” đuôi -ft. “lost” /ɒ/ khác “last” /æ/ — hai câu khác hẳn nghĩa.",
+      c: [
+        ["Chỗ đó xa không?", "Is it far from here?"],
+        ["Đi mất bao lâu?", "How long does it take?"],
+        ["Tôi đi xe máy.", "I ride a motorbike."],
+        ["Tôi bị kẹt xe.", "I got stuck in traffic."],
+        ["Rẽ trái ở chỗ đèn.", "Turn left at the lights."],
+        ["Tôi bị lạc.", "I'm lost."],
+        ["Chỉ giúp tôi đường với.", "Can you help me with directions?"],
+        ["Nó ngay góc kia thôi.", "It's just around the corner."],
+        ["Tôi sẽ đi taxi.", "I'll take a taxi."],
+        ["Tôi tới nơi rồi.", "I'm here."]
+      ]
+    },
+    {
+      w: 11, t: "Cảm xúc & ý kiến ngắn",
+      trap: "/θ/ trong “think”. “right” — gh câm, đọc /raɪt/.",
+      c: [
+        ["Tôi nghĩ vậy.", "I think so."],
+        ["Tôi không chắc.", "I'm not sure."],
+        ["Bạn nói đúng.", "You're right."],
+        ["Tôi không đồng ý.", "I don't agree."],
+        ["Thật hả?", "Really?"],
+        ["Buồn cười quá.", "That's so funny."],
+        ["Tôi hơi lo.", "I'm a little worried."],
+        ["Tôi bất ngờ đấy.", "I was surprised."],
+        ["Không sao đâu.", "It's fine."],
+        ["Tôi hiểu ý bạn.", "I see what you mean."]
+      ]
+    },
+    {
+      w: 12, t: "Giữ cho hội thoại chạy",
+      trap: "Tuần quan trọng nhất Quý 1: mười câu này là thứ cứu chị khỏi im lặng. Học thuộc lòng.",
+      c: [
+        ["Còn bạn thì sao?", "What about you?"],
+        ["Để tôi nghĩ đã.", "Let me think."],
+        ["Thật ra thì…", "Actually…"],
+        ["Ý tôi là…", "I mean…"],
+        ["Bạn biết gì không…", "You know what…"],
+        ["Kể tôi nghe thêm đi.", "Tell me more."],
+        ["Rồi sao nữa?", "And then what?"],
+        ["Xin lỗi, tôi nói nhầm.", "Sorry, I said that wrong."],
+        ["Tiếng Anh tôi chưa tốt lắm.", "My English isn't very good yet."],
+        ["Bạn nói chậm lại được không?", "Could you speak more slowly?"]
+      ]
+    }
+  ];
+
+  var QUARTERS = [
+    {
+      t: "Miệng và tai", m: "Tháng 1–3",
+      b: [
+        "<b>Âm — 24 điểm, tab Phát âm:</b> tuần 1–6 là âm đuôi, -s/-ed, TH, âm xuýt, L/R/V/W, nguyên âm dài–ngắn; tuần 7–10 là schwa, nối âm, trọng âm câu, cụm phụ âm; tuần 11–12 ôn và đo lại. Mỗi tuần 2–3 âm, tab Hôm nay tự chỉ âm của ngày.",
+        "<b>Chunk:</b> 300–400 cụm câu đời thường. Thẻ Anki = câu tiếng Việt → câu tiếng Anh + audio chị tự đọc.",
+        "<b>Output:</b> mỗi ngày tự nói 60 giây trước gương về 1 chủ đề ngẫu nhiên.",
+        "<b>Không làm:</b> không học bảng chia thì, không làm bài điền chỗ trống, không học list từ vựng."
+      ],
+      g: "Google Voice Typing gõ đúng ≥80% câu chị nói · nói 60 giây không dừng quá 3 lần về 10 chủ đề quen thuộc."
+    },
+    {
+      t: "Hai chiều", m: "Tháng 4–6",
+      b: [
+        "<b>Kỹ năng hỏi:</b> 50 mẫu câu hỏi. Người nói kém thường vì chỉ biết trả lời, không biết hỏi lại.",
+        "<b>Kể chuyện quá khứ</b> — học qua chunk, không qua bảng động từ bất quy tắc.",
+        "<b>Bắt đầu người thật:</b> Free4Talk 1 lần/tuần (miễn phí) hoặc italki 2 buổi/tháng (~$20).",
+        "<b>Filler</b> để không chết lặng: Let me think… / Actually… / You know what…",
+        "Chunk lũy kế: 700–800."
+      ],
+      g: "Hội thoại 5 phút với tutor về chủ đề bất kỳ trong 30 chủ đề, tutor không phải nói chậm bất thường."
+    },
+    {
+      t: "Ý kiến & tốc độ thật", m: "Tháng 7–9",
+      b: [
+        "<b>Nghe:</b> chuyển từ Easy English sang podcast/vlog tốc độ thật — nghe không phụ đề trước, có phụ đề sau.",
+        "<b>Nói:</b> cấu trúc ý kiến (I think… because… For example… but on the other hand…). Đây là bước nhảy từ “trả lời” sang “trò chuyện”.",
+        "<b>Kể lại:</b> xem video 2 phút rồi kể lại bằng lời 90 giây.",
+        "Giữ 2 buổi italki/tháng — <b>tăng độ khó, không tăng thời lượng</b>: yêu cầu tutor nói tốc độ thật và hỏi câu bất ngờ. Chunk lũy kế: 1.100–1.300."
+      ],
+      g: "Nói liên tục 3 phút về chủ đề trừu tượng · hội thoại 10 phút không gãy."
+    },
+    {
+      t: "Trôi chảy & mở rộng", m: "Tháng 10–12",
+      b: [
+        "Mở rộng sang chủ đề <b>chưa chuẩn bị trước</b> — đây là điểm phân biệt người tự tin thật.",
+        "Luyện <b>tự sửa khi đang nói</b> (sorry, I mean…) thay vì im lặng.",
+        "Tăng tốc phản xạ: trả lời trong 2 giây.",
+        "Bắc cầu Part 2: nghe podcast y dược tiếng Anh 1 lần/tuần, chỉ nghe, chưa học."
+      ],
+      g: "Small talk 20 phút với người lạ, thoải mái, tự sửa được lỗi của mình."
+    }
+  ];
+
+  var TOOLS = [
+    {
+      h: "Bắt buộc — miễn phí", items: [
+        ["AnkiWeb (iPhone — miễn phí)", "https://ankiweb.net", "free", "Mở bằng Safari → nút Chia sẻ → Thêm vào MH chính. Chính chủ, miễn phí vĩnh viễn, đồng bộ thật. Hạn chế: cần mạng, không thu âm vào thẻ được."],
+        ["AnkiMobile (iOS chính thức)", "https://apps.apple.com/app/id373493387", "paid", "$24.99 TRẢ MỘT LẦN, dùng vĩnh viễn. ⚠️ Các app tên “Anki: Study Flashcards” / “Anki Pro” / “Noji” KHÔNG phải Anki thật — thu bao tháng, khoá dữ liệu, không tương thích. Chỉ app này của Ankitects là chính thức."],
+        ["Anki cho máy tính", "https://apps.ankiweb.net", "free", "Miễn phí trên Windows/Mac. Dùng để tạo và nhập thẻ hàng loạt, rồi đồng bộ sang điện thoại qua AnkiWeb."],
+        ["BBC Learning English", "https://www.bbc.co.uk/learningenglish", "free", "Giáo trình có cấu trúc + transcript. Vào mục Pronunciation và 6 Minute English."],
+        ["Rachel's English", "https://www.youtube.com/@rachelsenglish", "free", "Cách đặt lưỡi và môi cho từng âm. Playlist “Sounds of American English”."],
+        ["Easy English", "https://www.youtube.com/@EasyEnglishVideos", "free", "Người thật nói ngoài đường, phụ đề đôi. Bắt đầu từ các video “Super Easy”."],
+        ["YouGlish", "https://youglish.com", "free", "Nghe một cụm trong 100 ngữ cảnh thật. Gõ cụm → nghe 5 lần."],
+        ["Cambridge Dictionary", "https://dictionary.cambridge.org", "free", "Phát âm chuẩn UK/US. Luôn bấm loa, đừng đọc phiên âm suông."],
+        ["Google Docs Voice Typing", "https://docs.google.com", "free", "Máy chấm phát âm miễn phí: Tools → Voice typing → English (US). Google gõ sai = phát âm chưa đạt."],
+        ["Gemini (voice)", "https://gemini.google.com", "free", "Bạn nói chuyện không biết chán, không ngại. Dùng cho khối “Nói với AI” thứ Bảy."]
+      ]
+    },
+    {
+      h: "Thêm vào từ Tháng 4 — miễn phí", items: [
+        ["Free4Talk", "https://www.free4talk.com", "free", "Phòng video nhóm với người học toàn cầu, miễn phí hoàn toàn. Vào phòng “Beginner”."],
+        ["Speechling", "https://speechling.com", "free", "Free tier: 10 bản ghi/tháng được coach người thật sửa."],
+        ["HelloTalk", "https://www.hellotalk.com", "free", "Trao đổi ngôn ngữ — nhắn tin trước, gọi thoại sau."],
+        ["Language Reactor", "https://www.languagereactor.com", "free", "Extension Chrome: phụ đề đôi trên Netflix và YouTube."]
+      ]
+    },
+    {
+      h: "Có phí — báo rõ trước", items: [
+        ["italki (community tutor)", "https://www.italki.com", "paid", "$5–10/buổi. Từ Tháng 4: 2 buổi/tháng ≈ $10–20. Buổi ngắn nhất thường là 30′ — vượt khung 20′, nên đặt vào Chủ nhật và coi buổi đó là phần học của cả Chủ nhật lẫn thứ Hai. Chọn tutor Philippines/Nam Phi để giá tốt."],
+        ["ELSA Speak Pro", "https://www.elsaspeak.com", "paid", "~$5–12/tháng. Chỉ dùng nếu sau Tháng 3 phát âm vẫn kẹt — free tier đủ để thử."],
+        ["Duolingo", "https://www.duolingo.com", "paid", "Không nằm trong lộ trình chính: tạo cảm giác học nhưng ít giá trị nói. Chỉ dùng như “kẹo” khi mệt."]
+      ]
+    }
+  ];
+
+  /* ---------------- storage ---------------- */
+
+  var KEY = "en20-v1";
+  var S = { start: null, days: {}, bench: [], week1: {}, chunks: {}, sounds: {}, tab: "today" };
+
+  function load() {
+    try {
+      var raw = localStorage.getItem(KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === "object") {
+          S.start = p.start || null;
+          S.days = p.days || {};
+          S.bench = p.bench || [];
+          S.week1 = p.week1 || {};
+          S.chunks = p.chunks || {};
+          S.sounds = p.sounds || {};
+          S.tab = p.tab || "today";
+        }
+      }
+    } catch (e) { /* riêng tư / bị chặn — chạy tạm trong bộ nhớ */ }
+    if (!S.start) S.start = ymd(new Date());
+  }
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { /* bỏ qua */ }
+  }
+
+  /* ---------------- dates ---------------- */
+
+  function ymd(d) {
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (day < 10 ? "0" : "") + day;
+  }
+  function parseYmd(s) {
+    var a = String(s).split("-");
+    return new Date(+a[0], (+a[1]) - 1, +a[2]);
+  }
+  function addDays(d, n) { var c = new Date(d.getTime()); c.setDate(c.getDate() + n); return c; }
+  function dayDiff(a, b) {
+    return Math.round((new Date(b.getFullYear(), b.getMonth(), b.getDate()) - new Date(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000);
+  }
+  var DOWVI = ["Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+  function viDate(d) { return DOWVI[d.getDay()] + ", " + d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear(); }
+
+  function today() { return new Date(); }
+  function dayRec(key) {
+    if (!S.days[key]) S.days[key] = { a: 0, b: 0, c: 0, d: 0, topic: null, log: "" };
+    return S.days[key];
+  }
+  function anyDone(r) { return r && (r.a || r.b || r.c || r.d); }
+
+  function elapsedAt(d) { return Math.max(0, dayDiff(parseYmd(S.start), d)); }
+  function elapsed() { return elapsedAt(today()); }
+  function weekNoAt(d) { return Math.floor(elapsedAt(d) / 7) + 1; }
+  function weekNo() { return weekNoAt(today()); }
+  function quarterNo() { return Math.min(4, Math.floor(elapsed() / 91) + 1); }
+
+  // Benchmark rơi vào Chủ nhật của mỗi tuần chẵn → đúng 2 tuần một lần.
+  function isBenchDay(d) { return d.getDay() === 0 && weekNoAt(d) % 2 === 0; }
+
+  // Số bước khác nhau theo ngày — lấy thẳng từ kế hoạch để không bao giờ lệch.
+  function reqKeys(d) {
+    return stepsFor(d.getDay(), isBenchDay(d)).map(function (s) { return s.k; });
+  }
+
+  function isDoneAt(key) {
+    var r = S.days[key];
+    if (!r) return false;
+    var need = reqKeys(parseYmd(key));
+    for (var i = 0; i < need.length; i++) if (!r[need[i]]) return false;
+    return true;
+  }
+
+  function streak() {
+    var n = 0, d = today();
+    if (!isDoneAt(ymd(d))) d = addDays(d, -1);
+    while (isDoneAt(ymd(d))) { n++; d = addDays(d, -1); }
+    return n;
+  }
+  function totalDays() {
+    var n = 0;
+    for (var k in S.days) if (S.days.hasOwnProperty(k) && isDoneAt(k)) n++;
+    return n;
+  }
+
+  function nextBench() {
+    var d = today();
+    for (var i = 0; i < 21; i++) {
+      var c = addDays(d, i);
+      if (isBenchDay(c)) return c;
+    }
+    return addDays(d, 14);
+  }
+
+  /* ---------------- dom helpers ---------------- */
+
+  function $(id) { return document.getElementById(id); }
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  /* ---------------- render: header ---------------- */
+
+  function renderHeader() {
+    $("s-streak").textContent = streak();
+    $("s-total").textContent = totalDays();
+    $("s-week").textContent = weekNo();
+  }
+
+  /* ---------------- render: today ---------------- */
+
+  var curSteps = [];
+
+  function renderToday() {
+    var d = today(), key = ymd(d), rec = dayRec(key), dow = d.getDay();
+    var bench = isBenchDay(d);
+    curSteps = decorate(stepsFor(dow, bench), d);
+
+    $("t-date").textContent = viDate(d);
+    $("t-sub").textContent = "Tuần " + weekNo() + " · Quý " + quarterNo() + " · ngày thứ " + (elapsed() + 1) + " của lộ trình";
+    var blk = DAYPLAN[dow];
+    var pill = $("t-block");
+    pill.textContent = bench ? "Chủ nhật · BENCHMARK · 20 phút" : blk.name + " · 20 phút";
+    pill.className = (dow === 0) ? "pill warm" : "pill";
+
+    var ul = $("t-steps");
+    ul.innerHTML = "";
+    curSteps.forEach(function (s) {
+      var li = el("li", rec[s.k] ? "done" : "");
+      var cb = el("input");
+      cb.type = "checkbox";
+      cb.className = "tick";
+      cb.id = "tick-" + s.k;
+      cb.checked = !!rec[s.k];
+      cb.addEventListener("change", function () {
+        rec[s.k] = cb.checked ? 1 : 0;
+        save();
+        renderHeader();
+        renderToday();
+        renderHeat();
+      });
+      var mid = el("div");
+      mid.appendChild(el("div", "step-label", esc(s.label)));
+      mid.appendChild(el("div", "step-note", esc(s.note)));
+      li.appendChild(cb);
+      li.appendChild(mid);
+      li.appendChild(el("div", "step-min", s.min + "′"));
+      ul.appendChild(li);
+    });
+
+    if (rec.topic == null) { rec.topic = Math.floor(Math.random() * TOPICS.length); save(); }
+    $("t-topic").innerHTML = '<span class="topic-num">' + (rec.topic + 1) + " · </span>" + esc(TOPICS[rec.topic]);
+    $("t-log").value = rec.log || "";
+
+    renderLogs();
+    renderRes();
+    markActiveStep();
+  }
+
+  function markActiveStep() {
+    var lis = $("t-steps").children;
+    for (var i = 0; i < lis.length; i++) lis[i].classList.toggle("active", i === segIdx && running);
+  }
+
+  function renderLogs() {
+    var box = $("t-loglist"), keys = [];
+    for (var k in S.days) if (S.days.hasOwnProperty(k) && S.days[k].log) keys.push(k);
+    keys.sort().reverse();
+    keys = keys.slice(0, 6);
+    box.innerHTML = "";
+    if (!keys.length) { box.appendChild(el("p", "tiny", "Những dòng đã ghi sẽ hiện ở đây — đọc lại sau 1 tháng rất đáng.")); return; }
+    keys.forEach(function (k) {
+      var row = el("div", "logline");
+      var dd = parseYmd(k);
+      row.appendChild(el("div", "d", dd.getDate() + "/" + (dd.getMonth() + 1)));
+      row.appendChild(el("div", null, esc(S.days[k].log)));
+      box.appendChild(row);
+    });
+  }
+
+  function renderHeat() {
+    var wrap = $("t-heat");
+    wrap.innerHTML = "";
+    var d = today();
+    var end = addDays(d, 6 - d.getDay());   // hết tuần hiện tại (CN đầu tuần)
+    var start = addDays(end, -83);
+    var doneCount = 0, past = 0;
+    for (var i = 0; i < 84; i++) {
+      var cur = addDays(start, i), k = ymd(cur), r = S.days[k];
+      var c = el("i");
+      if (isDoneAt(k)) { c.className = "d"; doneCount++; }
+      else if (anyDone(r)) c.className = "p";
+      if (k === ymd(d)) c.classList.add("t");
+      if (dayDiff(cur, d) >= 0) past++;
+      c.title = k + " — bấm để xem plan tuần đó";
+      c.style.cursor = "pointer";
+      (function (cell) {
+        cell.addEventListener("click", function () {
+          calOffset = Math.round(dayDiff(weekStart(today()), weekStart(cell.__d)) / 7);
+          showTab("cal");
+        });
+      })(c);
+      c.__d = cur;
+      wrap.appendChild(c);
+    }
+    var since = Math.min(past, elapsed() + 1);
+    $("t-rate").textContent = since > 0 ? doneCount + "/" + since + " ngày · " + Math.round(doneCount / since * 100) + "%" : "—";
+  }
+
+  /* ---------------- timer ---------------- */
+
+  var running = false, segIdx = 0, remain = 0, tick = null;
+
+  function fmt(s) {
+    var m = Math.floor(s / 60), x = s % 60;
+    return (m < 10 ? "0" : "") + m + ":" + (x < 10 ? "0" : "") + x;
+  }
+
+  function paintTimer() {
+    var s = curSteps[segIdx];
+    if (!s) { $("t-clock").textContent = "00:00"; $("t-seg").textContent = "Xong buổi hôm nay"; $("t-bar").style.width = "100%"; return; }
+    $("t-clock").textContent = fmt(remain);
+    $("t-seg").textContent = (segIdx + 1) + "/" + curSteps.length + " · " + s.label;
+    $("t-bar").style.width = Math.round((1 - remain / s.secs) * 100) + "%";
+  }
+
+  function beep() {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      var ctx = new AC(), o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = 660; o.type = "sine";
+      g.gain.setValueAtTime(0.0001, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.22, ctx.currentTime + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.5);
+      o.start(); o.stop(ctx.currentTime + 0.52);
+      setTimeout(function () { try { ctx.close(); } catch (e) {} }, 900);
+    } catch (e) { /* im lặng cũng không sao */ }
+  }
+
+  function stopTimer() {
+    running = false;
+    if (tick) { clearInterval(tick); tick = null; }
+    $("t-start").textContent = "Tiếp tục";
+    markActiveStep();
+  }
+
+  function finishSeg() {
+    var s = curSteps[segIdx];
+    if (s) {
+      var rec = dayRec(ymd(today()));
+      rec[s.k] = 1;
+      save();
+    }
+    beep();
+    segIdx++;
+    renderHeader();
+    renderHeat();
+    if (segIdx >= curSteps.length) {
+      stopTimer();
+      segIdx = curSteps.length - 1;
+      remain = 0;
+      $("t-start").textContent = "Bắt đầu lại";
+      $("t-seg").textContent = "Xong buổi hôm nay 🎉";
+      renderToday();
+      return;
+    }
+    remain = curSteps[segIdx].secs;
+    renderToday();
+    paintTimer();
+  }
+
+  function startTimer() {
+    if (running) { stopTimer(); return; }
+    if (remain <= 0) {
+      // nhảy tới bước đầu tiên chưa tick
+      var rec = dayRec(ymd(today()));
+      var i = 0;
+      while (i < curSteps.length && rec[curSteps[i].k]) i++;
+      segIdx = i >= curSteps.length ? 0 : i;
+      remain = curSteps[segIdx].secs;
+    }
+    running = true;
+    $("t-start").textContent = "Tạm dừng";
+    markActiveStep();
+    paintTimer();
+    tick = setInterval(function () {
+      remain--;
+      if (remain <= 0) { finishSeg(); } else { paintTimer(); }
+    }, 1000);
+  }
+
+  /* ---------------- render: roadmap ---------------- */
+
+  function renderRoad() {
+    var ul = $("r-week1");
+    ul.innerHTML = "";
+    WEEK1.forEach(function (s) {
+      var li = el("li", S.week1[s.k] ? "done" : "");
+      var cb = el("input");
+      cb.type = "checkbox"; cb.className = "tick"; cb.id = "tick-" + s.k;
+      cb.checked = !!S.week1[s.k];
+      cb.addEventListener("change", function () { S.week1[s.k] = cb.checked ? 1 : 0; save(); renderRoad(); });
+      var mid = el("div");
+      mid.appendChild(el("div", "step-label", esc(s.label)));
+      mid.appendChild(el("div", "step-note", esc(s.note)));
+      li.appendChild(cb); li.appendChild(mid); li.appendChild(el("div", "step-min", ""));
+      ul.appendChild(li);
+    });
+
+    var q = quarterNo();
+    $("r-now").textContent = "Đang ở Quý " + q;
+    var box = $("r-quarters");
+    box.innerHTML = "";
+    QUARTERS.forEach(function (Q, i) {
+      var n = i + 1;
+      var div = el("div", "quarter " + (n === q ? "now" : (n < q ? "past" : "")));
+      div.appendChild(el("div", "months", "Quý " + n + " · " + Q.m));
+      div.appendChild(el("h3", null, esc(Q.t)));
+      var ul2 = el("ul");
+      Q.b.forEach(function (b) { ul2.appendChild(el("li", null, b)); });
+      div.appendChild(ul2);
+      div.appendChild(el("div", "goal", "<b>Đích đo được:</b> " + Q.g));
+      box.appendChild(div);
+    });
+
+    var fr = $("r-frame");
+    fr.innerHTML = "";
+    FRAME.forEach(function (s) {
+      var li = el("li");
+      li.appendChild(el("div", "step-dot", "•"));
+      var mid = el("div");
+      mid.appendChild(el("div", "step-label", esc(s.label)));
+      mid.appendChild(el("div", "step-note", esc(s.note)));
+      li.appendChild(mid);
+      li.appendChild(el("div", "step-min", s.min + "′"));
+      fr.appendChild(li);
+    });
+
+    $("r-start").value = S.start;
+  }
+
+  /* ---------------- render: tools ---------------- */
+
+  function renderTools() {
+    var p = $("p-tools");
+    if (p.childNodes.length) return;
+    TOOLS.forEach(function (grp) {
+      var card = el("div", "card");
+      var head = el("div", "card-head");
+      head.appendChild(el("h2", null, esc(grp.h)));
+      card.appendChild(head);
+      grp.items.forEach(function (it) {
+        var row = el("div", "tool");
+        var a = el("a", null, esc(it[0]));
+        a.href = it[1]; a.target = "_blank"; a.rel = "noopener noreferrer";
+        row.appendChild(a);
+        row.appendChild(el("span", "cost " + it[2], it[2] === "free" ? "MIỄN PHÍ" : "CÓ PHÍ"));
+        row.appendChild(el("div", "why", esc(it[3])));
+        card.appendChild(row);
+      });
+      p.appendChild(card);
+    });
+  }
+
+  /* ---------------- plan cho một ngày bất kỳ ---------------- */
+
+  function wkOf(d) { return Math.min(12, Math.max(1, weekNoAt(d))); }
+
+  // Âm của ngày: chia đều các âm của tuần cho 7 ngày.
+  function soundOfDay(d) {
+    if (d.getDay() === 0) return null;   // Chủ nhật nghỉ khoan luyện âm
+    var list = SOUNDS.filter(function (x) { return x.w === wkOf(d); });
+    if (!list.length) return null;
+    var inWeek = ((elapsedAt(d) % 7) + 7) % 7;
+    return list[inWeek % list.length];
+  }
+
+  function resourceOfDay(d) {
+    var wk = wkOf(d), sh = SHADOW[wk - 1], dow = d.getDay();
+    if (dow === 1 || dow === 4) return { l: "Shadowing · " + sh.t, u: sh.u, h: sh.h };
+    if (dow === 3) return { l: "Nghe · " + sh.t, u: sh.u, h: "Nghe 2 lần, chép ra 3 câu nghe được. Không mở phụ đề ở lượt đầu." };
+    if (dow === 6) return { l: "Nói với AI · Gemini Live", u: "https://gemini.google.com", h: "Mở chế độ thoại, bảo nó: “Talk to me like a friend. Ask me one question at a time.”" };
+    if (dow === 0) return { l: "Hội thoại thật · Free4Talk", u: "https://www.free4talk.com", h: "Vào phòng Beginner. Không chuẩn bị trước — đó chính là bài tập." };
+    return { l: "Bộ chunk tuần " + wk + " · " + (CHUNKS[wk - 1] ? CHUNKS[wk - 1].t : "tự soạn"), u: null, tab: "chunk", h: "5 câu mới, đọc to từng câu 5 lần rồi mới tạo thẻ Anki." };
+  }
+
+  function renderRes() {
+    var d = today(), host = $("t-res");
+    host.innerHTML = "";
+
+    var snd = soundOfDay(d);
+    if (snd) {
+      var r1 = el("div", "res");
+      var a = el("div");
+      var ttl = el("div", "rl");
+      ttl.innerHTML = '<span class="sym">' + esc(snd.s) + "</span> &nbsp;" + esc(snd.n);
+      a.appendChild(ttl);
+      a.appendChild(el("div", "rh", esc(snd.e) + " — " + esc(snd.tip)));
+      r1.appendChild(a);
+      var g1 = el("a", "go", "Bài dạy ›");
+      g1.href = snd.p;
+      g1.target = "_blank"; g1.rel = "noopener noreferrer";
+      r1.appendChild(g1);
+      host.appendChild(r1);
+    }
+
+    var res = resourceOfDay(d);
+    var r2 = el("div", "res");
+    var b = el("div");
+    b.appendChild(el("div", "rl", esc(res.l)));
+    b.appendChild(el("div", "rh", esc(res.h)));
+    r2.appendChild(b);
+    if (res.u) {
+      var g2 = el("a", "go", "Mở ›");
+      g2.href = res.u; g2.target = "_blank"; g2.rel = "noopener noreferrer";
+      r2.appendChild(g2);
+    } else {
+      var g3 = el("button", "go", "Mở tab ›");
+      g3.type = "button";
+      g3.addEventListener("click", function () { showTab(res.tab); });
+      r2.appendChild(g3);
+    }
+    host.appendChild(r2);
+  }
+
+  /* ---------------- render: phát âm ---------------- */
+
+  var SLABEL = ["Chưa học", "Đang tập", "Ổn"];
+  var SWEEKNAME = {
+    1: "Âm đuôi — gốc của mọi vấn đề", 2: "Đuôi -s, -z và -ed", 3: "Hai âm TH",
+    4: "Âm xuýt: S/SH, CH/J, Z/J", 5: "L cuối, R, V/W", 6: "Nguyên âm dài–ngắn + trọng âm từ",
+    7: "Schwa", 8: "Nối âm", 9: "Trọng âm câu", 10: "Cụm phụ âm",
+    11: "Ôn 5 âm yếu nhất", 12: "Đọc 1 đoạn, so với bản gốc"
+  };
+
+  function soundOK() {
+    var n = 0;
+    SOUNDS.forEach(function (x) { if ((S.sounds[x.s] || 0) === 2) n++; });
+    return n;
+  }
+
+  function renderSounds() {
+    var host = $("s-weeks"), cw = wkOf(today());
+    host.innerHTML = "";
+
+    for (var w = 1; w <= 12; w++) {
+      var list = SOUNDS.filter(function (x) { return x.w === w; });
+      var d = el("details", "wk" + (w === cw ? " now" : ""));
+      if (w === cw) d.open = true;
+
+      var sum = el("summary");
+      sum.appendChild(el("span", "wnum", "T" + w));
+      sum.appendChild(el("span", "wname", esc(SWEEKNAME[w] || "")));
+      sum.appendChild(el("span", "wmark", list.length ? list.length + " âm" : "ôn tập"));
+      d.appendChild(sum);
+
+      var body = el("div", "wbody");
+      if (!list.length) {
+        body.appendChild(el("p", "muted", w === 11
+          ? "Không học âm mới. Lọc ra 5 âm còn ở trạng thái “Đang tập”, mỗi ngày tập 1 âm cho tới khi chuyển sang “Ổn”."
+          : "Ghi âm chị đọc một đoạn 60 giây bất kỳ, rồi shadow đúng đoạn đó của người bản xứ và ghi âm lần hai. Nghe hai bản cạnh nhau — chênh lệch còn lại chính là bài tập của Quý 2."));
+      }
+
+      list.forEach(function (x) {
+        var row = el("div", "snd");
+        row.appendChild(el("span", "sym", esc(x.s)));
+
+        var mid = el("div");
+        mid.appendChild(el("div", "nm", esc(x.n)));
+        mid.appendChild(el("div", "ex", esc(x.e)));
+        mid.appendChild(el("div", "tip", esc(x.tip)));
+        var lk = el("div", "links");
+        lk.style.marginTop = "6px";
+        var v = el("a", null, "🎥"); v.href = x.p; v.target = "_blank"; v.rel = "noopener noreferrer"; v.title = "Bài dạy âm này";
+        lk.appendChild(v);
+        if (x.p2) {
+          var v2 = el("a", null, "🎬"); v2.href = x.p2; v2.target = "_blank"; v2.rel = "noopener noreferrer"; v2.title = "Bài dạy âm thứ hai của cặp này";
+          lk.appendChild(v2);
+        }
+        var y = el("a", null, "🔎"); y.href = yg(x.g); y.target = "_blank"; y.rel = "noopener noreferrer"; y.title = "Nghe người bản xứ nói “" + x.g + "” trên YouGlish";
+        lk.appendChild(y);
+        mid.appendChild(lk);
+        row.appendChild(mid);
+
+        var st = el("button", "state", SLABEL[S.sounds[x.s] || 0]);
+        st.type = "button";
+        st.setAttribute("data-v", String(S.sounds[x.s] || 0));
+        st.addEventListener("click", function () {
+          var nv = ((S.sounds[x.s] || 0) + 1) % 3;
+          S.sounds[x.s] = nv;
+          save();
+          st.textContent = SLABEL[nv];
+          st.setAttribute("data-v", String(nv));
+          $("s-prog").textContent = soundOK() + "/24 ổn";
+        });
+        row.appendChild(st);
+        body.appendChild(row);
+      });
+
+      d.appendChild(body);
+      host.appendChild(d);
+    }
+    $("s-prog").textContent = soundOK() + "/24 ổn";
+  }
+
+  /* ---------------- render: lịch ---------------- */
+
+  var calOffset = 0; // số tuần lệch so với tuần hiện tại
+
+  function weekStart(d) { return addDays(d, -d.getDay()); } // Chủ nhật đầu tuần lịch
+
+  function renderCal() {
+    var base = addDays(weekStart(today()), calOffset * 7);
+    var host = $("k-days");
+    host.innerHTML = "";
+
+    var wkNums = [];
+    for (var i = 0; i < 7; i++) {
+      var n = weekNoAt(addDays(base, i));
+      if (wkNums.indexOf(n) < 0) wkNums.push(n);
+    }
+    $("k-lbl").textContent = base.getDate() + "/" + (base.getMonth() + 1) + " – " +
+      addDays(base, 6).getDate() + "/" + (addDays(base, 6).getMonth() + 1) +
+      " · tuần " + wkNums.join("–");
+
+    var fw = wkOf(base);
+    $("k-focus").textContent = "Trọng tâm: " + (SWEEKNAME[fw] || "—") +
+      (CHUNKS[fw - 1] ? " · chunk “" + CHUNKS[fw - 1].t + "”" : "");
+
+    for (var j = 0; j < 7; j++) {
+      var d = addDays(base, j), key = ymd(d);
+      var isToday = key === ymd(today());
+      var past = dayDiff(d, today()) > 0;
+      var card = el("div", "day" + (isToday ? " now" : (past ? " was" : "")));
+
+      var hd = el("div", "dh");
+      hd.appendChild(el("span", "dd", DOWVI[d.getDay()]));
+      hd.appendChild(el("span", "dn", d.getDate() + "/" + (d.getMonth() + 1)));
+      if (isToday) hd.appendChild(el("span", "pill", "hôm nay"));
+      if (isBenchDay(d)) hd.appendChild(el("span", "pill warm", "benchmark"));
+      if (isDoneAt(key)) hd.appendChild(el("span", "pill", "✓ xong"));
+      card.appendChild(hd);
+
+      var st = decorate(stepsFor(d.getDay(), isBenchDay(d)), d);
+      var ol = el("ol");
+      st.forEach(function (s) {
+        ol.appendChild(el("li", null, "<b>" + s.min + "′</b> " + esc(s.label) + " <span>— " + esc(s.note) + "</span>"));
+      });
+      card.appendChild(ol);
+
+      var snd = soundOfDay(d), res = resourceOfDay(d);
+      var rr = el("div", "dres");
+      var parts = [];
+      if (snd) parts.push('Âm 3′: <b>' + esc(snd.s) + "</b> " + esc(snd.n) + ' <a href="' + snd.p + '" target="_blank" rel="noopener noreferrer">🎥 bài dạy</a> · <a href="' + yg(snd.g) + '" target="_blank" rel="noopener noreferrer">🔎 YouGlish</a>');
+      parts.push(res.u
+        ? 'Nguồn: <a href="' + res.u + '" target="_blank" rel="noopener noreferrer">' + esc(res.l) + "</a>"
+        : "Nguồn: " + esc(res.l));
+      rr.innerHTML = parts.join("<br>");
+      card.appendChild(rr);
+
+      host.appendChild(card);
+    }
+  }
+
+  /* ---------------- render: chunks ---------------- */
+
+  var voiceEN = null, speechOK = ("speechSynthesis" in window);
+
+  function pickVoice() {
+    if (!speechOK) return;
+    try {
+      var vs = window.speechSynthesis.getVoices() || [];
+      for (var i = 0; i < vs.length; i++) {
+        if (/^en[-_]US/i.test(vs[i].lang)) { voiceEN = vs[i]; return; }
+      }
+      for (var j = 0; j < vs.length; j++) {
+        if (/^en/i.test(vs[j].lang)) { voiceEN = vs[j]; return; }
+      }
+    } catch (e) { speechOK = false; }
+  }
+
+  function say(text) {
+    if (!speechOK) return false;
+    try {
+      window.speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(text);
+      u.lang = "en-US";
+      u.rate = 0.88;
+      if (voiceEN) u.voice = voiceEN;
+      window.speechSynthesis.speak(u);
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function chunkWeek() { return Math.min(12, Math.max(1, weekNo())); }
+
+  function tsv(weeks) {
+    var out = [];
+    weeks.forEach(function (W) {
+      W.c.forEach(function (p) { out.push(p[0] + "\t" + p[1]); });
+    });
+    return out.join("\n");
+  }
+
+  function copyText(txt, msgEl, okMsg) {
+    var box = $("x-box");
+    box.value = txt;
+    var done = false;
+    try { box.select(); done = document.execCommand("copy"); } catch (e) {}
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () {
+        msgEl.textContent = okMsg;
+      }, function () {
+        msgEl.textContent = done ? okMsg : "Không copy tự động được — vào tab Nguyên tắc, chữ đã nằm sẵn trong ô sao lưu.";
+      });
+    } else {
+      msgEl.textContent = done ? okMsg : "Không copy tự động được — vào tab Nguyên tắc, chữ đã nằm sẵn trong ô sao lưu.";
+    }
+  }
+
+  function renderChunks() {
+    var host = $("c-weeks"), cw = chunkWeek();
+    host.innerHTML = "";
+
+    CHUNKS.forEach(function (W) {
+      var d = el("details", "wk" + (W.w === cw ? " now" : ""));
+      if (W.w === cw) d.open = true;
+
+      var sum = el("summary");
+      sum.appendChild(el("span", "wnum", "T" + W.w));
+      sum.appendChild(el("span", "wname", esc(W.t)));
+      sum.appendChild(el("span", "wmark", S.chunks[W.w] ? "✓ đã nạp" : (W.w === cw ? "tuần này" : "10 câu")));
+      d.appendChild(sum);
+
+      var body = el("div", "wbody");
+      W.c.forEach(function (p) {
+        var row = el("div", "chunk");
+        var txt = el("div");
+        txt.appendChild(el("div", "vi", esc(p[0])));
+        txt.appendChild(el("div", "en", esc(p[1])));
+        row.appendChild(txt);
+        var b = el("button", "spk", "🔊");
+        b.type = "button";
+        b.title = "Nghe câu này";
+        b.setAttribute("aria-label", "Nghe: " + p[1]);
+        if (!speechOK) b.disabled = true;
+        b.addEventListener("click", function () { say(p[1]); });
+        row.appendChild(b);
+        body.appendChild(row);
+      });
+
+      body.appendChild(el("div", "trap", "<b>Bẫy phát âm tuần này:</b> " + W.trap));
+
+      var act = el("div", "wk-actions");
+      var lab = el("label");
+      var cb = el("input");
+      cb.type = "checkbox"; cb.className = "tick"; cb.id = "chunk-w" + W.w;
+      cb.checked = !!S.chunks[W.w];
+      cb.addEventListener("change", function () {
+        S.chunks[W.w] = cb.checked ? 1 : 0;
+        save();
+        $("c-prog").textContent = chunkDone() + "/120";
+        var mk = sum.querySelector(".wmark");
+        mk.textContent = cb.checked ? "✓ đã nạp" : (W.w === cw ? "tuần này" : "10 câu");
+      });
+      lab.appendChild(cb);
+      lab.appendChild(el("span", null, "Đã nạp vào Anki"));
+      act.appendChild(lab);
+
+      var cp = el("button", "btn", "Sao chép 10 câu");
+      cp.type = "button";
+      cp.addEventListener("click", function () {
+        copyText(tsv([W]), $("c-msg"), "Đã sao chép 10 câu của tuần " + W.w + " — dán vào Notepad, lưu .txt rồi Import vào Anki.");
+      });
+      act.appendChild(cp);
+      body.appendChild(act);
+
+      d.appendChild(body);
+      host.appendChild(d);
+    });
+
+    $("c-prog").textContent = chunkDone() + "/120";
+  }
+
+  function chunkDone() {
+    var n = 0;
+    CHUNKS.forEach(function (W) { if (S.chunks[W.w]) n += W.c.length; });
+    return n;
+  }
+
+  /* ---------------- render: benchmark ---------------- */
+
+  var BMK = [["fluency", "Độ trôi"], ["clarity", "Độ rõ"], ["length", "Độ dài"], ["natural", "Tự nhiên"]];
+
+  function renderBench() {
+    var nb = nextBench(), dd = dayDiff(today(), nb);
+    var due = $("b-due");
+    due.textContent = dd <= 0 ? "Đến hạn hôm nay" : "còn " + dd + " ngày · " + nb.getDate() + "/" + (nb.getMonth() + 1);
+    due.className = dd <= 1 ? "pill warm" : "pill";
+
+    $("b-count").textContent = S.bench.length + " lần";
+    var list = $("b-list");
+    if (!S.bench.length) return;
+
+    var sorted = S.bench.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+    list.innerHTML = "";
+    sorted.forEach(function (b) {
+      var row = el("div", "bm-row");
+      var top = el("div", "bm-top");
+      var d = parseYmd(b.date);
+      top.appendChild(el("span", "date", d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear()));
+      var tot = b.fluency + b.clarity + b.length + b.natural;
+      top.appendChild(el("span", "score", "<b>" + tot + "</b>/20"));
+      row.appendChild(top);
+      var bars = el("div", "bm-bars");
+      BMK.forEach(function (m) {
+        var c = el("div", null, esc(m[1]) + " " + b[m[0]]);
+        c.appendChild(el("div", "track", '<i style="width:' + (b[m[0]] / 5 * 100) + '%"></i>'));
+        bars.appendChild(c);
+      });
+      row.appendChild(bars);
+      if (b.note) row.appendChild(el("div", "bm-note", esc(b.note)));
+      list.appendChild(row);
+    });
+
+    renderSpark(S.bench.slice().sort(function (a, b) { return a.date < b.date ? -1 : 1; }));
+  }
+
+  function renderSpark(arr) {
+    var box = $("b-spark");
+    box.innerHTML = "";
+    if (arr.length < 2) return;
+    var w = 640, h = 90, pad = 10;
+    var pts = arr.map(function (b, i) {
+      var tot = b.fluency + b.clarity + b.length + b.natural;
+      var x = pad + i * (w - pad * 2) / (arr.length - 1);
+      var y = h - pad - ((tot - 4) / 16) * (h - pad * 2);
+      return [x, y, tot];
+    });
+    var line = pts.map(function (p) { return p[0].toFixed(1) + "," + p[1].toFixed(1); }).join(" ");
+    var area = "M" + pts[0][0].toFixed(1) + "," + (h - pad) + " L" + line.split(" ").join(" L") + " L" + pts[pts.length - 1][0].toFixed(1) + "," + (h - pad) + " Z";
+    var last = pts[pts.length - 1];
+    var svg = '<svg viewBox="0 0 ' + w + " " + h + '" width="100%" height="90" role="img" aria-label="Tổng điểm benchmark theo thời gian" style="display:block">' +
+      '<path d="' + area + '" fill="var(--jade-soft)" stroke="none"></path>' +
+      '<polyline points="' + line + '" fill="none" stroke="var(--jade)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></polyline>' +
+      '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="4" fill="var(--jade)"></circle>' +
+      '<text x="' + Math.min(last[0] + 8, w - 34) + '" y="' + Math.max(last[1] - 6, 14) + '" fill="var(--ink)" font-size="13" font-family="sans-serif" font-weight="600">' + last[2] + "/20</text>" +
+      "</svg>";
+    box.innerHTML = svg;
+    box.appendChild(el("p", "tiny", "Tổng 4 tiêu chí qua " + arr.length + " lần đo. Chỉ so với chính mình 2 tuần trước."));
+  }
+
+  /* ---------------- tabs ---------------- */
+
+  var PANELS = { today: "p-today", cal: "p-cal", sound: "p-sound", chunk: "p-chunk", road: "p-road", tools: "p-tools", bench: "p-bench", about: "p-about" };
+
+  function showTab(name) {
+    S.tab = name; save();
+    for (var k in PANELS) if (PANELS.hasOwnProperty(k)) $(PANELS[k]).hidden = (k !== name);
+    var btns = document.querySelectorAll("nav.tabs button");
+    for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-selected", btns[i].dataset.tab === name ? "true" : "false");
+    if (name === "tools") renderTools();
+    if (name === "road") renderRoad();
+    if (name === "bench") renderBench();
+    if (name === "chunk" && !$("c-weeks").childNodes.length) renderChunks();
+    if (name === "sound" && !$("s-weeks").childNodes.length) renderSounds();
+    if (name === "cal") renderCal();
+  }
+
+  /* ---------------- wiring ---------------- */
+
+  load();
+  renderHeader();
+  renderToday();
+  renderHeat();
+  paintTimer();
+  $("t-start").textContent = "Bắt đầu";
+  renderCal();
+
+  var btns = document.querySelectorAll("nav.tabs button");
+  for (var i = 0; i < btns.length; i++) {
+    (function (b) { b.addEventListener("click", function () { showTab(b.dataset.tab); }); })(btns[i]);
+  }
+  showTab(S.tab || "today");
+
+  $("k-prev").addEventListener("click", function () { calOffset--; renderCal(); });
+  $("k-next").addEventListener("click", function () { calOffset++; renderCal(); });
+  $("k-now").addEventListener("click", function () { calOffset = 0; renderCal(); });
+
+  pickVoice();
+  if (speechOK && typeof window.speechSynthesis.onvoiceschanged !== "undefined") {
+    window.speechSynthesis.onvoiceschanged = pickVoice;
+  }
+
+  $("c-copyall").addEventListener("click", function () {
+    copyText(tsv(CHUNKS), $("c-msg"), "Đã sao chép 120 câu — dán vào Notepad, lưu chunks.txt, rồi Anki › File › Import (Fields separated by Tab).");
+  });
+  $("c-speak-test").addEventListener("click", function () {
+    var ok = say("Nice to meet you. What do you do?");
+    $("c-msg").textContent = ok
+      ? "Nếu chị nghe thấy câu tiếng Anh vừa rồi thì nút 🔊 ở mọi câu đều dùng được."
+      : "Máy này không đọc được — dùng nút loa trên Cambridge Dictionary thay thế (tab Công cụ).";
+  });
+
+  $("t-start").addEventListener("click", startTimer);
+  $("t-skip").addEventListener("click", function () { if (curSteps[segIdx]) { remain = 1; finishSeg(); } });
+
+  $("t-roll").addEventListener("click", function () {
+    var rec = dayRec(ymd(today())), n = rec.topic;
+    while (TOPICS.length > 1 && n === rec.topic) n = Math.floor(Math.random() * TOPICS.length);
+    rec.topic = n; save();
+    $("t-topic").innerHTML = '<span class="topic-num">' + (n + 1) + " · </span>" + esc(TOPICS[n]);
+  });
+
+  $("t-log").addEventListener("input", function () {
+    dayRec(ymd(today())).log = $("t-log").value;
+    save();
+  });
+  $("t-log").addEventListener("blur", renderLogs);
+
+  $("r-start").addEventListener("change", function () {
+    if ($("r-start").value) {
+      S.start = $("r-start").value;
+      save();
+      renderHeader(); renderToday(); renderHeat(); renderRoad(); renderBench();
+    }
+  });
+
+  $("b-date").value = ymd(today());
+  $("b-save").addEventListener("click", function () {
+    function v(id) { return Math.max(1, Math.min(5, parseInt($(id).value, 10) || 3)); }
+    S.bench.push({
+      date: $("b-date").value || ymd(today()),
+      fluency: v("b-fluency"), clarity: v("b-clarity"),
+      length: v("b-length"), natural: v("b-natural"),
+      note: $("b-note").value.trim()
+    });
+    save();
+    $("b-note").value = "";
+    renderBench();
+  });
+
+  $("x-copy").addEventListener("click", function () {
+    var txt = JSON.stringify(S);
+    $("x-box").value = txt;
+    $("x-box").select();
+    var ok = false;
+    try { ok = document.execCommand("copy"); } catch (e) {}
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt).then(function () {
+        $("x-msg").textContent = "Đã sao chép — dán vào ghi chú điện thoại để giữ.";
+      }, function () {
+        $("x-msg").textContent = ok ? "Đã sao chép." : "Chọn toàn bộ chữ trong ô rồi copy thủ công.";
+      });
+    } else {
+      $("x-msg").textContent = ok ? "Đã sao chép." : "Chọn toàn bộ chữ trong ô rồi copy thủ công.";
+    }
+  });
+
+  $("x-paste").addEventListener("click", function () {
+    var raw = $("x-box").value.trim();
+    if (!raw) { $("x-msg").textContent = "Dán bản sao lưu vào ô trên trước đã."; return; }
+    try {
+      var p = JSON.parse(raw);
+      if (!p || typeof p !== "object" || !p.days) throw new Error("bad");
+      S.start = p.start || ymd(today());
+      S.days = p.days || {};
+      S.bench = p.bench || [];
+      S.week1 = p.week1 || {};
+      S.chunks = p.chunks || {};
+      S.sounds = p.sounds || {};
+      save();
+      $("c-weeks").innerHTML = ""; $("s-weeks").innerHTML = "";
+      renderHeader(); renderToday(); renderHeat(); renderRoad(); renderBench();
+      $("x-msg").textContent = "Đã khôi phục: " + Object.keys(S.days).length + " ngày, " + S.bench.length + " lần đo, " + soundOK() + "/24 âm.";
+    } catch (e) {
+      $("x-msg").textContent = "Bản dán không đọc được — kiểm tra lại xem đã copy đủ chưa.";
+    }
+  });
+
+  // sang ngày mới khi trang mở qua đêm
+  var curKey = ymd(today());
+  setInterval(function () {
+    var k = ymd(today());
+    if (k !== curKey) {
+      curKey = k;
+      stopTimer(); segIdx = 0; remain = 0;
+      renderHeader(); renderToday(); renderHeat(); paintTimer();
+      $("t-start").textContent = "Bắt đầu";
+    }
+  }, 60000);
+})();
+</script>
+</body>
+</html>
