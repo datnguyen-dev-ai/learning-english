@@ -668,7 +668,7 @@
   /* =================== BUỔI HỌC =================== */
   var SES = null;
   function startSession(M) {
-    SES = { mood: M, i: 0 };
+    SES = { mood: M, i: 0, gen: 0 };
     runStep();
   }
 
@@ -691,12 +691,16 @@
     return { stage: stage, baby: bb, view: v };
   }
 
-  function next() {
-    /* Bấm đúp nút cuối bước (hoặc hẹn giờ + bấm tay cùng lúc) chỉ được chuyển bước một lần. */
-    if (SES.leaving === SES.i) return;
-    SES.leaving = SES.i;
-    SES.i++;
-    if (SES.i < SES.mood.steps.length) runStep(); else viewEnd();
+  /* Mỗi bước nhận một hàm "xong bước" riêng, chỉ có hiệu lực một lần và chỉ cho đúng bước đó.
+     Bấm đúp, hẹn giờ trùng với bấm tay, hay nút cũ còn sót lại đều không chuyển bước thêm lần nữa. */
+  function stepDone() {
+    var ses = SES, gen = ses.gen;
+    return function () {
+      if (ses !== SES || gen !== ses.gen) return;
+      ses.gen++;
+      ses.i++;
+      if (ses.i < ses.mood.steps.length) runStep(); else viewEnd();
+    };
   }
 
   function runStep() {
@@ -710,6 +714,7 @@
 
   /* ---- Bước: Thử thách 30 giây ---- */
   function stepRace() {
+    var next = stepDone();
     var F = frame();
     var best = S.best || 0;
     var intro = el("div", "card");
@@ -783,6 +788,7 @@
 
   /* ---- Bước: Nghe thôi (tự chạy, rảnh tay) ---- */
   function stepListen() {
+    var next = stepDone();
     var F = frame(), i = 0, paused = false, whisper = !!SES.mood.whisper;
     var card = el("div", "card");
     var ctl = el("div", "controls");
@@ -849,6 +855,7 @@
 
   /* ---- Bước: Tai thính (phân biệt câu gần giống) ---- */
   function stepHear() {
+    var next = stepDone();
     var F = frame(), r = 0;
     function round() {
       var R = TOPIC.hear[r];
@@ -888,6 +895,7 @@
 
   /* ---- Bước: Ghép hình ---- */
   function stepMatch() {
+    var next = stepDone();
     var F = frame();
     F.stage.appendChild(el("p", "nudge", "Chạm một chữ, rồi chạm hình đúng với nó"));
     var g = el("div", "grid");
@@ -924,6 +932,7 @@
 
   /* ---- Bước: Dùng ngay tối nay ---- */
   function stepUse() {
+    var next = stepDone();
     var F = frame();
     var U = TOPIC.use;
     var card = el("div", "card");
