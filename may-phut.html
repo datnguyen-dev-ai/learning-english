@@ -477,7 +477,7 @@
   }
 
   /* =================== 🎤 nói thử (nhận giọng của trình duyệt) =================== */
-  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition || null; /* chỉ để biết có nút 🎤 hay không */
   function norm(s) {
     return " " + String(s).toLowerCase().replace(/[’‘]/g, "'").replace(/[^a-z' ]+/g, " ").replace(/\s+/g, " ").trim() + " ";
   }
@@ -510,41 +510,86 @@
       return box;
     }
     box.appendChild(el("p", "micnote", "Giọng nói được Google/Apple nhận dạng để chấm, app không lưu lại."));
-    var rec = null, busy = false;
+    /* Trình duyệt không hứa sẽ báo "nghe xong" (Safari hay im luôn, nói nhỏ thì Chrome có khi
+       kết thúc mà không trả chữ). Nên app tự canh giờ: im lặng 1,6 s hoặc quá 8 s thì tự dừng,
+       dừng rồi 2 s vẫn chưa xong thì huỷ, và lúc nào cũng kết thúc bằng kết quả hoặc một lời nhắn. */
+    var SILENCE_MS = 1600, CAP_MS = 8000, GRACE_MS = 2000;
+    var busy = false, stopNow = null;
+    function setSession(t) { try { if (navigator.audioSession) navigator.audioSession.type = t; } catch (e) {} }
+    function idle(label) { busy = false; stopNow = null; b.classList.remove("on"); b.textContent = label; }
     function start() {
-      if (busy) { try { rec.stop(); } catch (e) {} return; }
+      if (busy) { if (stopNow) stopNow(); return; }
+      var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!Rec) { status.textContent = "Máy này chưa nhận giọng được."; return; }
       if (onStart) onStart();
       hush();
+      var ac = actx();
+      try { if (ac) ac.suspend(); } catch (e) {}
+      setSession("play-and-record");
+      var rec;
       try {
-        rec = new SR();
-        rec.lang = "en-US"; rec.interimResults = false; rec.maxAlternatives = 5; rec.continuous = false;
-      } catch (e) { status.textContent = "Máy này chưa nhận giọng được."; return; }
+        rec = new Rec();
+        rec.lang = "en-US"; rec.interimResults = true; rec.maxAlternatives = 5; rec.continuous = false;
+      } catch (e) { setSession("playback"); status.textContent = "Máy này chưa nhận giọng được."; return; }
+
+      var finished = false, finalAlts = null, interim = "", errMsg = "";
+      var tSilence = null, tCap = null, tGrace = null;
       busy = true;
       b.classList.add("on"); b.textContent = "● Đang nghe… chạm để dừng";
       status.textContent = "Đọc to vừa đủ, gần điện thoại nhé.";
-      var got = false;
+      words.hidden = true;
+
+      function clearAll() { clearTimeout(tSilence); clearTimeout(tCap); clearTimeout(tGrace); }
+      function armSilence() { clearTimeout(tSilence); tSilence = setTimeout(stop, SILENCE_MS); }
+      function stop() {
+        if (finished) return;
+        clearTimeout(tSilence); clearTimeout(tCap);
+        try { rec.stop(); } catch (e) {}
+        if (!tGrace) tGrace = setTimeout(function () { try { rec.abort(); } catch (e) {} finish(); }, GRACE_MS);
+      }
+      function finish() {
+        if (finished) return;
+        finished = true;
+        clearAll();
+        rec.onresult = rec.onerror = rec.onend = null;
+        setSession("playback");
+        try { if (ac) ac.resume(); } catch (e) {}
+        idle("🎤 Nói lại");
+        var alts = finalAlts || (interim ? [interim] : null);
+        if (alts && alts.length) {
+          var best = null;
+          alts.forEach(function (t) { var r = align(target, t); r.heard = t; if (!best || r.hit > best.hit) best = r; });
+          show(best);
+        } else {
+          status.textContent = errMsg || "Chưa nghe thấy gì. Bấm 🎤 rồi đọc to hơn chút nhé.";
+        }
+      }
+      stopNow = stop;
+      tCap = setTimeout(stop, CAP_MS);
+
       rec.onresult = function (ev) {
-        got = true;
-        var alts = [], res = ev.results[0];
-        for (var k = 0; k < res.length; k++) alts.push(res[k].transcript);
-        var best = null;
-        alts.forEach(function (t) { var r = align(target, t); r.heard = t; if (!best || r.hit > best.hit) best = r; });
-        show(best);
+        var fin = null, live = "";
+        for (var k = ev.resultIndex || 0; k < ev.results.length; k++) {
+          var res = ev.results[k];
+          if (res.isFinal) { fin = []; for (var j = 0; j < res.length; j++) fin.push(res[j].transcript); }
+          else live += res[0].transcript;
+        }
+        if (fin) { finalAlts = fin; finish(); return; }
+        if (live) { interim = live; status.textContent = "Máy đang nghe: “" + live + "”"; armSilence(); }
       };
       rec.onerror = function (ev) {
         var e = ev && ev.error;
-        status.textContent =
+        errMsg =
           e === "not-allowed" || e === "service-not-allowed" ? "Trình duyệt chưa cho dùng micro. Bấm Cho phép rồi thử lại nhé." :
           e === "no-speech" ? "Chưa nghe thấy gì. Nói gần máy hơn chút nhé." :
           e === "network" ? "Cần có mạng để chấm giọng." :
+          e === "audio-capture" ? "Không mở được micro. Tắt app khác đang dùng micro rồi thử lại nhé." :
           e === "aborted" ? "" : "Chưa nhận được, thử lại nhé.";
+        if (e !== "no-speech" && e !== "aborted") interim = "";
+        setTimeout(finish, 300);
       };
-      rec.onend = function () {
-        busy = false;
-        b.classList.remove("on"); b.textContent = "🎤 Nói lại";
-        if (!got && !status.textContent) status.textContent = "Chưa nghe thấy gì. Thử lại nhé.";
-      };
-      try { rec.start(); } catch (e) { busy = false; b.classList.remove("on"); b.textContent = "🎤 Nói thử"; status.textContent = "Chưa bật được micro, thử lại nhé."; }
+      rec.onend = function () { finish(); };
+      try { rec.start(); } catch (e) { errMsg = "Chưa bật được micro, thử lại nhé."; finish(); }
     }
     function show(r) {
       var orig = target.replace(/[.?!,]/g, "").split(/\s+/);
