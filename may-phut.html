@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Mấy Phút Cho Mình</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<style>
+  /* Layout: app một cột kiểu điện thoại. Em bé là nhân vật chính, phản ứng theo từng câu trả lời; mỗi màn chỉ có một việc. Tông "hoàng hôn": tím oải hương + hồng dâu + đào. */
+  :root {
+    --bg: #F3EEFA;
+    --surface: #FFFFFF;
+    --raise: #EAE2F6;
+    --ink: #2A2340;
+    --soft: #6C6386;
+    --berry: #D9466F;
+    --berry-soft: #FBE3EA;
+    --on-berry: #FFFFFF;
+    --good: #1E9B74;
+    --good-soft: #DDF4EC;
+    --sun: #F6A93B;
+    --line: rgba(42, 35, 64, .1);
+    --shadow: 0 2px 0 rgba(42, 35, 64, .06), 0 14px 30px -18px rgba(42, 35, 64, .35);
+    --skin: #FFD8BE;
+    --hair: #5A3A2A;
+    --cheek: #FF9DAE;
+    --mouth: #B9506A;
+    --display: "Baloo 2", "Be Vietnam Pro", system-ui, sans-serif;
+    --body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #19152C;
+      --surface: #251F40;
+      --raise: #2F2850;
+      --ink: #F4EFFB;
+      --soft: #B4AACF;
+      --berry: #FF7A9C;
+      --berry-soft: #3E2342;
+      --on-berry: #2A0E19;
+      --good: #5FD8B0;
+      --good-soft: #173A33;
+      --sun: #FFC163;
+      --line: rgba(244, 239, 251, .12);
+      --shadow: 0 2px 0 rgba(0, 0, 0, .25), 0 14px 30px -18px rgba(0, 0, 0, .8);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #19152C;
+    --surface: #251F40;
+    --raise: #2F2850;
+    --ink: #F4EFFB;
+    --soft: #B4AACF;
+    --berry: #FF7A9C;
+    --berry-soft: #3E2342;
+    --on-berry: #2A0E19;
+    --good: #5FD8B0;
+    --good-soft: #173A33;
+    --sun: #FFC163;
+    --line: rgba(244, 239, 251, .12);
+    --shadow: 0 2px 0 rgba(0, 0, 0, .25), 0 14px 30px -18px rgba(0, 0, 0, .8);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; padding: 0 16px;
+    background: var(--bg); color: var(--ink);
+    font-family: var(--body); font-size: 16px; line-height: 1.5;
+    -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.12; text-wrap: balance; font-weight: 800; }
+  p { margin: 0; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--berry); outline-offset: 2px; }
+
+  .app { max-width: 460px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; padding-block: 18px 22px; gap: 16px; }
+  .view { display: flex; flex-direction: column; gap: 16px; flex: 1 1 auto; }
+
+  /* ---------- em bé ---------- */
+  .baby { position: relative; width: 132px; height: 132px; margin: 0 auto; }
+  .baby svg { width: 100%; height: 100%; display: block; overflow: visible; }
+  .baby.sm { width: 54px; height: 54px; margin: 0; }
+  .baby.bounce svg { animation: bounce .6s ease; }
+  .baby.wobble svg { animation: wobble .5s ease; }
+  .zzz { position: absolute; right: 2px; top: 6px; font-family: var(--display); font-weight: 800; color: var(--soft); pointer-events: none; }
+  .zzz span { position: absolute; animation: floatz 3s infinite; opacity: 0; }
+  .zzz span:nth-child(2) { animation-delay: 1s; left: 10px; font-size: 1.2em; }
+  .zzz span:nth-child(3) { animation-delay: 2s; left: 22px; font-size: 1.45em; }
+
+  /* ---------- trang nhà ---------- */
+  .hello { text-align: center; display: flex; flex-direction: column; gap: 6px; }
+  .hello .eyebrow { font-size: 13px; font-weight: 600; color: var(--soft); letter-spacing: .04em; }
+  .hello h1 { font-size: 32px; }
+  .together { display: inline-flex; gap: 6px; align-items: baseline; justify-content: center; font-size: 14px; color: var(--soft); }
+  .together b { font-family: var(--display); font-size: 22px; color: var(--berry); font-variant-numeric: tabular-nums; }
+  .namebox { display: flex; gap: 8px; align-items: center; justify-content: center; font-size: 14px; color: var(--soft); }
+  .namebox input { font: inherit; font-weight: 600; color: var(--ink); width: 110px; text-align: center; border: 0; border-bottom: 2px dashed var(--line); background: transparent; padding: 2px 4px; }
+
+  .today { background: var(--surface); border-radius: 26px; padding: 20px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; }
+  .today .k { font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--berry); }
+  .today h2 { font-size: 28px; }
+  .today .why { color: var(--soft); font-size: 14.5px; }
+  .peek { display: flex; flex-wrap: wrap; gap: 6px; }
+  .peek span { background: var(--raise); border-radius: 999px; padding: 5px 11px; font-size: 13.5px; font-weight: 600; }
+  .ear { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--soft); justify-content: center; text-align: center; }
+
+  .btn { border: 0; border-radius: 999px; padding: 16px 22px; font-weight: 700; font-size: 17px; background: var(--berry); color: var(--on-berry); width: 100%; box-shadow: 0 4px 0 color-mix(in srgb, var(--berry) 70%, #000); transition: transform .08s; }
+  .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 color-mix(in srgb, var(--berry) 70%, #000); }
+  .btn.quiet { background: var(--surface); color: var(--ink); box-shadow: 0 3px 0 var(--line); border: 1px solid var(--line); }
+  .btn[disabled] { opacity: .45; cursor: default; }
+  .fine { font-size: 12.5px; color: var(--soft); text-align: center; }
+
+  /* ---------- tâm trạng ---------- */
+  .ask { text-align: center; display: flex; flex-direction: column; gap: 4px; }
+  .ask h2 { font-size: 28px; }
+  .ask p { color: var(--soft); font-size: 14.5px; }
+  .moods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .mood { border: 2px solid transparent; background: var(--surface); border-radius: 22px; padding: 16px 12px; text-align: center; box-shadow: var(--shadow); display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .mood .f { font-size: 40px; line-height: 1.1; }
+  .mood .t { font-family: var(--display); font-weight: 800; font-size: 19px; }
+  .mood .d { font-size: 13px; color: var(--soft); }
+  .mood .m { margin-top: 4px; font-size: 12px; font-weight: 700; color: var(--berry); background: var(--berry-soft); border-radius: 999px; padding: 2px 10px; }
+  .mood:active { transform: scale(.97); }
+
+  /* ---------- buổi học ---------- */
+  .top { display: flex; align-items: center; gap: 10px; }
+  .x { width: 40px; height: 40px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); display: grid; place-items: center; flex: 0 0 auto; }
+  .dots { flex: 1 1 auto; display: flex; gap: 6px; }
+  .dots i { flex: 1 1 0; height: 8px; border-radius: 999px; background: var(--raise); }
+  .dots i.on { background: var(--sun); }
+  .dots i.done { background: var(--good); }
+  .stepname { text-align: center; font-size: 12.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--soft); }
+
+  .stage { flex: 1 1 auto; display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+  .card { background: var(--surface); border-radius: 26px; padding: 22px 20px; box-shadow: var(--shadow); text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+  .pic { font-size: 64px; line-height: 1; }
+  .en { font-family: var(--display); font-weight: 800; font-size: clamp(30px, 8.5vw, 40px); line-height: 1.08; }
+  .vi { font-size: 17px; font-weight: 600; color: var(--soft); }
+  .howbtn { border: 0; background: none; padding: 4px 8px; font-size: 14px; font-weight: 600; color: var(--berry); text-decoration: underline; text-underline-offset: 3px; }
+  .how { background: var(--raise); border-radius: 18px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; width: 100%; animation: rise .25s ease; }
+  .read { font-family: var(--display); font-weight: 700; font-size: 24px; letter-spacing: .02em; }
+  mark.end { background: color-mix(in srgb, var(--sun) 45%, transparent); color: inherit; border-radius: 5px; padding: 0 3px; }
+  .legend { font-size: 12px; color: var(--soft); }
+  .tip { font-size: 14px; text-align: left; }
+  .often { font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--berry-soft); color: var(--berry); }
+  .often.later { background: var(--raise); color: var(--soft); }
+  .controls { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .ctl { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 10px 16px; font-weight: 600; font-size: 14.5px; display: inline-flex; gap: 6px; align-items: center; }
+  .whisper { font-size: 14px; font-weight: 600; color: var(--berry); display: flex; gap: 8px; align-items: center; }
+  .ring { width: 22px; height: 22px; border-radius: 50%; border: 3px solid var(--berry-soft); border-top-color: var(--berry); animation: spin 1s linear infinite; }
+  .count { font-size: 13px; color: var(--soft); font-variant-numeric: tabular-nums; }
+
+  .play { width: 96px; height: 96px; border-radius: 50%; border: 0; background: var(--sun); color: var(--ink); display: grid; place-items: center; margin: 0 auto; box-shadow: 0 5px 0 color-mix(in srgb, var(--sun) 65%, #000); }
+  .play:active { transform: translateY(3px); box-shadow: 0 2px 0 color-mix(in srgb, var(--sun) 65%, #000); }
+  .opts { display: flex; flex-direction: column; gap: 10px; }
+  .opt { border: 2px solid var(--line); background: var(--surface); border-radius: 18px; padding: 15px 16px; font-family: var(--display); font-weight: 700; font-size: 21px; text-align: left; box-shadow: 0 3px 0 var(--line); }
+  .opt.right { border-color: var(--good); background: var(--good-soft); color: var(--good); }
+  .opt.miss { animation: shake .35s; }
+  .nudge { text-align: center; font-weight: 600; min-height: 24px; color: var(--soft); }
+  .nudge.ok { color: var(--good); }
+
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .tile { border: 2px solid var(--line); background: var(--surface); border-radius: 18px; min-height: 76px; font-family: var(--display); font-weight: 700; font-size: 22px; box-shadow: 0 3px 0 var(--line); transition: transform .15s, opacity .25s; }
+  .tile.emo { font-size: 38px; }
+  .tile.sel { border-color: var(--sun); background: color-mix(in srgb, var(--sun) 18%, var(--surface)); }
+  .tile.gone { transform: scale(.6); opacity: 0; pointer-events: none; }
+  .tile.miss { animation: shake .35s; }
+
+  .scene { display: flex; gap: 14px; align-items: center; text-align: left; }
+  .scene p { font-size: 17px; font-weight: 600; }
+  .scene .q { font-family: var(--display); font-size: 22px; font-weight: 800; }
+  .tonight { background: var(--berry-soft); border-radius: 26px; padding: 20px; display: flex; flex-direction: column; gap: 10px; text-align: center; align-items: center; animation: rise .35s ease; }
+  .tonight .k { font-size: 13px; font-weight: 700; color: var(--berry); }
+
+  /* ---------- kết thúc ---------- */
+  .end { text-align: center; align-items: center; justify-content: center; }
+  .end h2 { font-size: 34px; }
+  .end .sub { color: var(--soft); max-width: 30ch; margin: 0 auto; }
+  .big { font-family: var(--display); font-weight: 800; font-size: 64px; line-height: 1; color: var(--berry); font-variant-numeric: tabular-nums; }
+  .journey { background: var(--surface); border-radius: 22px; padding: 16px; box-shadow: var(--shadow); width: 100%; text-align: left; display: flex; flex-direction: column; gap: 10px; }
+  .journey .row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-size: 14px; }
+  .journey .row b { font-family: var(--display); font-size: 17px; }
+  .journey .row span { color: var(--soft); font-variant-numeric: tabular-nums; }
+  .bar { height: 12px; border-radius: 999px; background: var(--raise); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, var(--sun), var(--berry)); transition: width 1.2s ease; }
+  .miles { display: flex; flex-direction: column; gap: 6px; font-size: 13.5px; }
+  .miles div { display: flex; gap: 8px; align-items: baseline; color: var(--soft); }
+  .miles div.now { color: var(--ink); font-weight: 600; }
+  .miles em { font-style: normal; font-weight: 700; min-width: 58px; color: var(--berry); }
+  .feel { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+  .feel .row3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .feel button.f3 { border: 2px solid var(--line); background: var(--surface); border-radius: 16px; padding: 10px 4px; font-weight: 600; font-size: 13.5px; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .feel button.f3 span { font-size: 26px; }
+  .feel button.f3[aria-pressed="true"] { border-color: var(--berry); background: var(--berry-soft); }
+  .copied { font-size: 13px; color: var(--soft); text-align: center; min-height: 18px; }
+
+  /* ---------- hoa giấy ---------- */
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 50; overflow: hidden; }
+  .confetti i { position: absolute; width: 9px; height: 9px; border-radius: 2px; animation: burst .9s ease-out forwards; }
+
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 35% { transform: translateY(-14px) scale(1.04); } 65% { transform: translateY(0) scale(.98); } }
+  @keyframes wobble { 0%,100% { transform: rotate(0); } 30% { transform: rotate(-6deg); } 70% { transform: rotate(5deg); } }
+  @keyframes floatz { 0% { opacity: 0; transform: translateY(8px); } 30% { opacity: 1; } 100% { opacity: 0; transform: translateY(-26px); } }
+  @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-7px); } 75% { transform: translateX(7px); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes rise { from { opacity: .3; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes burst { from { transform: translate(0, 0) rotate(0); opacity: 1; } to { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .confetti { display: none; } }
+</style>
+
+<div class="app" id="app"></div>
+<div class="confetti" id="confetti" aria-hidden="true"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* =================== nội dung =================== */
+  var TOPIC = {
+    name: "Giờ đi ngủ",
+    why: "5 câu nói được ngay tối nay, lúc ru bé ngủ.",
+    cau: [
+      /* read: CHỮ HOA = âm tiết nhấn giọng, [x] = âm cuối hay bị nuốt. Không phiên âm bằng chữ Việt. */
+      { en: "It's bedtime.", vi: "Đến giờ đi ngủ rồi.", read: "it'[s] BED·time", tip: "Nhớ bật âm “s” ở cuối it's, đừng nuốt mất.", pic: "🌙", often: true },
+      { en: "Are you sleepy?", vi: "Con buồn ngủ chưa?", read: "are you SLEE·py?", tip: "“sl” đọc liền một hơi, đừng chen âm “ơ” vào giữa.", pic: "🥱", often: true },
+      { en: "Let's brush your teeth.", vi: "Mình đánh răng nào.", read: "let'[s] BRU[SH] your TEE[TH]", tip: "“th”: thè đầu lưỡi ra giữa hai hàm răng rồi thổi hơi.", pic: "🪥", often: true },
+      { en: "Close your eyes.", vi: "Nhắm mắt lại nào.", read: "CLO[SE] your EYE[S]", tip: "Cuối close và eyes là âm “z” rung nhẹ, như tiếng ong vo ve.", pic: "😌", often: false },
+      { en: "Good night, sweetheart.", vi: "Ngủ ngon nhé, cục cưng.", read: "good NIGH[T], SWEET·hear[t]", tip: "“t” cuối chỉ chạm lưỡi lên lợi, đọc nhẹ thôi nhưng đừng bỏ hẳn.", pic: "💤", often: true }
+    ],
+    hear: [
+      { play: "It's bedtime.", opts: ["It's bath time.", "It's bedtime.", "It's playtime."] },
+      { play: "Are you sleepy?", opts: ["Are you sleepy?", "Are you hungry?", "Are you happy?"] },
+      { play: "Close your eyes.", opts: ["Close your mouth.", "Close the door.", "Close your eyes."] }
+    ],
+    match: [["sleepy", "🥱"], ["teeth", "🪥"], ["eyes", "👀"], ["bed", "🛏️"]],
+    use: { scene: "dụi mắt, ngáp một cái thật to.", opts: ["Let's eat.", "Are you sleepy?", "Let's play."], ok: "Are you sleepy?" }
+  };
+
+  var MOODS = [
+    { k: "tired", f: "😴", t: "Mệt", d: "Chỉ nằm nghe thôi", m: "3 phút", steps: ["listen"] },
+    { k: "ok", f: "🙂", t: "Bình thường", d: "Nghe rồi chơi chút", m: "7 phút", steps: ["listen", "hear", "match"] },
+    { k: "good", f: "😊", t: "Vui", d: "Nghe, chơi, dùng ngay", m: "10 phút", steps: ["listen", "hear", "match", "use"] },
+    { k: "fire", f: "🔥", t: "Có năng lượng", d: "Thêm nói khẽ theo", m: "12 phút", steps: ["listen", "hear", "match", "use"], whisper: true }
+  ];
+  var STEPNAME = { listen: "Nghe thôi", hear: "Tai thính", match: "Ghép hình", use: "Dùng ngay tối nay" };
+
+  var MILES = [
+    { m: "Tháng 1", t: "Ngủ, ăn, tắm", goal: 40 },
+    { m: "Tháng 2", t: "Đi chơi, đi chợ", goal: 90 },
+    { m: "Tháng 3", t: "Hỏi han, trò chuyện ngắn", goal: 150 }
+  ];
+
+  /* =================== lưu trữ =================== */
+  var KEY = "may-phut-v1";
+  var S = { name: "", learned: [], seen: {}, days: 0, last: "", feel: "" };
+  try { var raw = localStorage.getItem(KEY); if (raw) { var p = JSON.parse(raw); if (p && typeof p === "object") { for (var k in S) if (p[k] != null) S[k] = p[k]; } } } catch (e) {}
+  function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function babyName() { return (S.name || "").trim() || "bé"; }
+  function today() { var d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); }
+
+  /* =================== tiện ích =================== */
+  var app = document.getElementById("app");
+  function el(tag, cls, html) { var n = document.createElement(tag); if (cls) n.className = cls; if (html != null) n.innerHTML = html; return n; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function btn(cls, html, fn) { var b = el("button", cls, html); b.type = "button"; if (fn) b.addEventListener("click", fn); return b; }
+  function readHTML(s) { return esc(s).replace(/\[([^\]]+)\]/g, '<mark class="end">$1</mark>'); }
+  function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  var timers = [];
+  function later(fn, ms) { var t = setTimeout(fn, ms); timers.push(t); return t; }
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  /* em bé vẽ bằng SVG: ngủ / bình thường / cười */
+  function babySVG(face) {
+    var eyes, mouth;
+    if (face === "sleep") {
+      eyes = '<path d="M38 64q7 6 14 0M68 64q7 6 14 0" stroke="var(--hair)" stroke-width="3.4" fill="none" stroke-linecap="round"/>';
+      mouth = '<ellipse cx="60" cy="84" rx="4.5" ry="3.5" fill="var(--mouth)"/>';
+    } else if (face === "happy") {
+      eyes = '<path d="M38 66q7 -8 14 0M68 66q7 -8 14 0" stroke="var(--hair)" stroke-width="3.6" fill="none" stroke-linecap="round"/>';
+      mouth = '<path d="M47 79q13 15 26 0z" fill="var(--mouth)"/>';
+    } else {
+      eyes = '<circle cx="45" cy="63" r="5" fill="var(--hair)"/><circle cx="75" cy="63" r="5" fill="var(--hair)"/><circle cx="46.6" cy="61.4" r="1.6" fill="#fff"/><circle cx="76.6" cy="61.4" r="1.6" fill="#fff"/>';
+      mouth = '<path d="M53 82q7 5 14 0" stroke="var(--mouth)" stroke-width="3.4" fill="none" stroke-linecap="round"/>';
+    }
+    return '<svg viewBox="0 0 120 120" role="img" aria-label="Em bé">' +
+      '<circle cx="18" cy="66" r="9" fill="var(--skin)"/><circle cx="102" cy="66" r="9" fill="var(--skin)"/>' +
+      '<circle cx="60" cy="66" r="44" fill="var(--skin)"/>' +
+      '<path d="M50 26q6 -14 16 -6q-8 0 -6 8" stroke="var(--hair)" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<circle cx="36" cy="78" r="7" fill="var(--cheek)" opacity=".7"/><circle cx="84" cy="78" r="7" fill="var(--cheek)" opacity=".7"/>' +
+      eyes + mouth + "</svg>";
+  }
+  function Baby(face, small) {
+    var b = el("div", "baby" + (small ? " sm" : ""));
+    b.innerHTML = babySVG(face);
+    if (face === "sleep" && !small) b.appendChild(el("div", "zzz", "<span>z</span><span>z</span><span>z</span>"));
+    return {
+      node: b,
+      react: function (kind) {
+        b.innerHTML = babySVG(kind === "yes" ? "happy" : "calm");
+        b.classList.remove("bounce", "wobble"); void b.offsetWidth;
+        b.classList.add(kind === "yes" ? "bounce" : "wobble");
+      },
+      set: function (f) { b.innerHTML = babySVG(f); }
+    };
+  }
+
+  /* =================== âm thanh =================== */
+  var ac = null;
+  function actx() {
+    if (!ac) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { ac = null; } }
+    if (ac && ac.state === "suspended") { try { ac.resume(); } catch (e) {} }
+    return ac;
+  }
+  function tone(f, at, dur, type, vol) {
+    var a = actx(); if (!a) return;
+    try {
+      var o = a.createOscillator(), g = a.createGain(), t = a.currentTime + at;
+      o.type = type; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t);
+      g.gain.exponentialRampToValueAtTime(vol, t + 0.012);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+      o.connect(g); g.connect(a.destination); o.start(t); o.stop(t + dur + 0.05);
+    } catch (e) {}
+  }
+  var sfx = {
+    ting: function () { tone(988, 0, .2, "sine", .16); tone(1319, .09, .32, "sine", .14); },
+    boop: function () { tone(262, 0, .2, "triangle", .12); },
+    pop: function () { tone(740, 0, .09, "sine", .1); },
+    yay: function () { [784, 988, 1175, 1568].forEach(function (f, i) { tone(f, i * .11, .28, "sine", .13); }); }
+  };
+
+  /* =================== giọng đọc =================== */
+  var canSpeak = "speechSynthesis" in window, voice = null, sayToken = 0;
+  function pickVoice() {
+    if (!canSpeak) return;
+    try {
+      var vs = window.speechSynthesis.getVoices() || [], pref = [/en[-_]US/i, /en[-_]GB/i, /^en/i];
+      for (var k = 0; k < pref.length && !voice; k++) for (var i = 0; i < vs.length; i++) if (pref[k].test(vs[i].lang)) { voice = vs[i]; break; }
+    } catch (e) { canSpeak = false; }
+  }
+  pickVoice();
+  if (canSpeak && "onvoiceschanged" in window.speechSynthesis) window.speechSynthesis.onvoiceschanged = pickVoice;
+  function say(text, opt) {
+    opt = opt || {};
+    var my = ++sayToken, fired = false;
+    function done() { if (fired || my !== sayToken) return; fired = true; if (opt.onend) opt.onend(); }
+    var est = 900 + text.length * (opt.slow ? 120 : 75);
+    if (canSpeak) {
+      try {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(text);
+        u.lang = "en-US"; u.rate = opt.slow ? 0.6 : 0.85; if (voice) u.voice = voice;
+        u.onend = done; u.onerror = done;
+        window.speechSynthesis.speak(u);
+      } catch (e) {}
+    }
+    later(done, est + 1500);
+  }
+  function hush() { sayToken++; if (canSpeak) try { window.speechSynthesis.cancel(); } catch (e) {} }
+
+  /* =================== hoa giấy =================== */
+  function confetti(from) {
+    var box = document.getElementById("confetti");
+    var r = from ? from.getBoundingClientRect() : { left: innerWidth / 2, top: innerHeight / 2, width: 0, height: 0 };
+    var cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    var cols = ["var(--berry)", "var(--sun)", "var(--good)", "var(--cheek)"];
+    for (var i = 0; i < 22; i++) {
+      var p = el("i");
+      var ang = Math.random() * Math.PI * 2, dist = 60 + Math.random() * 110;
+      p.style.left = cx + "px"; p.style.top = cy + "px";
+      p.style.background = cols[i % cols.length];
+      p.style.setProperty("--dx", Math.cos(ang) * dist + "px");
+      p.style.setProperty("--dy", Math.sin(ang) * dist - 30 + "px");
+      p.style.setProperty("--r", (Math.random() * 540 - 270) + "deg");
+      box.appendChild(p);
+      (function (n) { setTimeout(function () { n.remove(); }, 950); })(p);
+    }
+  }
+
+  /* =================== màn: NHÀ =================== */
+  function viewHome() {
+    clearTimers(); hush();
+    app.innerHTML = "";
+    var v = el("section", "view");
+    var h = new Date().getHours();
+    var greet = h < 11 ? "Chào buổi sáng" : h < 14 ? "Chào buổi trưa" : h < 18 ? "Chào buổi chiều" : "Chào buổi tối";
+
+    var hello = el("div", "hello");
+    hello.appendChild(el("p", "eyebrow", greet));
+    hello.appendChild(el("h1", null, "Mấy phút cho riêng mình"));
+    v.appendChild(hello);
+
+    v.appendChild(Baby(h >= 18 || h < 6 ? "sleep" : "calm").node);
+
+    var tg = el("p", "together");
+    tg.innerHTML = "Mẹ và " + esc(babyName()) + " đã học <b>" + S.learned.length + "</b> câu cùng nhau" + (S.days ? " · ngày " + S.days : "");
+    v.appendChild(tg);
+
+    var nb = el("label", "namebox");
+    nb.setAttribute("for", "baby-name");
+    nb.innerHTML = "Bé nhà mình tên là ";
+    var inp = el("input"); inp.id = "baby-name"; inp.placeholder = "Su, Bin, Na…"; inp.value = S.name; inp.maxLength = 14; inp.autocomplete = "off";
+    inp.addEventListener("input", function () {
+      S.name = inp.value; save();
+      tg.innerHTML = "Mẹ và " + esc(babyName()) + " đã học <b>" + S.learned.length + "</b> câu cùng nhau" + (S.days ? " · ngày " + S.days : "");
+    });
+    nb.appendChild(inp);
+    v.appendChild(nb);
+
+    var card = el("div", "today");
+    card.appendChild(el("p", "k", "Hôm nay"));
+    card.appendChild(el("h2", null, "🌙 " + TOPIC.name));
+    card.appendChild(el("p", "why", TOPIC.why));
+    var peek = el("div", "peek");
+    TOPIC.cau.slice(0, 3).forEach(function (c) { peek.appendChild(el("span", null, esc(c.en))); });
+    peek.appendChild(el("span", null, "+2"));
+    card.appendChild(peek);
+    card.appendChild(btn("btn", "Bắt đầu", function () { actx(); viewMood(); }));
+    v.appendChild(card);
+
+    v.appendChild(el("p", "ear", "🎧 Đeo tai nghe cho bé khỏi thức. Không cần nói to."));
+    if (!canSpeak) v.appendChild(el("p", "fine", "Trình duyệt này không có giọng đọc. Mở bằng Chrome hoặc Safari để nghe được nhé."));
+    app.appendChild(v);
+  }
+
+  /* =================== màn: TÂM TRẠNG =================== */
+  function viewMood() {
+    app.innerHTML = "";
+    var v = el("section", "view");
+    var top = el("div", "top");
+    top.appendChild(btn("x", "✕", viewHome)).setAttribute("aria-label", "Về nhà");
+    v.appendChild(top);
+    var a = el("div", "ask");
+    a.appendChild(el("h2", null, "Hôm nay chị thấy thế nào?"));
+    a.appendChild(el("p", null, "Mệt thì học nhẹ thôi. App chiều theo chị."));
+    v.appendChild(a);
+    var g = el("div", "moods");
+    MOODS.forEach(function (M) {
+      g.appendChild(btn("mood",
+        '<span class="f" aria-hidden="true">' + M.f + '</span><span class="t">' + M.t + '</span><span class="d">' + M.d + '</span><span class="m">khoảng ' + M.m + "</span>",
+        function () { startSession(M); }));
+    });
+    v.appendChild(g);
+    app.appendChild(v);
+  }
+
+  /* =================== BUỔI HỌC =================== */
+  var SES = null;
+  function startSession(M) {
+    SES = { mood: M, i: 0 };
+    runStep();
+  }
+
+  function frame() {
+    clearTimers(); hush();
+    app.innerHTML = "";
+    var v = el("section", "view");
+    var top = el("div", "top");
+    top.appendChild(btn("x", "✕", viewHome)).setAttribute("aria-label", "Dừng, về nhà");
+    var dots = el("div", "dots");
+    SES.mood.steps.forEach(function (s, i) { dots.appendChild(el("i", i < SES.i ? "done" : i === SES.i ? "on" : "")); });
+    top.appendChild(dots);
+    var bb = Baby("calm", true);
+    top.appendChild(bb.node);
+    v.appendChild(top);
+    v.appendChild(el("p", "stepname", STEPNAME[SES.mood.steps[SES.i]]));
+    var stage = el("div", "stage");
+    v.appendChild(stage);
+    app.appendChild(v);
+    return { stage: stage, baby: bb, view: v };
+  }
+
+  function next() {
+    SES.i++;
+    if (SES.i < SES.mood.steps.length) runStep(); else viewEnd();
+  }
+
+  function runStep() {
+    var s = SES.mood.steps[SES.i];
+    if (s === "listen") stepListen();
+    else if (s === "hear") stepHear();
+    else if (s === "match") stepMatch();
+    else stepUse();
+  }
+
+  /* ---- Bước: Nghe thôi (tự chạy, rảnh tay) ---- */
+  function stepListen() {
+    var F = frame(), i = 0, paused = false, whisper = !!SES.mood.whisper;
+    var card = el("div", "card");
+    var ctl = el("div", "controls");
+    var bPause = btn("ctl", "⏸ Tạm dừng", function () {
+      paused = !paused;
+      bPause.textContent = paused ? "▶ Nghe tiếp" : "⏸ Tạm dừng";
+      if (paused) { clearTimers(); hush(); } else show();
+    });
+    var bSlow = btn("ctl", "🐢 Nghe chậm", function () { clearTimers(); say(TOPIC.cau[i].en, { slow: true, onend: function () { if (!paused) later(advance, 1200); } }); });
+    var bSkip = btn("ctl", "Bỏ qua ›", function () { clearTimers(); hush(); advance(); });
+    ctl.appendChild(bPause); ctl.appendChild(bSlow); ctl.appendChild(bSkip);
+    F.stage.appendChild(card);
+    F.stage.appendChild(ctl);
+    F.stage.appendChild(el("p", "fine", "Cứ để đó mà nghe, app tự chuyển câu. Không cần chạm gì."));
+
+    function show() {
+      var c = TOPIC.cau[i];
+      card.innerHTML = "";
+      card.style.animation = "none"; void card.offsetWidth; card.style.animation = "rise .35s ease";
+      card.appendChild(el("div", "pic", c.pic));
+      card.appendChild(el("p", "en", esc(c.en)));
+      card.appendChild(el("p", "vi", esc(c.vi)));
+      card.appendChild(el("span", "often" + (c.often ? "" : " later"), c.often ? "🔥 Ngày nào cũng dùng" : "Thỉnh thoảng dùng"));
+      var known = (S.seen[c.en] || 0) >= 3;
+      var how = el("div", "how"); how.hidden = true;
+      how.appendChild(el("p", "read", readHTML(c.read)));
+      how.appendChild(el("p", "legend", "CHỮ HOA = nhấn giọng · <mark class=\"end\">tô màu</mark> = nhớ đọc âm cuối"));
+      how.appendChild(el("p", "tip", "💡 " + esc(c.tip)));
+      var tg = btn("howbtn", known ? "Câu này chị quen rồi · xem cách đọc" : "Cách đọc", function () {
+        how.hidden = !how.hidden;
+        tg.textContent = how.hidden ? (known ? "Câu này chị quen rồi · xem cách đọc" : "Cách đọc") : "Ẩn cách đọc";
+      });
+      tg.setAttribute("aria-expanded", "false");
+      tg.addEventListener("click", function () { tg.setAttribute("aria-expanded", how.hidden ? "false" : "true"); });
+      card.appendChild(tg);
+      card.appendChild(how);
+      var w = el("p", "whisper", '<span class="ring"></span> Nói khẽ theo nhé…'); w.hidden = true;
+      card.appendChild(w);
+      card.appendChild(el("p", "count", (i + 1) + " / " + TOPIC.cau.length));
+      say(c.en, {
+        onend: function () {
+          if (paused) return;
+          later(function () {
+            if (paused) return;
+            say(c.en, {
+              onend: function () {
+                if (paused) return;
+                if (whisper) { w.hidden = false; later(function () { if (!paused) advance(); }, 3200); }
+                else later(function () { if (!paused) advance(); }, 1600);
+              }
+            });
+          }, 900);
+        }
+      });
+    }
+    function advance() {
+      i++;
+      if (i < TOPIC.cau.length) show();
+      else { F.baby.react("yes"); sfx.ting(); later(next, 700); }
+    }
+    show();
+  }
+
+  /* ---- Bước: Tai thính (phân biệt câu gần giống) ---- */
+  function stepHear() {
+    var F = frame(), r = 0;
+    function round() {
+      var R = TOPIC.hear[r];
+      F.stage.innerHTML = "";
+      F.stage.appendChild(el("p", "fine", "Câu " + (r + 1) + " / " + TOPIC.hear.length + " · nghe kỹ, mấy câu này na ná nhau"));
+      var pb = btn("play", '<svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>', function () { say(R.play); });
+      pb.setAttribute("aria-label", "Nghe lại");
+      F.stage.appendChild(pb);
+      var nudge = el("p", "nudge", "Chị nghe thấy câu nào?");
+      var opts = el("div", "opts");
+      var locked = false;
+      R.opts.forEach(function (o) {
+        var b = btn("opt", esc(o), function () {
+          if (locked) return;
+          if (o === R.play) {
+            locked = true;
+            b.classList.add("right");
+            sfx.ting(); confetti(b); F.baby.react("yes");
+            nudge.className = "nudge ok"; nudge.textContent = "Tai thính ghê!";
+            say(R.play);
+            later(function () { r++; if (r < TOPIC.hear.length) round(); else next(); }, 1500);
+          } else {
+            b.classList.remove("miss"); void b.offsetWidth; b.classList.add("miss");
+            sfx.boop(); F.baby.react("hmm");
+            nudge.className = "nudge"; nudge.textContent = "Gần đúng rồi! Nghe lại lần nữa nhé.";
+            later(function () { say(R.play, { slow: true }); }, 350);
+          }
+        });
+        opts.appendChild(b);
+      });
+      F.stage.appendChild(nudge);
+      F.stage.appendChild(opts);
+      later(function () { say(R.play); }, 250);
+    }
+    round();
+  }
+
+  /* ---- Bước: Ghép hình ---- */
+  function stepMatch() {
+    var F = frame();
+    F.stage.appendChild(el("p", "nudge", "Chạm một chữ, rồi chạm hình đúng với nó"));
+    var g = el("div", "grid");
+    var words = shuffle(TOPIC.match.map(function (p, i) { return { i: i, txt: p[0], emo: false }; }));
+    var pics = shuffle(TOPIC.match.map(function (p, i) { return { i: i, txt: p[1], emo: true }; }));
+    var sel = null, left = TOPIC.match.length;
+    for (var n = 0; n < words.length; n++) { addTile(words[n]); addTile(pics[n]); }
+    function addTile(t) {
+      var b = btn("tile" + (t.emo ? " emo" : ""), esc(t.txt), function () {
+        if (b.classList.contains("gone")) return;
+        if (!t.emo) say(t.txt); else sfx.pop();
+        if (!sel) { sel = { t: t, b: b }; b.classList.add("sel"); return; }
+        if (sel.b === b) { b.classList.remove("sel"); sel = null; return; }
+        if (sel.t.emo === t.emo) { sel.b.classList.remove("sel"); sel = { t: t, b: b }; b.classList.add("sel"); return; }
+        if (sel.t.i === t.i) {
+          var a = sel.b; sel = null;
+          a.classList.remove("sel"); b.classList.add("sel");
+          sfx.ting(); confetti(b); F.baby.react("yes");
+          setTimeout(function () { a.classList.add("gone"); b.classList.add("gone"); }, 220);
+          left--;
+          if (left === 0) later(next, 1100);
+        } else {
+          var prev = sel.b; sel = null;
+          prev.classList.remove("sel");
+          [prev, b].forEach(function (x) { x.classList.remove("miss"); void x.offsetWidth; x.classList.add("miss"); });
+          sfx.boop(); F.baby.react("hmm");
+        }
+      });
+      b.setAttribute("aria-label", t.emo ? "Hình " + t.txt : "Chữ " + t.txt);
+      g.appendChild(b);
+    }
+    F.stage.appendChild(g);
+  }
+
+  /* ---- Bước: Dùng ngay tối nay ---- */
+  function stepUse() {
+    var F = frame();
+    var U = TOPIC.use;
+    var card = el("div", "card");
+    var sc = el("div", "scene");
+    var b = Baby("sleep", true);
+    sc.appendChild(b.node);
+    sc.appendChild(el("p", null, esc(babyName().charAt(0).toUpperCase() + babyName().slice(1)) + " " + esc(U.scene)));
+    card.appendChild(sc);
+    card.appendChild(el("p", "q", "Mẹ nói gì đây?"));
+    F.stage.appendChild(card);
+    var opts = el("div", "opts"), locked = false;
+    U.opts.forEach(function (o) {
+      var x = btn("opt", esc(o), function () {
+        if (locked) return;
+        say(o);
+        if (o === U.ok) {
+          locked = true; x.classList.add("right");
+          sfx.ting(); confetti(x); F.baby.react("yes"); b.set("happy");
+          later(function () { showTonight(); }, 900);
+        } else {
+          x.classList.remove("miss"); void x.offsetWidth; x.classList.add("miss");
+          sfx.boop(); F.baby.react("hmm");
+        }
+      });
+      opts.appendChild(x);
+    });
+    F.stage.appendChild(opts);
+
+    function showTonight() {
+      opts.remove();
+      var t = el("div", "tonight");
+      t.appendChild(el("p", "k", "Tối nay thử nói với " + esc(babyName()) + " nhé"));
+      t.appendChild(el("p", "en", esc(U.ok)));
+      t.appendChild(el("p", "vi", "Con buồn ngủ chưa?"));
+      t.appendChild(btn("ctl", "🔊 Nghe lại", function () { say(U.ok); }));
+      t.appendChild(btn("btn", "Em sẽ thử ❤️", function () { next(); }));
+      F.stage.appendChild(t);
+    }
+  }
+
+  /* =================== màn: XONG =================== */
+  function viewEnd() {
+    clearTimers(); hush();
+    var before = S.learned.length;
+    TOPIC.cau.forEach(function (c) {
+      if (S.learned.indexOf(c.en) < 0) S.learned.push(c.en);
+      S.seen[c.en] = (S.seen[c.en] || 0) + 1;
+    });
+    if (S.last !== today()) { S.days++; S.last = today(); }
+    save();
+    var total = S.learned.length;
+
+    app.innerHTML = "";
+    var v = el("section", "view end");
+    var bb = Baby("happy");
+    v.appendChild(bb.node);
+    v.appendChild(el("h2", null, "Xong rồi! Hôm nay vậy là đủ."));
+    var big = el("div", "big", String(before));
+    v.appendChild(big);
+    v.appendChild(el("p", "sub", "câu mẹ và " + esc(babyName()) + " đã học cùng nhau. Không cần học thêm đâu, mai gặp lại nhé ❤️"));
+
+    var M = MILES[0]; for (var i = 0; i < MILES.length; i++) { if (total < MILES[i].goal) { M = MILES[i]; break; } }
+    var j = el("div", "journey");
+    j.appendChild(el("div", "row", "<b>Hành trình của " + esc(babyName()) + "</b><span>" + total + " / " + M.goal + " câu</span>"));
+    var bar = el("div", "bar", "<i></i>");
+    j.appendChild(bar);
+    var miles = el("div", "miles");
+    MILES.forEach(function (x) { miles.appendChild(el("div", x === M ? "now" : "", "<em>" + x.m + "</em>" + esc(x.t))); });
+    j.appendChild(miles);
+    v.appendChild(j);
+
+    var feel = el("div", "feel");
+    feel.appendChild(el("p", "fine", "Chị thấy buổi này thế nào?"));
+    var r3 = el("div", "row3");
+    var copied = el("p", "copied", "");
+    [["love", "😍", "Thích"], ["meh", "😐", "Tạm được"], ["bored", "🥱", "Vẫn chán"]].forEach(function (o) {
+      var b = btn("f3", "<span>" + o[1] + "</span>" + o[2], function () {
+        S.feel = o[0]; save();
+        Array.prototype.forEach.call(r3.children, function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); });
+        sendBtn.disabled = false;
+      });
+      b.setAttribute("aria-pressed", S.feel === o[0] ? "true" : "false");
+      r3.appendChild(b);
+    });
+    feel.appendChild(r3);
+    var sendBtn = btn("btn quiet", "Sao chép cảm nhận để gửi Zalo", function () {
+      var label = { love: "Thích 😍", meh: "Tạm được 😐", bored: "Vẫn chán 🥱" }[S.feel] || "";
+      var txt = "Mấy phút cho mình: " + label + "\nTâm trạng chọn: " + SES.mood.t + "\nĐã học " + S.learned.length + " câu, ngày " + S.days + ".";
+      function ok() { copied.textContent = "Đã sao chép. Dán vào Zalo là được."; }
+      function fail() { copied.textContent = "Không tự sao chép được. Chụp màn hình gửi lại cũng được nhé."; }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fail); else fail();
+    });
+    sendBtn.disabled = !S.feel;
+    feel.appendChild(sendBtn);
+    feel.appendChild(copied);
+    v.appendChild(feel);
+
+    v.appendChild(btn("btn", "Về nhà", viewHome));
+    app.appendChild(v);
+
+    sfx.yay(); confetti(big);
+    var n = before, step = function () {
+      if (n >= total) { big.textContent = String(total); return; }
+      n++; big.textContent = String(n); sfx.pop(); setTimeout(step, 260);
+    };
+    setTimeout(step, 500);
+    setTimeout(function () { bar.firstChild.style.width = Math.min(100, total / M.goal * 100) + "%"; }, 80);
+  }
+
+  viewHome();
+})();
+</script>
+
+</body>
+</html>
