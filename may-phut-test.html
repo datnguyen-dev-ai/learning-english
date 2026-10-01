@@ -692,6 +692,9 @@
   }
 
   function next() {
+    /* Bấm đúp nút cuối bước (hoặc hẹn giờ + bấm tay cùng lúc) chỉ được chuyển bước một lần. */
+    if (SES.leaving === SES.i) return;
+    SES.leaving = SES.i;
     SES.i++;
     if (SES.i < SES.mood.steps.length) runStep(); else viewEnd();
   }
