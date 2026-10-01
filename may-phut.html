@@ -111,6 +111,11 @@
   .today .why { color: var(--soft); font-size: 14.5px; }
   .peek { display: flex; flex-wrap: wrap; gap: 6px; }
   .peek span { background: var(--raise); border-radius: 999px; padding: 5px 11px; font-size: 13.5px; font-weight: 600; }
+  .speakcard { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 14px 16px; display: flex; gap: 12px; align-items: center; }
+  .speakcard .sptext { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+  .speakcard h3 { font-size: 19px; }
+  .speakcard p { font-size: 13.5px; color: var(--soft); }
+  .btn.small { width: auto; padding: 11px 18px; font-size: 15px; flex: 0 0 auto; }
   .ear { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--soft); justify-content: center; text-align: center; }
 
   .btn { border: 0; border-radius: 999px; padding: 16px 22px; font-weight: 700; font-size: 17px; background: var(--berry); color: var(--on-berry); width: 100%; box-shadow: 0 4px 0 color-mix(in srgb, var(--berry) 70%, #000); transition: transform .08s; }
@@ -462,7 +467,7 @@
     while (i < n && j < m) { if (a[i] === b[j]) { ok[i] = true; i++; j++; } else if (L[i + 1][j] >= L[i][j + 1]) i++; else j++; }
     return { words: a, ok: ok, hit: L[0][0] };
   }
-  function MicCheck(target, onStart, baby) {
+  function MicCheck(target, onStart, baby, onScore) {
     var box = el("div", "mic");
     var b = btn("micbtn", "🎤 Nói thử", start);
     var status = el("p", "micstat", "");
@@ -518,6 +523,7 @@
         return '<span class="' + (r.ok[i] ? "ok" : "no") + '">' + esc(shown) + "</span>";
       }).join(" ");
       var all = r.hit === r.words.length, half = r.hit * 2 >= r.words.length;
+      if (onScore) onScore(all);
       if (all) {
         status.innerHTML = "<b>Tuyệt vời! Đúng hết rồi.</b>";
         sfx.ting(); confetti(words); if (baby) baby.react("yes");
@@ -592,7 +598,15 @@
     card.appendChild(btn("btn", "Bắt đầu", function () { actx(); unlockAudio(); viewMood(); }));
     v.appendChild(card);
 
-    v.appendChild(el("p", "ear", "🎧 Đeo tai nghe cho bé khỏi thức. Không cần nói to."));
+    var sp = el("div", "speakcard");
+    var spText = el("div", "sptext");
+    spText.appendChild(el("h3", null, "🎤 Tập nói"));
+    spText.appendChild(el("p", null, "Lúc nói to được thì vào đây. Đọc 5 câu, máy chấm từng từ."));
+    sp.appendChild(spText);
+    sp.appendChild(btn("btn quiet small", "Tập nói", function () { actx(); unlockAudio(); viewSpeak(); }));
+    v.appendChild(sp);
+
+    v.appendChild(el("p", "ear", "🎧 Đeo tai nghe cho bé khỏi thức. Phần học không cần nói to."));
     if (!hasAudio && !canSpeak) v.appendChild(el("p", "fine", "Trình duyệt này không có giọng đọc. Mở bằng Chrome hoặc Safari để nghe được nhé."));
     app.appendChild(v);
   }
@@ -743,11 +757,6 @@
       bPause.textContent = paused ? "▶ Nghe tiếp" : "⏸ Tạm dừng";
       if (paused) { clearTimers(); hush(); } else show();
     });
-    function pauseNow() {
-      if (paused) return;
-      paused = true; clearTimers(); hush();
-      bPause.textContent = "▶ Nghe tiếp";
-    }
     var bSlow = btn("ctl", "🐢 Nghe chậm", function () { clearTimers(); say(TOPIC.cau[i].en, { slow: true, onend: function () { if (!paused) later(advance, 1200); } }); });
     var bSkip = btn("ctl", "Bỏ qua ›", function () { clearTimers(); hush(); advance(); });
     ctl.appendChild(bPause); ctl.appendChild(bSlow); ctl.appendChild(bSkip);
@@ -776,7 +785,6 @@
       tg.addEventListener("click", function () { tg.setAttribute("aria-expanded", how.hidden ? "false" : "true"); });
       card.appendChild(tg);
       card.appendChild(how);
-      card.appendChild(MicCheck(c.en, pauseNow, F.baby));
       var w = el("p", "whisper", '<span class="ring"></span> Nói khẽ theo nhé…'); w.hidden = true;
       card.appendChild(w);
       card.appendChild(el("p", "count", (i + 1) + " / " + TOPIC.cau.length));
@@ -916,10 +924,70 @@
       t.appendChild(el("p", "en", esc(U.ok)));
       t.appendChild(el("p", "vi", "Con buồn ngủ chưa?"));
       t.appendChild(btn("ctl", "🔊 Nghe lại", function () { say(U.ok); }));
-      t.appendChild(MicCheck(U.ok, null, F.baby));
       t.appendChild(btn("btn", "Em sẽ thử ❤️", function () { next(); }));
       F.stage.appendChild(t);
     }
+  }
+
+  /* =================== màn: TẬP NÓI (riêng, không chen vào bài nghe) =================== */
+  function viewSpeak() {
+    var i = 0, right = {};
+    function render() {
+      clearTimers(); hush();
+      app.innerHTML = "";
+      var v = el("section", "view");
+      var top = el("div", "top");
+      top.appendChild(btn("x", "✕", viewHome)).setAttribute("aria-label", "Về nhà");
+      var dots = el("div", "dots");
+      TOPIC.cau.forEach(function (c, k) { dots.appendChild(el("i", right[k] ? "done" : k === i ? "on" : "")); });
+      top.appendChild(dots);
+      var bb = Baby("calm", true);
+      top.appendChild(bb.node);
+      v.appendChild(top);
+      v.appendChild(el("p", "stepname", "Tập nói · câu " + (i + 1) + " / " + TOPIC.cau.length));
+
+      var stage = el("div", "stage");
+      var c = TOPIC.cau[i];
+      var card = el("div", "card");
+      card.appendChild(el("div", "pic", c.pic));
+      card.appendChild(el("p", "en", esc(c.en)));
+      card.appendChild(el("p", "vi", esc(c.vi)));
+      card.appendChild(el("p", "read", readHTML(c.read)));
+      card.appendChild(btn("ctl", "🔊 Nghe mẫu", function () { say(c.en); }));
+      card.appendChild(btn("ctl", "🐢 Nghe chậm", function () { say(c.en, { slow: true }); }));
+      stage.appendChild(card);
+      stage.appendChild(MicCheck(c.en, clearTimers, bb, function (all) { if (all) { right[i] = true; dots.children[i].className = "done"; } }));
+      v.appendChild(stage);
+
+      var foot = el("div", "controls");
+      if (i > 0) foot.appendChild(btn("btn quiet small", "‹ Câu trước", function () { i--; render(); }));
+      foot.appendChild(btn("btn small", i < TOPIC.cau.length - 1 ? "Câu tiếp ›" : "Xong", function () {
+        if (i < TOPIC.cau.length - 1) { i++; render(); } else done();
+      }));
+      v.appendChild(foot);
+      app.appendChild(v);
+      later(function () { say(c.en); }, 300);
+    }
+    function done() {
+      clearTimers(); hush();
+      var n = Object.keys(right).length;
+      app.innerHTML = "";
+      var v = el("section", "view end");
+      v.appendChild(Baby("happy").node);
+      v.appendChild(el("h2", null, n === TOPIC.cau.length ? "Nói đúng hết 5 câu!" : "Hôm nay tập nói vậy là tốt rồi"));
+      v.appendChild(el("div", "big", n + "/" + TOPIC.cau.length));
+      v.appendChild(el("p", "sub", "câu máy nghe đúng hết từng từ. Câu nào chưa được thì lần sau nói lại, không vội."));
+      var list = el("div", "journey");
+      TOPIC.cau.forEach(function (c, k) {
+        list.appendChild(el("div", "row", "<b>" + esc(c.en) + "</b><span>" + (right[k] ? "✓ đúng" : "tập thêm") + "</span>"));
+      });
+      v.appendChild(list);
+      v.appendChild(btn("btn quiet", "Tập lại từ đầu", function () { i = 0; right = {}; render(); }));
+      v.appendChild(btn("btn", "Về nhà", viewHome));
+      app.appendChild(v);
+      if (n) { sfx.yay(); confetti(list); }
+    }
+    render();
   }
 
   /* =================== màn: XONG =================== */
